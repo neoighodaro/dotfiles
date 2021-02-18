@@ -25,7 +25,7 @@ export ZSH=$HOME/.oh-my-zsh
 DEFAULT_USER=neo
 
 # Set name of the theme to load.
-ZSH_THEME="pure"
+ZSH_THEME=""
 
 # Which plugins would you like to load?
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
@@ -48,10 +48,10 @@ if [[ ! -n $SSH_CONNECTION ]]; then
     #export EDITOR="code -w"
 fi
 
-# export THEOS_DEVICE_IP=192.168.178.23
 export XDEBUG_CONFIG="idekey=VSCODE"
-export HOMEBREW_GITHUB_API_TOKEN="1400bbef88f096df6194a3e7245dd7f56e0fb5c3"
 # export PHP_CS_FIXER_IGNORE_ENV=1
+# export THEOS_DEVICE_IP=192.168.178.23
+# export HOMEBREW_GITHUB_API_TOKEN="STORE THIS IN private.sh"
 
 # ----------------------------------------------------------------------------------------
 # LOAD THE PURE THEME: https://github.com/sindresorhus/pure

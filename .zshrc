@@ -25,7 +25,7 @@ export ZSH=$HOME/.oh-my-zsh
 DEFAULT_USER=neo
 
 # Set name of the theme to load.
-ZSH_THEME=""
+ZSH_THEME="pure"
 
 # Which plugins would you like to load?
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
@@ -45,12 +45,13 @@ source $ZSH/oh-my-zsh.sh
 # ----------------------------------------------------------------------------------------
 
 if [[ ! -n $SSH_CONNECTION ]]; then
-    export EDITOR="code -w"
+    #export EDITOR="code -w"
 fi
 
 # export THEOS_DEVICE_IP=192.168.178.23
 export XDEBUG_CONFIG="idekey=VSCODE"
-
+export HOMEBREW_GITHUB_API_TOKEN="1400bbef88f096df6194a3e7245dd7f56e0fb5c3"
+# export PHP_CS_FIXER_IGNORE_ENV=1
 
 # ----------------------------------------------------------------------------------------
 # LOAD THE PURE THEME: https://github.com/sindresorhus/pure
@@ -69,7 +70,9 @@ export GOBIN="$GOPATH/bin"
 export THEOS="$HOME/theos"
 export NVM_DIR="$HOME/.nvm"
 
+
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/flutter/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 export PATH="$PATH:$GOBIN"

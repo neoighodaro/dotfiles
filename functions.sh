@@ -3,7 +3,7 @@
 # ----------------------------------------------------------------------------------------
 
 # Usage: commit "message"
-commit() {
+c() {
   git add --all
 
   if (($# > 1)); then
@@ -18,7 +18,7 @@ commit() {
 }
 
 # Usage: push "optional commit message"
-push() {
+p() {
   br=`git branch | grep "*"`
   git add --all
 
@@ -41,7 +41,7 @@ push() {
 # ----------------------------------------------------------------------------------------
 
 # Usage: xdebug [on|off]
-xdebug() {
+xd() {
   [[ -z $1 ]] && { echo "${FUNCNAME}(): intent not defined. Specify on or off"; exit 1; }
 
   PHP_VERSION=$(php -v | tail -r | tail -n 1 | cut -d " " -f 2 | cut -c 1-3)

@@ -37,7 +37,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-[[ -e ~/.dotfiles/init.sh ]] && emulate sh -c 'source ~/.dotfiles/init.sh'
+[[ -e ~/.dotfiles/init.sh ]] && source ~/.dotfiles/init.sh
 
 
 # ----------------------------------------------------------------------------------------

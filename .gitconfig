@@ -6,6 +6,12 @@
 [includeIf "gitdir:~/Dev/Work/"]
     path = ~/.gitconfig.work
 
+[core]
+	# Use custom `.gitignore` and `.gitattributes`
+	excludesfile = ~/.global-gitignore
+	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
+	whitespace = space-before-tab,indent-with-non-tab,trailing-space
+
 [alias]
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit

@@ -1,3 +1,6 @@
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
+alias brew='arch -arm64e /opt/homebrew/bin/brew'
+
 # DIRECTORIES
 alias d='dirs -v | head -10'
 alias 1='cd -'

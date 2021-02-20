@@ -37,6 +37,9 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # Load ZSH
 # ----------------------------------------------------------------------------------------
 
+# -- Functions
+[ -f "$HOME/.dotfiles/.zsh_functions.sh" ] && \. "$HOME/.dotfiles/.zsh_functions.sh"
+
 # -- Custom scripts to be loaded before oh-my-zsh
 [ -f "$HOME/.dotfiles/.zsh_preload.sh" ] && \. "$HOME/.dotfiles/.zsh_preload.sh"
 

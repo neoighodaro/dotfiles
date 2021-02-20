@@ -68,6 +68,16 @@ prompt pure
 # EXPORTS
 # ----------------------------------------------------------------------------------------
 
+# Prefer US English and UTF-8
+export LANG="en_US"
+export LC_ALL="en_US.UTF-8"
+
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
+
+# Link Homebrew casks in `/Applications` rather than `~/Applications`
+export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/etc/Caskroom"
+
 # -- Node version manager
 export NVM_DIR="$HOME/.nvm"
 

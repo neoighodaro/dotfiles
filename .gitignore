@@ -1,3 +1,5 @@
-/private.sh
 /.dropbox
-/.zshrc_custom
+/.zsh_preload.sh
+/.zsh_postload.sh
+/.zsh_private.sh
+/.zsh_exports.sh

@@ -13,8 +13,14 @@
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
 
 [alias]
+    # Add file
     a = add
+    # Initialise repository
     i = !"git init && git commit -am 'Initial commit.'"
+    # Reset back to head
+    nah = !"git reset --hard; git clean -df"
+    # View remote URL
+    remote-url = config --get remote.origin.url
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
     # View the current working tree status using the short format

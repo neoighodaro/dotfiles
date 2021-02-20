@@ -1,7 +1,38 @@
 # Dotfiles
 
 I use this personally for all my ZSH customisation. You can use it also but you might need
-to install the plugins etc. before activating it.
+to install the zsh plugins, and brew formulas etc. before activating it.
 
-To use it, clone the repository and then run the `link.sh` command which will backup your
+To use it, clone the repository and then run the `install.sh` command which will backup your
 existing `.zshrc` file and replace it with the one in this repo.
+
+### Zsh Plugins Needed
+- git (Already bundled with zsh)
+- [zsh-autosuggestions][1]
+- [zsh-syntax-highlighting][2]
+
+### Zsh Theme Installed
+- [Pure][3]
+
+### Recommended Packages
+- [VSCode][6]
+- [Ruby Environment][4]
+- [Node Version Manager][5]
+
+
+## Adding Custom Stuff
+Some times, you have packages or exports etc. that is very specific to a development machine. Here are the files you can use to create them:
+
+- `~/.dotfiles/.zsh_exports.sh` – Custom exports
+- `~/.dotfiles/.zsh_private.sh` – Private keys or the sort
+- `~/.dotfiles/.zsh_preload.sh`  – Custom zsh loaded before oh-my-zsh
+- `~/.dotfiles/.zsh_postload.sh`  – Custom zsh loaded after oh-my-zsh
+
+
+
+[1]: https://github.com/zsh-users/zsh-autosuggestions
+[1]: https://github.com/zsh-users/zsh-syntax-highlighting
+[3]: https://github.com/sindresorhus/pure
+[4]: https://github.com/rbenv/rbenv
+[5]: https://github.com/nvm-sh/nvm
+[6]: https://code.visualstudio.com

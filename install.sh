@@ -10,7 +10,7 @@ _link_and_backup() {
   DEFAULT_FILE="$HOME/$1"
   LINK_FILE="$SCRIPT_DIR/$1"
 
-  if [[ -e "$DEFAULT_FILE" ]] || [[ -L "$DEFAULT_FILE" ]]; then
+  if [[ -e "$DEFAULT_FILE" ]]; then
     mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
   fi
 
@@ -29,6 +29,7 @@ cd $HOME
 
 _link_and_backup ".curlrc"
 _link_and_backup ".zshrc"
+_link_and_backup ".hushlogin"
 _link_and_backup ".gitconfig"
 _link_and_backup ".gitconfig.work"
 

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # --- ALIASES --------------------------
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'Copied to clipboard.'"
@@ -29,6 +27,9 @@ alias iplocal="ipconfig getifaddr en1"
 alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
 
 # ---- FANCY DOTFILES-IMPORTED ALIASES ----------------
+
+# Clear
+alias clr="clear"
 
 # Gzip-enabled `curl`
 alias gurl='curl --compressed'

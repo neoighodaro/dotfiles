@@ -37,6 +37,9 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # Load ZSH
 # ----------------------------------------------------------------------------------------
 
+# -- Aliases
+[ -f "$HOME/.dotfiles/.zsh_aliases.sh" ] && \. "$HOME/.dotfiles/.zsh_aliases.sh"
+
 # -- Functions
 [ -f "$HOME/.dotfiles/.zsh_functions.sh" ] && \. "$HOME/.dotfiles/.zsh_functions.sh"
 

@@ -13,6 +13,8 @@
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
 
 [alias]
+    a = add
+    i = !"git init && git commit -am 'Initial commit.'"
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
     # View the current working tree status using the short format
@@ -27,6 +29,10 @@
 	c = clone --recursive
 	# Commit all changes
 	ca = !git add -A && git commit -av
+    # Commit with message
+    cm = commit -m
+    # Commit with message and add
+    cma = "!cma() { git add \"$1\"; git commit -m \"$2\"; }; cma"
 	# Switch to a branch, creating it if necessary
 	go = checkout -B
 	# Show verbose output about tags, branches or remotes

@@ -33,7 +33,7 @@ Some times, you have packages or exports etc. that is very specific to a develop
 
 
 [1]: https://github.com/zsh-users/zsh-autosuggestions
-[1]: https://github.com/zsh-users/zsh-syntax-highlighting
+[2]: https://github.com/zsh-users/zsh-syntax-highlighting
 [3]: https://github.com/sindresorhus/pure
 [4]: https://github.com/rbenv/rbenv
 [5]: https://github.com/nvm-sh/nvm

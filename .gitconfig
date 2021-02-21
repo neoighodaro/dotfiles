@@ -1,6 +1,6 @@
 [user]
-    name = Neo Ighodaro
-    email = neo@creativitykills.co
+	name = Neo Ighodaro
+	email = neo@creativitykills.co
 
 # .gitconfig but for work
 [includeIf "gitdir:~/Dev/Work/"]

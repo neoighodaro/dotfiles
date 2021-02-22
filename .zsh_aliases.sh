@@ -2,6 +2,7 @@
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'Copied to clipboard.'"
 
+
 # -- BREW M1 MAC
 alias ibrew='arch -x86_64 /usr/local/bin/brew'
 alias brew='arch -arm64e /opt/homebrew/bin/brew'
@@ -13,6 +14,7 @@ alias cdnginx="cd /usr/local/etc/nginx"
 # -- PHP/LARAVEL SPECIFIC
 alias a="php artisan"
 alias artisan="php artisan"
+alias sail='bash vendor/bin/sail'
 alias phpserver="php -S localhost:8888"
 alias phpu="./vendor/bin/phpunit"
 alias phpuf="./vendor/bin/phpunit --filter="

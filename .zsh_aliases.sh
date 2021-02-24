@@ -14,7 +14,8 @@ alias cdnginx="cd /usr/local/etc/nginx"
 # -- PHP/LARAVEL SPECIFIC
 alias a="php artisan"
 alias artisan="php artisan"
-alias sail='bash vendor/bin/sail'
+alias sail="bash vendor/bin/sail"
+alias sa="sail php artisan"
 alias phpserver="php -S localhost:8888"
 alias phpu="./vendor/bin/phpunit"
 alias phpuf="./vendor/bin/phpunit --filter="

@@ -16,7 +16,7 @@
     # Add file
     a = add
     # Initialise repository
-    i = !"git init && git commit -am 'Initial commit.'"
+    i = !"git init && git add . && git commit -m 'Initial commit.'"
     # Reset back to head
     nah = !"git reset --hard; git clean -df"
     # View remote URL

@@ -17,6 +17,10 @@
     a = add
     # Initialise repository
     i = !"git init && git add . && git commit -m 'Initial commit.'"
+    # Merge
+    m = merge
+	# `git mrg source destination` Merges a source branch to a destination branch
+    mrg = !"mrg() { git checkout $2; git m $1; }; mrg"
     # Reset back to head
     nah = !"git reset --hard; git clean -df"
     # View remote URL

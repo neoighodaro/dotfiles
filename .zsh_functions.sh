@@ -94,7 +94,8 @@ xd() {
 
 # Usage: docker_ssh container
 docker_ssh() {
-	docker exec -it $1 bash
+    USESHELL="${2:-bash}"
+	docker exec -it "$1" "${USESHELL}"
 }
 
 

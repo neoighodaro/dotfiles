@@ -81,9 +81,11 @@ alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Re
 alias spoton="sudo mdutil -a -i on"
 alias spotoff="sudo mdutil -a -i off"
 
-# DOCKER
-alias dc="docker-compose"
-alias drmi='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+# -- DOCKER
 alias dssh="docker_ssh"
+alias di="docker images"
+alias dc="docker ps -a"
+alias dcm="docker-compose"
+alias drmi='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias drmc='docker rm $(docker ps -q -f status=exited)'

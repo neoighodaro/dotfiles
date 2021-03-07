@@ -101,3 +101,5 @@
 
 [push]
 	default = matching
+[init]
+	defaultBranch = master

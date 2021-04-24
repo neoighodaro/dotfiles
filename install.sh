@@ -43,13 +43,19 @@ cd $HOME
 [[ ! -d $DOTFILES_DIR ]] && mv $SCRIPT_DIR $DOTFILES_DIR
 
 _link_and_backup ".curlrc"
-_link_and_backup ".viminfo"
 _link_and_backup ".zshrc"
 _link_and_backup ".wgetrc"
 _link_and_backup ".hushlogin"
 _link_and_backup ".screenrc"
 _link_and_backup ".gitconfig"
 _link_and_backup ".gitconfig.work"
+_link_and_backup ".githooks"
+
+# Vim customisations
+_link_and_backup ".vimrc"
+_link_and_backup ".vim"
+$SCRIPT_DIR/.vim/install.sh
+
 
 echo ""
 echo "======================================================================="

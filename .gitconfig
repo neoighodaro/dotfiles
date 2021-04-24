@@ -11,6 +11,8 @@
 	excludesfile = ~/.global-gitignore
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
+    # Global git hooks (Requires Git v2.9 or higher)
+    hooksPath = ~/.githooks
 
 [alias]
     # Add file

@@ -112,16 +112,15 @@ docker_ssh() {
 # MISCELLANY
 # ----------------------------------------------------------------------------------------
 
-# Usage: bak path/to/file optional/path/to/save
+# Usage: bak thing/to/backup
 bak() {
-    if [[ -z ${1} ]]; then
-        echo "Usage: bak /path/to/file.extension </path/to/save>"
-        exit 1
+    if [[ -e "$1" ]]; then
+        echo "Found: $1"
+        mv "${1%.*}"{,.bak}
+    elif [[ -e "$1.bak" ]]; then
+        echo "Found: $1.bak"
+        mv "$1"{.bak,}
     fi
-
-    FILENAME=$(basename ${1})
-    [[ -z ${2} ]] && SAVEBAKPATH="${1}.bak" || SAVEBAKPATH="${2}/${FILENAME}.bak"
-    cp -R "${1}" "${SAVEBAKPATH}"
 }
 
 

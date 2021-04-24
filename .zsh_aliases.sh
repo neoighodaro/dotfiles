@@ -2,7 +2,6 @@
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'Copied to clipboard.'"
 
-
 # -- BREW M1 MAC
 alias ibrew='arch -x86_64 /usr/local/bin/brew'
 alias brew='arch -arm64e /opt/homebrew/bin/brew'
@@ -10,6 +9,25 @@ alias brew='arch -arm64e /opt/homebrew/bin/brew'
 # -- DIRECTORIES
 alias sshconfig="code ~/.ssh/config"
 alias cdnginx="cd /usr/local/etc/nginx"
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+alias ........='cd ../../../../../../..'
+
+# -- LS VARIANTS
+alias l='ls -FAh'
+alias la='ls -lAFh'
+alias lt='ls -lFAht'
+alias lr='ls -RFAh'
+alias ldot='ls -ld .*'
+alias lS='ls -1FASsh'
+
+# ls with different alphabethical sorting
+unalias ll
+ll() { LC_COLLATE=C ls "$@" }
 
 # -- PHP/LARAVEL SPECIFIC
 alias a="php artisan"

@@ -26,7 +26,6 @@ alias ldot='ls -ld .*'
 alias lS='ls -1FASsh'
 
 # ls with different alphabethical sorting
-unalias ll
 ll() { LC_COLLATE=C ls "$@" }
 
 # -- PHP/LARAVEL SPECIFIC

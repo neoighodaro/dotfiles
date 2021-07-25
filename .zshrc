@@ -3,8 +3,8 @@
 # @package .dotfiles
 # ----------------------------------------------------------------------------------------
 
-# -- Default user
-DEFAULT_USER=neo
+# Fix tmux 256 color
+[[ ! -z $TMUX && $TERM == screen ]] && TERM=screen-256color
 
 # ----------------------------------------------------------------------------------------
 # KEY BINDINGS
@@ -31,6 +31,9 @@ ZSH_THEME=""
 
 # -- Plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+DEFAULT_USER=neo
+# ENABLE_CORRECTION=true
 
 
 # ----------------------------------------------------------------------------------------

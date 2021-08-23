@@ -25,6 +25,7 @@ This was made specifically for oh-my-zsh. You might need to customise it for ano
 - [VSCode][6]
 - [Ruby Environment][4]
 - [Node Version Manager][5]
+- [trash-cli][8]
 
 
 ### Adding Custom Stuff
@@ -44,3 +45,4 @@ Some times, you have packages or exports etc. that is very specific to a develop
 [5]: https://github.com/nvm-sh/nvm
 [6]: https://code.visualstudio.com
 [7]: https://github.com/agkozak/zsh-z
+[8]: https://www.npmjs.com/package/trash-cli

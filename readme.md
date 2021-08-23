@@ -3,15 +3,20 @@
 I use this personally for all my ZSH customisation. You can use it also but you might need
 to install the zsh plugins, and brew formulas etc. before activating it.
 
-To use it, clone the repository and then run the `install.sh` command which will backup your
+## Installation
+* Clone the repository 
+```git clone git@github.com:neoighodaro/dotfiles.git .dotfiles```
+* Run the `install.sh` command which will backup your
 existing `.zshrc` file (and other files) and replace it with the one in this repo.
 
 ### Zsh
 This was made specifically for oh-my-zsh. You might need to customise it for another shell.
+
 #### Plugins
 - git (Already bundled with zsh)
 - [zsh-autosuggestions][1]
 - [zsh-syntax-highlighting][2]
+- [zsh-z][7]
 
 #### Theme
 - [Pure][3]
@@ -38,3 +43,4 @@ Some times, you have packages or exports etc. that is very specific to a develop
 [4]: https://github.com/rbenv/rbenv
 [5]: https://github.com/nvm-sh/nvm
 [6]: https://code.visualstudio.com
+[7]: https://github.com/agkozak/zsh-z

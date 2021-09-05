@@ -1,5 +1,5 @@
 #!/bin/bash
-SCRIPT_DIR=$(cd `dirname $0` && pwd)
+#SCRIPT_DIR=$(cd `dirname $0` && pwd)
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # ------------------------------------------------------------------------------------------
@@ -8,7 +8,7 @@ DOTFILES_DIR="$HOME/.dotfiles"
 
 _link_and_backup() {
   DEFAULT_FILE="$HOME/$1"
-  LINK_FILE="$SCRIPT_DIR/$1"
+  LINK_FILE="$DOTFILES_DIR/$1"
 
   if [[ ! -L "$DEFAULT_FILE" ]]; then
     mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
@@ -40,7 +40,7 @@ echo ""
 cd $HOME
 
 # Move the dotfiles directory to the HOME path if necessary...
-[[ ! -d $DOTFILES_DIR ]] && mv $SCRIPT_DIR $DOTFILES_DIR
+#[[ ! -d $DOTFILES_DIR ]] && mv $SCRIPT_DIR $DOTFILES_DIR
 
 _link_and_backup ".curlrc"
 _link_and_backup ".zshrc"
@@ -54,7 +54,7 @@ _link_and_backup ".githooks"
 # Vim customisations
 _link_and_backup ".vimrc"
 _link_and_backup ".vim"
-$SCRIPT_DIR/.vim/install.sh
+$DOTFILES_DIR/.vim/install.sh
 
 
 echo ""

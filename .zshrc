@@ -74,6 +74,7 @@ prompt pure
 # Prefer US English and UTF-8
 export LANG=${LANG:-en_US.UTF-8}
 export LC_CTYPE=${LC_CTYPE:-$LANG}
+export LC_ALL=${LC_ALL:-$LANG}
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"

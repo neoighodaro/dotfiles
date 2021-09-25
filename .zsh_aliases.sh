@@ -104,6 +104,7 @@ alias spotoff="sudo mdutil -a -i off"
 alias dssh="docker_ssh"
 alias di="docker images"
 alias dc="docker ps -a"
+alias dps="docker ps --format 'table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}'"
 alias dcm="docker-compose"
 alias drmi='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"

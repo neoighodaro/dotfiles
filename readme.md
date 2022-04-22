@@ -3,6 +3,9 @@
 I use this personally for all my ZSH customisation. You can use it also but you might need
 to install the zsh plugins, and brew formulas etc. before activating it.
 
+## Requirements
+- Git installed: Linux: `sudo apt install -y git`
+
 ## Installation
 * Clone the repository 
 ```git clone git@github.com:neoighodaro/dotfiles.git .dotfiles```

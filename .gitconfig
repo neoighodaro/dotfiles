@@ -64,6 +64,11 @@
 	remote = origin
 	merge = refs/heads/master
 
+# Use `origin` as the default remote on the `main` branch in all cases
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+
 [apply]
 	# Detect whitespace errors when applying a patch
 	whitespace = fix

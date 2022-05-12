@@ -1,10 +1,10 @@
 [user]
-	name = Neo Ighodaro
-	email = neo@creativitykills.co
+	name = Neo
+	email = 807318+neoighodaro@users.noreply.github.com
 
 # .gitconfig but for work
-[includeIf "gitdir:~/Dev/Work/"]
-    path = ~/.gitconfig.work
+# [includeIf "gitdir:~/Dev/Work/"]
+#     path = ~/.gitconfig.work
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
@@ -25,6 +25,7 @@
     mrg = !"mrg() { git checkout $2; git m $1; }; mrg"
     # Reset back to head
     nah = !"git reset --hard; git clean -df"
+    n = !"git reset --hard; git clean -df"
     # View remote URL
     remote-url = config --get remote.origin.url
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
@@ -38,7 +39,7 @@
 	# Pull in remote changes for the current repository and all its submodules
 	p = !"git pull; git submodule foreach git pull origin master"
     # Push tags
-    psht = push --tags
+    pt = push --tags
 	# Clone a repository including all submodules
 	c = clone --recursive
 	# Commit all changes
@@ -104,4 +105,4 @@
 [push]
 	default = matching
 [init]
-	defaultBranch = master
+	defaultBranch = main

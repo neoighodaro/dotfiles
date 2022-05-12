@@ -3,6 +3,9 @@
 # @package .dotfiles
 # ----------------------------------------------------------------------------------------
 
+# -- MACOS: Fig pre block. Keep at the top of this file.
+[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ] && \. "$HOME/.fig/shell/zshrc.pre.zsh"
+
 # Fix tmux 256 color
 [[ ! -z $TMUX && $TERM == screen ]] && TERM=screen-256color
 
@@ -139,3 +142,6 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 # -- Ruby
 [[ -f "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
+
+# -- MACOS: Fig post block. Keep at the bottom of this file.
+[ -f "$HOME/.fig/shell/zshrc.post.zsh" ] && \. "$HOME/.fig/shell/zshrc.post.zsh"

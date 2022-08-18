@@ -10,7 +10,7 @@ _link_and_backup() {
   DEFAULT_FILE="$HOME/$1"
   LINK_FILE="$DOTFILES_DIR/$1"
 
-  if [[ ! -L "$DEFAULT_FILE" ]]; then
+  if [ -f "$DEFAULT_FILE" ] && [ ! -L "$DEFAULT_FILE" ]; then
     mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
   else
     LINKING_TO=$(readlink "$DEFAULT_FILE")
@@ -18,7 +18,7 @@ _link_and_backup() {
     if [[ "$LINKING_TO" == "$LINK_FILE" ]]; then
       echo "> Symlink for $DEFAULT_FILE already exists. Skipping!"
       return
-    else
+    elif [[ -f "$DEFAULT_FILE" ]]; then
       mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
     fi
   fi
@@ -50,6 +50,7 @@ _link_and_backup ".screenrc"
 _link_and_backup ".gitconfig"
 _link_and_backup ".gitconfig.work"
 _link_and_backup ".githooks"
+_link_and_backup ".mackup.cfg"
 
 # Vim customisations
 _link_and_backup ".vimrc"

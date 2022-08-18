@@ -1,10 +1,13 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+# Fig pre block. Keep at the top of this file.
+[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ] && \. "$HOME/.fig/shell/zshrc.pre.zsh"
+
+
 # ----------------------------------------------------------------------------------------
 # @author  Neo Ighodaro <neo@creativitykills.co>
 # @package .dotfiles
 # ----------------------------------------------------------------------------------------
-
-# -- MACOS: Fig pre block. Keep at the top of this file.
-[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ] && \. "$HOME/.fig/shell/zshrc.pre.zsh"
 
 # Fix tmux 256 color
 [[ ! -z $TMUX && $TERM == screen ]] && TERM=screen-256color
@@ -143,5 +146,12 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 [[ -f "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
 
-# -- MACOS: Fig post block. Keep at the bottom of this file.
-[ -f "$HOME/.fig/shell/zshrc.post.zsh" ] && \. "$HOME/.fig/shell/zshrc.post.zsh"
+
+# Fig post block. Keep at the bottom of this file.
+[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ] && \. "$HOME/.fig/shell/zshrc.post.zsh"
+
+# bun completions
+[ -s "/Users/neo/.bun/_bun" ] && source "/Users/neo/.bun/_bun"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"

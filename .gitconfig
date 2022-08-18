@@ -1,6 +1,7 @@
 [user]
 	name = Neo
 	email = 807318+neoighodaro@users.noreply.github.com
+	signingkey = 92DAAD0C59FBAACD
 
 # .gitconfig but for work
 # [includeIf "gitdir:~/Dev/Work/"]
@@ -111,3 +112,8 @@
 	default = matching
 [init]
 	defaultBranch = main
+
+[commit]
+	gpgsign = true
+[gpg]
+	program = /opt/homebrew/bin/gpg

@@ -75,12 +75,16 @@ set guioptions-=R
 
 
 
-
-
 "Fake custom left padding
 set foldcolumn=2
 hi LineNr guibg=bg ctermbg=bg
 hi FoldColumn guibg=bg ctermbg=bg
+
+"Display the line numbers
+set numberwidth=2
+set nu
+
+
 
 "Hide the vertical split
 hi VertSplit ctermfg=bg ctermbg=bg guibg=bg guifg=bg

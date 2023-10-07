@@ -3,3 +3,6 @@
 /.zsh_postload.sh
 /.zsh_private.sh
 /.zsh_exports.sh
+/.zsh_packages.sh
+
+.gitconfig.work

@@ -1,9 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-# Fig pre block. Keep at the top of this file.
-[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ] && \. "$HOME/.fig/shell/zshrc.pre.zsh"
-
-
 # ----------------------------------------------------------------------------------------
 # @author  Neo Ighodaro <neo@creativitykills.co>
 # @package .dotfiles
@@ -138,6 +132,9 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 # LOAD PACKAGES
 # ----------------------------------------------------------------------------------------
 
+# -- Custom Exports
+[ -f "$HOME/.dotfiles/.zsh_packages.sh" ] && \. "$HOME/.dotfiles/.zsh_packages.sh"
+
 # -- Node Version Manager
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -145,13 +142,3 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 # -- Ruby
 [[ -f "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
-
-
-# Fig post block. Keep at the bottom of this file.
-[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ] && \. "$HOME/.fig/shell/zshrc.post.zsh"
-
-# bun completions
-[ -s "/Users/neo/.bun/_bun" ] && source "/Users/neo/.bun/_bun"
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

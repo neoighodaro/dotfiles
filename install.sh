@@ -10,6 +10,16 @@ _link_and_backup() {
   DEFAULT_FILE="$HOME/$1"
   LINK_FILE="$DOTFILES_DIR/$1"
 
+  if [ ! -f "$LINK_FILE" ]; then
+    if [[ "$LINK_FILE" == "$DOTFILES_DIR/.gitignore.work" ]]; then
+      touch "$LINK_FILE"
+      echo "> Created empty file for $LINK_FILE."
+    else
+      echo "> $LINK_FILE does not exist. Skipping!"
+      return
+    fi
+  fi
+
   if [ -f "$DEFAULT_FILE" ] && [ ! -L "$DEFAULT_FILE" ]; then
     mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
   else

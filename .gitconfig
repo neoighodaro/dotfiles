@@ -1,11 +1,21 @@
 [user]
 	name = Neo
 	email = 807318+neoighodaro@users.noreply.github.com
-	signingkey = 92DAAD0C59FBAACD
+	signingkey = 411ADFBA9827DF11FB5D91E692DAAD0C59FBAACD
+
+[commit]
+    gpsign = true
+	gpgsign = true
+
+[gpg]
+	program = /opt/homebrew/bin/gpg
+
+# [credential]
+# 	helper = osxkeychain
 
 # .gitconfig but for work
-# [includeIf "gitdir:~/Dev/Work/"]
-#     path = ~/.gitconfig.work
+[includeIf "gitdir:~/Developer/Work/"]
+    path = ~/.gitconfig.work
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
@@ -38,7 +48,7 @@
 	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
 	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 	# Pull in remote changes for the current repository and all its submodules
-	p = !"git pull; git submodule foreach git pull origin master"
+	p = !"git pull; git submodule foreach git pull origin main"
     # Push tags
     pt = push --tags
 	# Clone a repository including all submodules
@@ -112,8 +122,3 @@
 	default = matching
 [init]
 	defaultBranch = main
-
-[commit]
-	gpgsign = true
-[gpg]
-	program = /opt/homebrew/bin/gpg

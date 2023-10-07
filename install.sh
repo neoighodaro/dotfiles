@@ -3,6 +3,21 @@
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # ------------------------------------------------------------------------------------------
+# Install Pure
+# ------------------------------------------------------------------------------------------
+
+if [[ ! -d "$HOME/.zsh/pure" ]]; then
+  read -p "Do you want to install Pure? (y/n) " -n 1 -r
+  echo ""
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    mkdir -p "$HOME/.zsh"
+    git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+    echo "fpath+=($HOME/.zsh/pure)" >> "$DOTFILES_DIR/.zsh_postload.sh"
+    echo "Pure installed. Please restart your terminal."
+  fi
+fi
+
+# ------------------------------------------------------------------------------------------
 # Link and Back up Helper
 # ------------------------------------------------------------------------------------------
 

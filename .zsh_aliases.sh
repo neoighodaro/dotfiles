@@ -3,10 +3,10 @@ alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'Copied to clipboard.'"
 
 # -- BREW M1 MAC
-if [[ $OSTYPE == darwin* && $CPUTYPE == arm64 ]]; then
-  alias ibrew='arch -x86_64 /usr/local/bin/brew'
-  alias brew='arch -arm64e /opt/homebrew/bin/brew'
-fi
+# if [[ $OSTYPE == darwin* && $CPUTYPE == arm64 ]]; then
+#   alias ibrew='arch -x86_64 /usr/local/bin/brew'
+#   alias brew='arch -arm64e /opt/homebrew/bin/brew'
+# fi
 
 # -- DIRECTORIES
 alias sshconfig="code ~/.ssh/config"

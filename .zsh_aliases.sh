@@ -33,7 +33,7 @@ alias lS='ls -1FASsh'
 # -- PHP/LARAVEL SPECIFIC
 alias a="php artisan"
 alias artisan="php artisan"
-alias sail="bash vendor/bin/sail"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 alias sa="sail artisan"
 alias phpserver="php -S localhost:8888"
 alias phpu="./vendor/bin/phpunit"

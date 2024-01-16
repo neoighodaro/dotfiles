@@ -1,4 +1,5 @@
 # --- ALIASES --------------------------
+alias k="kubectl"
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'Copied to clipboard.'"
 

@@ -10,12 +10,12 @@
 [gpg]
 	program = /opt/homebrew/bin/gpg
 
-# [credential]
-# 	helper = osxkeychain
-
 # .gitconfig but for work
 [includeIf "gitdir:~/Developer/Work/"]
     path = ~/.gitconfig.work
+
+# [credential]
+# 	helper = osxkeychain
 
 [core]
 	# Use custom `.gitignore` and `.gitattributes`
@@ -69,6 +69,7 @@
 	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 	# Interactive rebase with the given number of latest commits
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
+        mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
 
 # Use `origin` as the default remote on the `master` branch in all cases
 [branch "master"]

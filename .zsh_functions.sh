@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kubebash() {
+kubessh() {
     if [ -z "$1" ]; then
         echo "Usage: kubebash <pod-name>"
         return 1

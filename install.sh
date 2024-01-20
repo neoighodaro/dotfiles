@@ -115,12 +115,6 @@ _link_and_backup() {
     SKIP_LINKING=0
     DEFAULT_FILE="$HOME/${2:-$1}"
     LINK_FILE="$DOTFILES_DIR/$1"
-    LINK_TO="$DOTFILES_DIR/${3:-$1}"
-
-    # debug info
-    # echo "DEFAULT_FILE: $DEFAULT_FILE"
-    # echo "LINK_FILE: $LINK_FILE"
-    # echo "LINK_TO: $LINK_TO"
 
     if [ ! -f "$LINK_FILE" ] && [ ! -d "$LINK_FILE" ]; then
         echo -e "${RED}===> $LINK_FILE does not exist. Skipping!${NC}"
@@ -136,7 +130,7 @@ _link_and_backup() {
         mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
         echo -e "${GREEN}===> Created backup for $DEFAULT_FILE.${NC}"
     else
-        if [[ -L $DEFAULT_FILE ]] && [[ $LINK_TO == $(readlink "$DEFAULT_FILE") ]]; then
+        if [[ -L $DEFAULT_FILE ]] && [[ $LINK_FILE == $(readlink "$DEFAULT_FILE") ]]; then
             SKIP_LINKING=1
         elif [[ -f "$DEFAULT_FILE" ]]; then
             mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
@@ -145,8 +139,8 @@ _link_and_backup() {
     fi
 
     if [[ $SKIP_LINKING -eq 0 ]]; then
-        ln -s "$LINK_TO" "$DEFAULT_FILE"
-        echo -e "${GREEN}===> Created symlink for $DEFAULT_FILE from $LINK_TO.${NC}"
+        ln -s "$LINK_FILE" "$DEFAULT_FILE"
+        echo -e "${GREEN}===> Created symlink for $DEFAULT_FILE from $LINK_FILE.${NC}"
     else
         DEFAULT_FILE_BASENAME=$(basename "$DEFAULT_FILE")
         echo -e "${YELLOW}===> Symlink already exists for $DEFAULT_FILE_BASENAME. Skipping!${NC}"

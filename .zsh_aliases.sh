@@ -97,16 +97,20 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
 alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
 
-# Enable/Disable Spotlight
-alias spoton="sudo mdutil -a -i on"
-alias spotoff="sudo mdutil -a -i off"
+# Enable/Disable Spotlight on mac
+if [[ $(uname) == "Darwin" ]]; then
+    alias spoton="sudo mdutil -a -i on"
+    alias spotoff="sudo mdutil -a -i off"
+fi
 
 # -- DOCKER
 alias dssh="docker_ssh"
 alias di="docker images"
-alias dc="docker ps -a"
+alias dpsa="docker ps -a"
 alias dps="docker ps --format 'table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}'"
-alias dcm="docker-compose"
+alias dcb="docker-compose build"
+alias dcd="docker-compose down --remove-orphans"
+alias dcu="docker-compose up -d"
 alias drmi='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias drmc='docker rm $(docker ps -q -f status=exited)'

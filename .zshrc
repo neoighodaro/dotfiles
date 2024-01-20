@@ -78,6 +78,7 @@ export LC_ALL=${LC_ALL:-$LANG}
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
+export GPG_TTY=$(tty)
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/etc/Caskroom"

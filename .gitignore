@@ -1,8 +1,2 @@
-/.dropbox
-/.zsh_preload.sh
-/.zsh_postload.sh
-/.zsh_private.sh
-/.zsh_exports.sh
-/.zsh_packages.sh
-
-.gitconfig.work
+zsh/private.sh
+git/private.cfg

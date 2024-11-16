@@ -147,6 +147,7 @@ install_brew_package zoxide
 install_brew_package fzf
 install_brew_package zellij
 install_brew_package lazygit
+install_brew_package git-delta
 
 # Set the default browser and remove the default browser package
 if [[ ! -f "/tmp/default-browser-installed" ]]; then
@@ -189,6 +190,7 @@ install_cask_app phpstorm
 install_cask_app hazel
 install_cask_app jordanbaird-ice
 install_cask_app herd
+install_cask_app pika
 
 # @todo: Disable spotlight and get alternative
 # sudo mdutil -a -i off

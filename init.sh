@@ -79,7 +79,7 @@ echo -e "${WHITE}==> Initializing...${NC}"
 cd $HOME
 
 # Prepare for dotfiles
-mkdir -p ~/.config
+mkdir -p ~/.config ~/.config/lazygit
 
 # Copy the dotfiles...
 link_and_backup "zellij" ".config/zellij"
@@ -92,6 +92,7 @@ link_and_backup "configs/curlrc" ".curlrc"
 link_and_backup "configs/hushlogin" ".hushlogin"
 link_and_backup "configs/wgetrc" ".wgetrc"
 link_and_backup "configs/screenrc" ".screenrc"
+link_and_backup "lazygit/lazygit.yml" ".config/lazygit/config.yml"
 link_and_backup "git/global-gitignore" ".global-gitignore"
 link_and_backup "git/githooks" ".githooks"
 link_and_backup "git/base.cfg" ".gitconfig"

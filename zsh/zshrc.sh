@@ -18,7 +18,6 @@ ___ALREADY_INITIALIZED_DOTFILES=1
 ## Set the default user
 DEFAULT_USER="$(whoami)"
 
-
 # Set Up Command History
 # ------------------------------------------------------------------------------
 ## Enable globally shared history (same history in every shell)
@@ -26,6 +25,7 @@ setopt SHARE_HISTORY
 
 ## When writing out the history file, older duplicate commands are omitted
 setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 
 ## Don't save commands prefixed with at least one space to history
 setopt HIST_IGNORE_SPACE
@@ -132,6 +132,8 @@ export GREP_OPTIONS="--color=auto"                      # Always enable colored 
 export GPG_TTY=$(tty)                                   # Fix GPG prompt
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"      # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export NVM_DIR="$HOME/.nvm"                             # Node version manager
+export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
+
 [ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
 export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
 

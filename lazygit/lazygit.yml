@@ -1,0 +1,42 @@
+gui:
+  sidePanelWidth: 0.3
+  expandFocusedSidePanel: true
+  nerdFontsVersion: "3"
+  theme:
+    activeBorderColor:
+      - "#a6e3a1"
+      - bold
+    inactiveBorderColor:
+      - grey
+    searchingActiveBorderColor:
+      - cyan
+      - bold
+    optionsTextColor:
+      - white
+    selectedLineBgColor:
+      - "#503a5c" # Use `purpleLighter` color to make it readable
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    markedBaseCommitBgColor:
+      - yellow
+    markedBaseCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - white
+    defaultFgColor:
+      - default
+  showRandomTip: false
+  showCommandLog: false
+git:
+  parseEmoji: true
+  commit:
+    autoWrapCommitMessage: true
+    autoWrapWidth: 72
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers --syntax-theme=Nord
+os:
+  editPreset: "vscode"
+  open: "open {{filename}}"

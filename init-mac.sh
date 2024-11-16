@@ -198,6 +198,7 @@ grep -Fxq "pinentry-program $(which pinentry-touchid)" "$HOME/.gnupg/gpg-agent.c
 pinentry-touchid -fix > /dev/null 2>&1                                                                     # Fix pinentry-touchid
 gpg-connect-agent reloadagent /bye > /dev/null 2>&1                                                        # Reload gpg-agent
 defaults write org.gpgtools.common DisableKeychain -bool yes                                               # Disable saving to keychain
+ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                                              # Add SSH key to keychain
 
 
 # ---------------------------------------------------------------------------------------------------

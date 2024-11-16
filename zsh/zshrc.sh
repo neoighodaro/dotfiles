@@ -117,7 +117,10 @@ fi
 # zellij
 # ------------------------------------------------------------------------------
 if type zellij &>/dev/null; then
-  eval "$(zellij setup --generate-auto-start zsh)"
+  DISABLED_TERMINAL_PROGRAMS=(vscode)  # Add more as needed
+  if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]]; then
+    eval "$(zellij setup --generate-auto-start zsh)"
+  fi
 fi
 
 

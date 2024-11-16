@@ -3,9 +3,19 @@
 # Function to check if a cask app is installed, and install it if not
 install_cask_app() {
   local app_name=$1
+  local install_url=$2
   if ! brew list --cask | grep -q "$app_name"; then
     echo -e "$app_name not found. Installing..."
-    brew install --cask "$app_name"
+
+    # if url use that else use app name
+    if [[ -n $install_url ]]; then
+      curl -O "$install_url"
+      brew install --cask "$(basename $install_url)"
+      rm "$(basename $install_url)"
+    else
+      brew install --cask "$app_name"
+    fi
+
     echo -e "${GREEN}==> Installed $app_name.${NC}"
   else
     echo -e "${GRAY}==> $app_name is already installed. Skipping...${NC}"
@@ -205,7 +215,23 @@ ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                   
 # Apps & their config
 # ---------------------------------------------------------------------------------------------------
 
-link_and_backup "wezterm/.config/wezterm/wezterm.lua" .wezterm.lua   # Wezterm config
+link_and_backup "wezterm/.config/wezterm/wezterm.lua" .wezterm.lua                             # Wezterm config
+
+# Ask if you want to customize VSCode
+if [[ ! -f "/tmp/vscode-installed" ]]; then
+    echo -e "${WHITE}==> Do you want to customize VSCode? [Y/n]${NC}"
+    read -r answer
+    if [[ $answer == "y" || $answer == "Y" ]]; then
+        link_and_backup "vscode/keybindings.json" "Library/Application Support/Code/User/keybindings.json" # VSCode keybindings
+        link_and_backup "vscode/settings.json" "Library/Application Support/Code/User/settings.json"       # VSCode config
+        link_and_backup "vscode/custom.css" "Library/Application Support/Code/User/custom.css"             # VSCode custom CSS
+        link_and_backup "vscode/custom.js" "Library/Application Support/Code/User/custom.js"               # VSCode custom JS
+        echo -e "${GREEN}==> VSCode customization complete.${NC}"
+    fi
+    touch /tmp/vscode-installed
+else
+    echo -e "${GRAY}==> Skipping VSCode customization...${NC}"
+fi
 
 # Install Needed Apps using Homebrew Cask
 install_cask_app wezterm
@@ -220,6 +246,7 @@ install_cask_app jordanbaird-ice
 install_cask_app herd
 install_cask_app pika
 install_cask_app raycast
+install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 
 # AppStore Apps

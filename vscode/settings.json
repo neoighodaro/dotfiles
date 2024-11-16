@@ -1,0 +1,463 @@
+{
+  // Better Defaults
+  // --------------------------------------------------------------------------------------------------------------
+
+  "debug.openDebug": "openOnDebugBreak",
+  "debug.console.fontSize": 14,
+
+  "diffEditor.renderSideBySide": false,
+
+  "disableLigatures.mode": "Cursor",
+
+  "editor.accessibilitySupport": "off",
+  "editor.linkedEditing": true,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.detectIndentation": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+  "editor.tabCompletion": "on",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.lineNumbers": "on",
+  "editor.minimap.enabled": false,
+  "editor.guides.indentation": false,
+  "editor.colorDecorators": false,
+  "editor.hover.enabled": true,
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.lightbulb.enabled": "off",
+  "editor.matchBrackets": "never",
+  "editor.occurrencesHighlight": "singleFile",
+  "editor.overviewRulerBorder": false,
+  "editor.renderControlCharacters": false,
+  "editor.renderLineHighlight": "none",
+  "editor.selectionHighlight": false,
+  "editor.fontFamily": "\"JetBrainsMono Nerd Font\", \"Dank Mono\", \"Operator Mono\", \"Monaspace Argon\", MonoLisa",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.lineHeight": 45,
+  "editor.suggestFontSize": 16,
+  "editor.suggestLineHeight": 28,
+
+  "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "terminal.external.osxExec": "iTerm.app",
+
+  "window.nativeFullScreen": true,
+  "window.newWindowDimensions": "offset",
+  "window.titleBarStyle": "native",
+
+  "workbench.editor.showTabs": "single",
+  "workbench.sideBar.location": "right",
+  "workbench.statusBar.visible": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  "workbench.layoutControl.enabled": false,
+  "window.commandCenter": false,
+  "workbench.editor.editorActionsLocation": "hidden",
+
+  "explorer.confirmDelete": false,
+  "explorer.openEditors.visible": 1,
+
+  "extensions.ignoreRecommendations": false,
+
+  "git.decorations.enabled": false,
+  "git.enableCommitSigning": true,
+
+  "problems.decorations.enabled": false,
+
+  "scm.diffDecorations": "none",
+
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontFamily": "\"JetBrainsMono Nerd Font\", \"Dank Mono\", \"Operator Mono\", \"Monaspace Argon\", MonoLisa",
+  "terminal.integrated.lineHeight": 1.5,
+  "terminal.integrated.fontWeight": "normal",
+
+  // --------------------------------------------------------------------------------------------------------------
+  // Look and Feel
+  // --------------------------------------------------------------------------------------------------------------
+
+  // Customize UI
+  // --------------------------------------------------------------------------------------------------------------
+
+  "vscode_custom_css.imports": [
+    "file:///Users/neo/Library/Application%20Support/Code/User/custom.css",
+    "file:///Users/neo/Library/Application%20Support/Code/User/custom.js"
+  ],
+
+  // --------------------------------------------------------------------------------------------------------------
+  // Commenting Extension
+  // @link https://marketplace.visualstudio.com/items?itemName=stackbreak.comment-divider
+  // --------------------------------------------------------------------------------------------------------------
+
+  "comment-divider.length": 110,
+  "comment-divider.mainHeaderFiller": "-",
+  "comment-divider.mainHeaderAlign": "left",
+  "comment-divider.subheaderAlign": "left",
+  "comment-divider.subheaderFiller": " ",
+  "comment-divider.languagesMap": {
+    "yaml": ["#"],
+    "shellscript": ["#"],
+    "javascript": ["//"],
+    "typescript": ["//"],
+    "json": ["//"],
+    "jsonc": ["//"],
+    "css": ["//"],
+    "vue": ["//"],
+    "php": ["//"],
+    "logos": ["//"],
+    "cpp": ["//"],
+    "objective-c": ["//"],
+    "env": ["#"]
+  },
+
+  // --------------------------------------------------------------------------------------------------------------
+  // TODOTree Extension
+  // @link https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
+  // --------------------------------------------------------------------------------------------------------------
+
+  "todo-tree.general.debug": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "gutterIcon": true
+  },
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+        "foreground": "#92400d",
+        "background": "#fef3c7",
+        "iconColour": "#fef3c7",
+        "type": "tag",
+        "icon": "zap"
+    },
+    "FIXME": {
+        "foreground": "#fff",
+        "background": "#f06292",
+        "icon": "flame",
+        "type": "line",
+        "iconColour": "#f06292"
+    }
+  },
+
+
+  // --------------------------------------------------------------------------------------------------------------
+  // Find / Search / Watch
+  // --------------------------------------------------------------------------------------------------------------
+
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/env/**": true,
+    "**/venv/**": true,
+    "env-*": true
+  },
+
+  "search.exclude": {
+    "**/vendor/{[^l],?[^a]}*": true,        // Hide everything in /vendor, except the "laravel"
+    "**/public/{[^i],?[^n]}*": true,        // Hide everything in /public, except "index.php"
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/_ide_helper.php": true,
+    "**/composer.lock": true,
+    "**/package-lock.json": true,
+    "**/storage": true,
+    ".phpunit.result.cache": true
+  },
+  "search.useIgnoreFiles": false,
+
+
+  // --------------------------------------------------------------------------------------------------------------
+  // Development Experience Settings
+  // --------------------------------------------------------------------------------------------------------------
+
+  "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+
+  "emmet.includeLanguages": {
+    "blade": "html",
+    "vue-html": "html",
+    "markdown": "html"
+  },
+
+  "files.associations": {
+    ".php_cs": "php",
+    ".php_cs.dist": "php",
+    "*.yml": "yaml",
+    ".env": "env",
+    ".env.example": "env",
+    ".env.local": "env",
+    "*.plist": "properties",
+    "*.scss": "postcss",
+    "*.tsx": "typescriptreact"
+  },
+
+
+  // --------------------------------------------------------------------------------------------------------------
+  // PHP
+  // --------------------------------------------------------------------------------------------------------------
+
+  "php.suggest.basic": false,
+
+  // PHP: CS Fixer
+  "php-cs-fixer.onsave": true,
+  "php-cs-fixer.autoFixByBracket": false,
+  "php.validate.enable": true,
+  "php-cs-fixer.rules": "@PSR2",
+  "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
+  "php-cs-fixer.executablePath": "/Users/neo/.composer/vendor/bin/php-cs-fixer", // "${extensionPath}/php-cs-fixer.phar",
+  "php-cs-fixer.lastDownload": 1626619725701,
+
+  // Laravel
+  "blade.format.enable": true, // Enable blade format
+
+
+  // --------------------------------------------------------------------------------------------------------------
+  // Formatters
+  // --------------------------------------------------------------------------------------------------------------
+
+  // Prettier
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": true,
+  "prettier.bracketSameLine": true,
+
+
+  // --------------------------------------------------------------------------------------------------------------
+  // Javascript / Typescript
+  // --------------------------------------------------------------------------------------------------------------
+
+  // Volar
+  // "volar.codeLens.scriptSetupTools": true,
+  // "volar.completion.autoImportComponent": true,
+
+  // Typescript
+  "typescript.disableAutomaticTypeAcquisition": true,
+
+  // // Vetur
+  // "vetur.format.defaultFormatter.html": "prettier",
+  // "vetur.format.defaultFormatter.css": "prettier",
+  // "vetur.format.defaultFormatter.postcss": "prettier",
+  // "vetur.format.defaultFormatter.scss": "prettier",
+  // "vetur.format.defaultFormatter.js": "prettier",
+  // "vetur.format.defaultFormatter.ts": "prettier",
+  // "vetur.format.options.tabSize": 2,
+  // "vetur.validation.template": true,
+
+
+  // -----------------------------------------------------------------------------------------------------------
+  // Language Specific Settings
+  // -----------------------------------------------------------------------------------------------------------
+
+  // "[dart]": {
+  //   "editor.formatOnSave": true,
+  //   "editor.formatOnType": true,
+  //   "editor.rulers": [80],
+  //   "editor.selectionHighlight": false,
+  //   "editor.suggest.snippetsPreventQuickSuggestions": false,
+  //   "editor.suggestSelection": "first",
+  //   "editor.tabCompletion": "onlySnippets",
+  //   "editor.wordBasedSuggestions": false
+  // },
+
+  "[blade]": {
+    "editor.autoClosingBrackets": "always",
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+  },
+
+  "[env]": {
+    "workbench.editor.languageDetection": false
+  },
+
+  "[html]": {
+    "editor.autoClosingBrackets": "always",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.quickSuggestions": {
+      "strings": "on"
+    }
+  },
+
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.hover.enabled": true,
+    "editor.tabSize": 2
+  },
+
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.hover.enabled": true,
+    "editor.tabSize": 2
+  },
+
+  "[php]": {
+    "editor.defaultFormatter": "junstyle.php-cs-fixer",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      {
+        "column": 120,
+        "color": "#3a415e"
+      }
+    ]
+  },
+
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  "[vue-html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+
+
+  // -----------------------------------------------------------------------------------------------------------
+  // Linters
+  // -----------------------------------------------------------------------------------------------------------
+
+  // Eslint
+  "eslint.validate": ["vue", "javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  // -----------------------------------------------------------------------------------------------------------
+  // Settings Sync
+  // -----------------------------------------------------------------------------------------------------------
+
+  "settingsSync.ignoredSettings": [],
+
+
+  // -----------------------------------------------------------------------------------------------------------
+  // Misc
+  // -----------------------------------------------------------------------------------------------------------
+
+  "workbench.preferredDarkColorTheme": "Tokyo Night Gogh",
+  "workbench.preferredHighContrastLightColorTheme": "Tokyo Night Light",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.fontWeight": "400",
+  "explorer.confirmDragAndDrop": false,
+  "workbench.colorTheme": "Tokyo Night Gogh",
+  "window.confirmBeforeClose": "keyboardOnly",
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "workbench.activityBar.location": "hidden",
+  "remote.SSH.remotePlatform": {
+    "sandbox.gjvtgc.csb": "linux"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+  },
+  "redhat.telemetry.enabled": false,
+  "editor.tokenColorCustomizations": {
+    "[*Light*]": {
+      "textMateRules": [
+        {
+          "scope": "ref.matchtext",
+          "settings": {
+            "foreground": "#000"
+          }
+        }
+      ]
+    },
+    "[*Dark*]": {
+      "textMateRules": [
+        {
+          "scope": "ref.matchtext",
+          "settings": {
+            "foreground": "#fff"
+          }
+        }
+      ]
+    },
+    "textMateRules": [
+      {
+        "name": "One Dark italic",
+        "scope": [
+          "comment",
+          "entity.other.attribute-name",
+          "keyword",
+          "markup.underline.link",
+          "storage.modifier",
+          "storage.type",
+          "string.url",
+          "variable.language.super",
+          "variable.language.this"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "name": "One Dark italic reset",
+        "scope": [
+          "keyword.operator",
+          "keyword.other.type",
+          "storage.modifier.import",
+          "storage.modifier.package",
+          "storage.type.built-in",
+          "storage.type.function.arrow",
+          "storage.type.generic",
+          "storage.type.java",
+          "storage.type.primitive"
+        ],
+        "settings": {
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+  "window.customTitleBarVisibility": "windowed",
+  "terminal.integrated.env.osx": {},
+  "console-ninja.featureSet": "Community",
+  "editor.stickyScroll.enabled": false,
+  "supermaven.allowGitignore": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]",
+    "@todo"
+  ]
+}

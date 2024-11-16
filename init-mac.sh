@@ -114,10 +114,11 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 # Enable snap-to-grid for desktop icons
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
-# Wallpaper location
-[ -f "$HOME/Pictures/wallpaper.heic" ] && osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'"$HOME/Pictures/wallpaper.heic"'"'
-[ -f "$HOME/Pictures/wallpaper.jpg" ] && osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'"$HOME/Pictures/wallpaper.jpg"'"'
-[ -f "$HOME/Pictures/wallpaper.png" ] && osascript -e 'tell application "Finder" to set desktop picture to POSIX file "'"$HOME/Pictures/wallpaper.png"'"'
+# Set wallpaper
+for ext in heic jpg png; do
+  wallpaper="$HOME/Pictures/wallpaper.$ext"
+  [ -f "$wallpaper" ] && osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$wallpaper\"" && break
+done
 
 # Kill affected applications
 APPS=(Finder Dock SystemUIServer cfprefsd)

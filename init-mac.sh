@@ -145,8 +145,15 @@ install_brew_package bat
 install_brew_package zoxide
 install_brew_package fzf
 install_brew_package zellij
-install_brew_package defaultbrowser
 install_brew_package lazygit
+
+# Set the default browser and remove the default browser package
+if [[ ! -f "/tmp/default-browser-installed" ]]; then
+    install_brew_package defaultbrowser
+    defaultbrowser browser
+    brew uninstall defaultbrowser
+    touch /tmp/default-browser-installed
+fi
 
 # Caveat for GPG
 if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
@@ -155,10 +162,6 @@ if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
     sudo find "$HOME/.gnupg" -type d -exec chmod 700 {} \;
     sudo find "$HOME/.gnupg" -type f -exec chmod 600 {} \;
 fi
-
-# Set the default browser and remove the default browser package
-defaultbrowser browser
-brew uninstall defaultbrowser
 
 # Caveat for pinentry-touchid
 grep -Fxq "pinentry-program $(which pinentry-touchid)" "$HOME/.gnupg/gpg-agent.conf" || \

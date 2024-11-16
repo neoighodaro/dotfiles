@@ -8,6 +8,10 @@ Host *
   ConnectTimeout 20
   IdentityFile ~/.ssh/id_ed25519
 
+Host github
+  HostName github.com
+  ForwardAgent yes
+
 Host ckx02.local
     User neo
     Hostname 192.168.0.3

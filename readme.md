@@ -11,5 +11,7 @@ I use this to set up a new Mac or Linux Server. This contains everything I typic
 
 * Clone: `git clone git@github.com:neoighodaro/dotfiles.git`
 * Permission: `chmod a+x init.sh`
+* Mac Specific:
+    - Add a photo to `~/Pictures/wallpaper.(jpg|png|heic)` to set as your desktop wallpaper.
 * Run: `./init.sh`
 * Profit.

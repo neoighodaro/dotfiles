@@ -104,6 +104,7 @@ defaults write com.apple.dock tilesize -int 47                                  
 defaults write com.apple.dock wvous-bl-corner -int 4                               # Hot-corner: bottom-left screen corner → Desktop
 defaults write com.apple.dock wvous-bl-modifier -int 0                             # Hot-corner: bottom-left screen corner → Desktop
 defaults write com.apple.dock show-recents -int 0                                  # Hide recents
+defaults write com.apple.dock expose-group-apps -int 1                             # Group windows by apps when using expose
 
 # Finder
 defaults write com.apple.finder EmptyTrashSecurely -bool true                      # Empty Trash securely
@@ -215,7 +216,10 @@ ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                   
 # Apps & their config
 # ---------------------------------------------------------------------------------------------------
 
-link_and_backup "wezterm/.config/wezterm/wezterm.lua" .wezterm.lua                             # Wezterm config
+mkdir -p ~/.config/aerospace
+
+link_and_backup "wezterm/wezterm.lua" .wezterm.lua                             # Wezterm config
+link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml    # Aerospace config
 
 # Ask if you want to customize VSCode
 if [[ ! -f "/tmp/vscode-installed" ]]; then
@@ -233,6 +237,8 @@ else
     echo -e "${GRAY}==> Skipping VSCode customization...${NC}"
 fi
 
+brew tap nikitabobko/tap
+
 # Install Needed Apps using Homebrew Cask
 install_cask_app wezterm
 install_cask_app 1password
@@ -246,6 +252,7 @@ install_cask_app jordanbaird-ice
 install_cask_app herd
 install_cask_app pika
 install_cask_app raycast
+install_cask_app aerospace
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 

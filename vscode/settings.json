@@ -55,7 +55,7 @@
 
   "window.nativeFullScreen": true,
   "window.newWindowDimensions": "offset",
-  "window.titleBarStyle": "native",
+  "window.titleBarStyle": "custom",
 
   "workbench.editor.showTabs": "single",
   "workbench.sideBar.location": "right",
@@ -65,8 +65,10 @@
   "workbench.startupEditor": "none",
   "workbench.tips.enabled": false,
   "workbench.layoutControl.enabled": false,
-  "window.commandCenter": false,
   "workbench.editor.editorActionsLocation": "hidden",
+  "workbench.iconTheme": "eq-material-theme-icons-palenight",
+
+  "window.commandCenter": false,
 
   "explorer.confirmDelete": false,
   "explorer.openEditors.visible": 1,

@@ -12,6 +12,18 @@ install_cask_app() {
   fi
 }
 
+# Function to check if a appstore app is installed, and install it if not
+install_appstore_app() {
+  local app_name=$1
+  local app_id=$2
+  if ! /usr/bin/open -a "$app_name"; then
+    echo -e "$app_name not found. Installing..."
+    /usr/bin/open https://apps.apple.com/us/app/"$app_id"
+  else
+    echo -e "${GRAY}==> $app_name is already installed. Skipping...${NC}"
+  fi
+}
+
 # Function to check if a brew package is installed, and install it if not
 install_brew_package() {
   local package_name=$1
@@ -81,25 +93,38 @@ defaults write com.apple.dock launchanim -bool false                            
 defaults write com.apple.dock tilesize -int 47                                     # Set size of the dock
 defaults write com.apple.dock wvous-bl-corner -int 4                               # Hot-corner: bottom-left screen corner → Desktop
 defaults write com.apple.dock wvous-bl-modifier -int 0                             # Hot-corner: bottom-left screen corner → Desktop
+defaults write com.apple.dock show-recents -int 0                                  # Hide recents
 
 # Finder
 defaults write com.apple.finder EmptyTrashSecurely -bool true                      # Empty Trash securely
 defaults write com.apple.finder WarnOnEmptyTrash -bool false                       # Warn before emptying the Trash
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false         # Show warning when changing extensions
-defaults write com.apple.finder ShowStatusBar -bool true                           # Show status bar
+defaults write com.apple.finder ShowPathbar -bool true                             # Show path bar
+defaults write com.apple.finder ShowStatusBar -bool true                           # Hide status bar
 defaults write com.apple.finder QuitMenuItem -bool true                            # Show Quit menu item
 defaults write com.apple.finder QLEnableTextSelection -bool true                   # Allow text selection in Quick Look
 defaults write com.apple.finder "FXPreferredViewStyle" -string "clmv"              # Show columns view in Finder
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"                # Search current folder by default
 defaults write com.apple.finder "_FXSortFoldersFirst" -bool true                   # Sort folders first
 defaults write com.apple.finder ShowRecentTags -bool false                         # Hide recent tags
 defaults write com.apple.Finder SidebarTagsSctionDisclosedState -bool false        # Don't show the sidebar tags section
 defaults write com.apple.Finder SidebarDevicesSectionDisclosedState -bool false    # Don't show the sidebar devices section
-defaults write com.apple.finder NewWindowTarget -string "PfDo"                     # Open new finder to documents folder
+defaults write com.apple.finder NewWindowTarget -string "PfHm"                     # Open new finder to home folder
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false        # Hide external hard drives
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false            # Hide removable media
+defaults write com.apple.finder FinderSpawnTab -int 1                              # Open folders in new tabs
 
 # Global Domain
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
+
+# Window Manager (Deskop & Stage manager)
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false  # Disable standard click to show desktop
+defaults write com.apple.WindowManager StandardHideDesktopIcons -bool true           # Disable showing items in desktop (Standard)
+defaults write com.apple.WindowManager HideDesktop -bool true                        # Disable showing items in desktop (Stage manager)
+defaults write com.apple.WindowManager StageManagerHideWidgets -bool true           # Disable showing widgets in desktop (Stage manager)
+defaults write com.apple.WindowManager StandardHideWidgets -bool true               # Disable showing widgets in desktop (Normal)
 
 # Others
 defaults write com.apple.menuextra.battery ShowTime -string "YES"                  # Show battery time remaining
@@ -107,6 +132,8 @@ defaults write com.apple.screensaver askForPassword -int 1                      
 defaults write com.apple.screensaver askForPasswordDelay -int 0                    # Require password immediately when screensaver activates
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true       # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.screencapture location -string "$HOME/Documents/• Screenshots" # Set location for screenshots
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = 'standard'; }; }" # Disable Cmd-Space (Spotlight)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0; value = { parameters = (32, 49, 1572864); type = 'standard'; }; }" # Disable Cmd-Opt-Space (Finder Search)
 
 chflags nohidden ~/Library                                                         # Show the ~/Library folder
 source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock
@@ -121,7 +148,7 @@ for ext in heic jpg png; do
 done
 
 # Kill affected applications
-APPS=(Finder Dock SystemUIServer cfprefsd)
+APPS=(Finder Dock SystemUIServer WindowManager cfprefsd)
 for APP in "${APPS[@]}"; do
     killall "$APP" &>/dev/null
 done
@@ -172,12 +199,12 @@ pinentry-touchid -fix > /dev/null 2>&1                                          
 gpg-connect-agent reloadagent /bye > /dev/null 2>&1                                                        # Reload gpg-agent
 defaults write org.gpgtools.common DisableKeychain -bool yes                                               # Disable saving to keychain
 
+
 # ---------------------------------------------------------------------------------------------------
 # Apps & their config
 # ---------------------------------------------------------------------------------------------------
 
-# Wezterm config
-link_and_backup "wezterm/.config/wezterm/wezterm.lua" .wezterm.lua
+link_and_backup "wezterm/.config/wezterm/wezterm.lua" .wezterm.lua   # Wezterm config
 
 # Install Needed Apps using Homebrew Cask
 install_cask_app wezterm
@@ -191,7 +218,10 @@ install_cask_app hazel
 install_cask_app jordanbaird-ice
 install_cask_app herd
 install_cask_app pika
+install_cask_app raycast
+# install_cask_app mysides
 
-# @todo: Disable spotlight and get alternative
-# sudo mdutil -a -i off
+# AppStore Apps
+install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
+
 # @todo: https://github.com/yihou/alfred-zoxide

@@ -10,6 +10,7 @@ alias k="kubectl"
 alias lg="lazygit"
 alias cat="bat"
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
+alias reload='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshconfig="code ~/.ssh/config"
 alias please='sudo $(fc -ln -1)'
 alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"

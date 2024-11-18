@@ -170,8 +170,7 @@ defaults write com.apple.Siri VoiceTriggerUserEnabled -int 0                    
 defaults write com.apple.Siri ConfirmSiriInvokedViaEitherCmdTwice -int 0           # Disable Siri confirmation
 defaults write com.apple.HIToolbox AppleFnUsageType -int 0                         # Disable globe key
 defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0                 # Disable globe key auto dictation
-
-
+defaults write com.apple.TextInputMenu visible -bool false                         # Disable text input menu
 
 chflags nohidden ~/Library                                                         # Show the ~/Library folder
 source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock
@@ -315,7 +314,7 @@ if [[ ! -f "/tmp/default-browser-installed" ]]; then
 fi
 
 # Open Some default apps if not already open
-auto_open_apps=("xbar" "Raycast" "Ice")
+auto_open_apps=("xbar" "Raycast" "Ice" "AeroSpace")
 for app in "${auto_open_apps[@]}"; do
     if ! is_app_running "$app"; then
         open -a "$app"

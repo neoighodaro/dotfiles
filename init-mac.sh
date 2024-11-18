@@ -1,5 +1,10 @@
 #!/bin/bash
 
+is_app_running() {
+    local app_name=$1
+    ps aux | grep -v grep | grep -q "$app_name"
+}
+
 # Function to check if a cask app is installed, and install it if not
 install_cask_app() {
   local app_name=$1
@@ -261,15 +266,29 @@ install_cask_app xbar
 install_cask_app boop
 install_cask_app tableplus
 install_cask_app coderunner
+install_cask_app sensei
 install_cask_app postman
+install_cask_app tinkerwell
+install_cask_app ray
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 
 # AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
 
-# Open Some default apps
-open -a xbar
+# Other Apps
+if [[ ! -d "/Applications/Vivid.app" ]]; then
+    echo -e "${WHITE}==> Installing Vivid...${NC}"
+    download_vivid_url="https://lumen-digital.com/apps/vivid/download_ref?ref=https://www.getvivid.app&_gl=1*ombh5l*_gcl_au*ODg0NDM4Mjg2LjE3MzE5MTcyMjE.*_ga*MTc3NDczMzM0MS4xNzMxOTE3MjIx*_ga_92N4EJGW2M*MTczMTkxNzIyMS4xLjAuMTczMTkxNzIyMS4wLjAuMA"
+    curl -L "$download_vivid_url" -o ~/Downloads/Vivid.zip
+    unzip ~/Downloads/Vivid.zip -d ~/Downloads
+    mv ~/Downloads/Vivid.app /Applications
+fi
+
+# Open Some default apps if not already open
+if ! is_app_running "xbar"; then
+    open -a xbar
+fi
 
 # CodeRunner is too presumptuous, it always tries to set itself as default for everything
 open -a CodeRunner

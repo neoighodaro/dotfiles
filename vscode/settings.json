@@ -379,7 +379,6 @@
   "editor.fontWeight": "400",
   "explorer.confirmDragAndDrop": false,
   "workbench.colorTheme": "Tokyo Night Gogh",
-  "window.confirmBeforeClose": "keyboardOnly",
   "diffEditor.hideUnchangedRegions.enabled": true,
   "workbench.activityBar.location": "hidden",
   "remote.SSH.remotePlatform": {

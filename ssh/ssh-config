@@ -24,10 +24,3 @@ Host github
 Host ckx02.local
     User neo
     Hostname 192.168.0.3
-
-# GitLab
-# ------------------------------------------------------------------------
-Host pinktum-cloud-gitlab
-    HostName 162.19.223.143
-    User debian
-    Port 8022

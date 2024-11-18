@@ -319,6 +319,10 @@ if ! is_app_running "xbar"; then
     open -a xbar
 fi
 
+if ! is_app_running "raycast"; then
+    open -a raycast
+fi
+
 # CodeRunner is too presumptuous, it always tries to set itself as default for everything
 open -a CodeRunner
 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -u /Applications/CodeRunner.app

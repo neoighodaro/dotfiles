@@ -218,8 +218,9 @@ ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                   
 
 mkdir -p ~/.config/aerospace
 
-link_and_backup "wezterm/wezterm.lua" .wezterm.lua                             # Wezterm config
-link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml    # Aerospace config
+link_and_backup "wezterm/wezterm.lua" .wezterm.lua                                              # Wezterm config
+link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml                     # Aerospace config
+link_and_backup "xbar/dnsswitcher.sh" "Library/Application Support/xbar/plugins/dnsswitcher.sh" # Xbar plugin
 
 # Ask if you want to customize VSCode
 if [[ ! -f "/tmp/vscode-installed" ]]; then
@@ -253,10 +254,17 @@ install_cask_app herd
 install_cask_app pika
 install_cask_app raycast
 install_cask_app aerospace
+install_cask_app xbar
+install_cask_app boop
+install_cask_app tableplus
+install_cask_app coderunner
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 
 # AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
 
-# @todo: https://github.com/yihou/alfred-zoxide
+# CodeRunner is too presumptuous, it always tries to set itself as default for everything
+open -a CodeRunner
+/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -u /Applications/CodeRunner.app
+killall CodeRunner

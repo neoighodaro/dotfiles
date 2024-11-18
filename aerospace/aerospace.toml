@@ -248,3 +248,11 @@ run = "move-node-to-workspace P"
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = "move-node-to-workspace 1"

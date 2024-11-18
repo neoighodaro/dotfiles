@@ -102,7 +102,7 @@ defaults write com.apple.dock minimize-to-application -bool true                
 defaults write com.apple.dock magnification -bool false                            # Magnify icons when hovering over them
 defaults write com.apple.dock mineffect -string scale                              # Minimizing windows effect
 defaults write com.apple.dock autohide -bool true                                  # Automatically hide and show the dock
-defaults write com.apple.dock autohide-delay -float 0                              # Delay before auto-hiding or showing the dock
+defaults write com.apple.dock autohide-delay -float 10                             # Delay before auto-hiding or showing the dock
 defaults write com.apple.dock autohide-time-modifier -float 0                      # Time modifier for auto-hiding or showing the dock
 defaults write com.apple.dock launchanim -bool false                               # Animate opening applications
 defaults write com.apple.dock tilesize -int 47                                     # Set size of the dock
@@ -142,23 +142,43 @@ defaults write com.apple.WindowManager HideDesktop -bool true                   
 defaults write com.apple.WindowManager StageManagerHideWidgets -bool true           # Disable showing widgets in desktop (Stage manager)
 defaults write com.apple.WindowManager StandardHideWidgets -bool true               # Disable showing widgets in desktop (Normal)
 
+# https://zameermanji.com/blog/2021/6/8/applying-com-apple-symbolichotkeys-changes-instantaneously/
+defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 64 "
+  <dict>
+    <key>enabled</key><false/>
+    <key>value</key><dict>
+      <key>type</key><string>standard</string>
+      <key>parameters</key>
+      <array>
+        <integer>32</integer>
+        <integer>49</integer>
+        <integer>1048576</integer>
+      </array>
+    </dict>
+  </dict>
+"
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
 # Others
 defaults write com.apple.menuextra.battery ShowTime -string "YES"                  # Show battery time remaining
 defaults write com.apple.screensaver askForPassword -int 1                         # Require password immediately when screensaver activates
 defaults write com.apple.screensaver askForPasswordDelay -int 0                    # Require password immediately when screensaver activates
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true       # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.screencapture location -string "$HOME/Documents/• Screenshots" # Set location for screenshots
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = 'standard'; }; }" # Disable Cmd-Space (Spotlight)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0; value = { parameters = (32, 49, 1572864); type = 'standard'; }; }" # Disable Cmd-Opt-Space (Finder Search)
 defaults write com.apple.Siri StatusMenuVisible -int 0                            # Hide Siri status menu
 defaults write com.apple.Siri VoiceTriggerUserEnabled -int 0                       # Disable Siri voice trigger
 defaults write com.apple.Siri ConfirmSiriInvokedViaEitherCmdTwice -int 0           # Disable Siri confirmation
+defaults write com.apple.HIToolbox AppleFnUsageType -int 0                         # Disable globe key
+defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0                 # Disable globe key auto dictation
+
+
 
 chflags nohidden ~/Library                                                         # Show the ~/Library folder
 source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock
 
 # Enable snap-to-grid for desktop icons
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+
 
 # Set wallpaper
 for ext in heic jpg png; do

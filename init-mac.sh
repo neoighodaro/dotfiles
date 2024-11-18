@@ -150,6 +150,9 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true    
 defaults write com.apple.screencapture location -string "$HOME/Documents/• Screenshots" # Set location for screenshots
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0; value = { parameters = (32, 49, 1048576); type = 'standard'; }; }" # Disable Cmd-Space (Spotlight)
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0; value = { parameters = (32, 49, 1572864); type = 'standard'; }; }" # Disable Cmd-Opt-Space (Finder Search)
+defaults write com.apple.Siri StatusMenuVisible -int 0                            # Hide Siri status menu
+defaults write com.apple.Siri VoiceTriggerUserEnabled -int 0                       # Disable Siri voice trigger
+defaults write com.apple.Siri ConfirmSiriInvokedViaEitherCmdTwice -int 0           # Disable Siri confirmation
 
 chflags nohidden ~/Library                                                         # Show the ~/Library folder
 source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock

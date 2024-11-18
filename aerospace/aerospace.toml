@@ -213,6 +213,10 @@ alt-shift-l = ['join-with right', 'mode main']
 if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace T"
 
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = "move-node-to-workspace T"
+
 # Browsers
 # ------------------------------------------------------------------------------
 [[on-window-detected]]
@@ -228,6 +232,10 @@ run = "move-node-to-workspace B"
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
+run = "move-node-to-workspace C"
+
+[[on-window-detected]]
+if.app-id = 'com.krill.CodeRunner'
 run = "move-node-to-workspace C"
 
 [[on-window-detected]]

@@ -45,7 +45,7 @@ link_and_backup() {
     if [[ "$LINK_FILE" == "$DOTFILES_DIR/.gitignore.work" ]] && [ ! -f "$LINK_FILE" ]; then
         touch "$LINK_FILE"
         echo -e "${GREEN}==> Created empty file for $LINK_FILE.${NC}"
-    fi
+    if
 
     if [ -f "$DEFAULT_FILE" ] && [ ! -L "$DEFAULT_FILE" ]; then
         mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"

@@ -215,7 +215,6 @@ install_brew_package fzf
 install_brew_package zellij
 install_brew_package lazygit
 install_brew_package git-delta
-install_brew_package folderify
 
 # Caveat for GPG
 if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
@@ -298,8 +297,10 @@ fi
 
 ck_dir="$HOME/Developer/ck"
 if [[ ! -d "$ck_dir" ]]; then
+    install_brew_package folderify
     mkdir -p "$ck_dir"
     folderify --color-scheme dark "$DOTFILES_DIR/images/ck-mask.png" "$ck_dir"
+    brew uninstall folderify
 fi
 
 # Other Apps

@@ -238,7 +238,8 @@ ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                   
 # Apps & their config
 # ---------------------------------------------------------------------------------------------------
 
-mkdir -p ~/.config/aerospace
+mkdir -p "$HOME/.config/aerospace"
+mkdir -p "$HOME/Library/Application Support/xbar/plugins"
 
 link_and_backup "wezterm/wezterm.lua" .wezterm.lua                                              # Wezterm config
 link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml                     # Aerospace config

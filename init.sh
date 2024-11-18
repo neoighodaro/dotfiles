@@ -122,6 +122,12 @@ fi
 
 # Additional config files...
 link_and_backup "ssh/ssh-config" ".ssh/config"
+link_and_backup "ssh/config.d" ".ssh/config.d"
+
+# Add SSH key to keychain if not existing
+if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
+    ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                                              # Add SSH key to keychain
+fi
 
 # Vim customisations...
 # if [[ -f "/usr/bin/vim" ]]; then

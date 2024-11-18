@@ -1,3 +1,7 @@
+Include config.d/*
+
+# Global
+# ------------------------------------------------------------------------
 Host *
   SendEnv LANG LC_*
   MACs hmac-md5,hmac-sha1
@@ -9,10 +13,21 @@ Host *
   UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
 
+# GitHub
+# ------------------------------------------------------------------------
 Host github
   HostName github.com
   ForwardAgent yes
 
+# Raspberry Pi
+# ------------------------------------------------------------------------
 Host ckx02.local
     User neo
     Hostname 192.168.0.3
+
+# GitLab
+# ------------------------------------------------------------------------
+Host pinktum-cloud-gitlab
+    HostName 162.19.223.143
+    User debian
+    Port 8022

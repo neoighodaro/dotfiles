@@ -277,6 +277,7 @@ install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
 
 # Other Configs
 mkdir -p "$HOME/Library/Application Support/xbar/plugins"
+mkdir -p "$HOME/Library/Application Support/Code/User"
 link_and_backup "xbar/dnsswitcher.sh" "Library/Application Support/xbar/plugins/dnsswitcher.sh" # Xbar plugin
 
 # Ask if you want to customize VSCode

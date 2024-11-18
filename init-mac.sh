@@ -295,8 +295,8 @@ else
 fi
 
 
-if [[ ! -d "$HOME/Developer/CK" ]]; then
-    cp -R "$DOTFILES_DIR/CK" "$HOME/Developer"
+if [[ ! -d "$HOME/Developer/ck" ]]; then
+    cp -R "$DOTFILES_DIR/ck" "$HOME/Developer"
 fi
 
 # Other Apps

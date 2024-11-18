@@ -239,27 +239,10 @@ ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                   
 # ---------------------------------------------------------------------------------------------------
 
 mkdir -p "$HOME/.config/aerospace"
-mkdir -p "$HOME/Library/Application Support/xbar/plugins"
 
 link_and_backup "wezterm/wezterm.lua" .wezterm.lua                                              # Wezterm config
 link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml                     # Aerospace config
-link_and_backup "xbar/dnsswitcher.sh" "Library/Application Support/xbar/plugins/dnsswitcher.sh" # Xbar plugin
 
-# Ask if you want to customize VSCode
-if [[ ! -f "/tmp/vscode-installed" ]]; then
-    echo -e "${WHITE}==> Do you want to customize VSCode? [Y/n]${NC}"
-    read -r answer
-    if [[ $answer == "y" || $answer == "Y" ]]; then
-        link_and_backup "vscode/keybindings.json" "Library/Application Support/Code/User/keybindings.json" # VSCode keybindings
-        link_and_backup "vscode/settings.json" "Library/Application Support/Code/User/settings.json"       # VSCode config
-        link_and_backup "vscode/custom.css" "Library/Application Support/Code/User/custom.css"             # VSCode custom CSS
-        link_and_backup "vscode/custom.js" "Library/Application Support/Code/User/custom.js"               # VSCode custom JS
-        echo -e "${GREEN}==> VSCode customization complete.${NC}"
-    fi
-    touch /tmp/vscode-installed
-else
-    echo -e "${GRAY}==> Skipping VSCode customization...${NC}"
-fi
 
 brew tap nikitabobko/tap
 
@@ -291,6 +274,27 @@ install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask
 
 # AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
+
+# Other Configs
+mkdir -p "$HOME/Library/Application Support/xbar/plugins"
+link_and_backup "xbar/dnsswitcher.sh" "Library/Application Support/xbar/plugins/dnsswitcher.sh" # Xbar plugin
+
+# Ask if you want to customize VSCode
+if [[ ! -f "/tmp/vscode-installed" ]]; then
+    echo -e "${WHITE}==> Do you want to customize VSCode? [Y/n]${NC}"
+    read -r answer
+    if [[ $answer == "y" || $answer == "Y" ]]; then
+        link_and_backup "vscode/keybindings.json" "Library/Application Support/Code/User/keybindings.json" # VSCode keybindings
+        link_and_backup "vscode/settings.json" "Library/Application Support/Code/User/settings.json"       # VSCode config
+        link_and_backup "vscode/custom.css" "Library/Application Support/Code/User/custom.css"             # VSCode custom CSS
+        link_and_backup "vscode/custom.js" "Library/Application Support/Code/User/custom.js"               # VSCode custom JS
+        echo -e "${GREEN}==> VSCode customization complete.${NC}"
+    fi
+    touch /tmp/vscode-installed
+else
+    echo -e "${GRAY}==> Skipping VSCode customization...${NC}"
+fi
+
 
 # Other Apps
 if [[ ! -d "/Applications/Vivid.app" ]]; then

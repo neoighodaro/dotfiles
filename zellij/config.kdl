@@ -86,7 +86,7 @@ keybinds clear-defaults=true {
     session {
         bind "Ctrl x" { SwitchToMode "Normal"; }
         bind "d" { Detach; }
-        bind "Backspace" { Detach; }
+        bind "Backspace" { Detach;}
         bind "w" {
             LaunchOrFocusPlugin "zellij:session-manager" {
                 floating true
@@ -106,8 +106,8 @@ keybinds clear-defaults=true {
         bind "Alt n" { NewPane; SwitchToMode "Pane"; }
         bind "Alt t" { NewTab; SwitchToMode "Tab"; }
         bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
-        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Ctrl Alt h" "Ctrl Alt Left" { MoveFocusOrTab "Left"; }
+        bind "Ctrl Alt l" "Ctrl Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }

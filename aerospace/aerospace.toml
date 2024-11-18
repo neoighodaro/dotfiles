@@ -244,7 +244,6 @@ run = "move-node-to-workspace P"
 
 # Others
 # ------------------------------------------------------------------------------
-
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = "move-node-to-workspace 1"
@@ -255,7 +254,7 @@ run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
-run = "move-node-to-workspace 1"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'

@@ -102,10 +102,10 @@ defaults write com.apple.dock minimize-to-application -bool true                
 defaults write com.apple.dock magnification -bool false                            # Magnify icons when hovering over them
 defaults write com.apple.dock mineffect -string scale                              # Minimizing windows effect
 defaults write com.apple.dock autohide -bool true                                  # Automatically hide and show the dock
-defaults write com.apple.dock autohide-delay -float 2                             # Delay before auto-hiding or showing the dock
+defaults write com.apple.dock autohide-delay -float 1                              # Delay before auto-hiding or showing the dock
 defaults write com.apple.dock autohide-time-modifier -float 0                      # Time modifier for auto-hiding or showing the dock
 defaults write com.apple.dock launchanim -bool false                               # Animate opening applications
-defaults write com.apple.dock tilesize -int 47                                     # Set size of the dock
+defaults write com.apple.dock tilesize -int 37                                     # Set size of the dock
 defaults write com.apple.dock wvous-bl-corner -int 4                               # Hot-corner: bottom-left screen corner → Desktop
 defaults write com.apple.dock wvous-bl-modifier -int 0                             # Hot-corner: bottom-left screen corner → Desktop
 defaults write com.apple.dock show-recents -int 0                                  # Hide recents
@@ -294,6 +294,10 @@ else
     echo -e "${GRAY}==> Skipping VSCode customization...${NC}"
 fi
 
+
+if [[ ! -d "$HOME/Developer/ck" ]]; then
+    cp -R "$DOTFILES_DIR/ck" "$HOME/Developer"
+fi
 
 # Other Apps
 if [[ ! -d "/Applications/Vivid.app" ]]; then

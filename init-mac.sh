@@ -154,6 +154,8 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 
 # Set wallpaper
 for ext in heic jpg png; do
+  dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
+  [ -f "$dotfiles_wallpaper" ] && link_and_backup "wallpapers/wallpaper.png" "Pictures/wallpaper.$ext"
   wallpaper="$HOME/Pictures/wallpaper.$ext"
   [ -f "$wallpaper" ] && osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$wallpaper\"" && break
 done
@@ -243,9 +245,10 @@ brew tap nikitabobko/tap
 # Install Needed Apps using Homebrew Cask
 install_cask_app wezterm
 install_cask_app 1password
-install_cask_app font-jetbrains-mono-nerd-font
-install_cask_app arc
+install_cask_app nordvpn
 install_cask_app docker
+install_cask_app arc
+install_cask_app font-jetbrains-mono-nerd-font
 install_cask_app visual-studio-code
 install_cask_app phpstorm
 install_cask_app hazel
@@ -258,11 +261,15 @@ install_cask_app xbar
 install_cask_app boop
 install_cask_app tableplus
 install_cask_app coderunner
+install_cask_app postman
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 
 # AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
+
+# Open Some default apps
+open -a xbar
 
 # CodeRunner is too presumptuous, it always tries to set itself as default for everything
 open -a CodeRunner

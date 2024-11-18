@@ -315,13 +315,12 @@ if [[ ! -f "/tmp/default-browser-installed" ]]; then
 fi
 
 # Open Some default apps if not already open
-if ! is_app_running "xbar"; then
-    open -a xbar
-fi
-
-if ! is_app_running "raycast"; then
-    open -a raycast
-fi
+auto_open_apps=("xbar" "raycast" "ice")
+for app in "${auto_open_apps[@]}"; do
+    if ! is_app_running "$app"; then
+        open -a "$app"
+    fi
+done
 
 # CodeRunner is too presumptuous, it always tries to set itself as default for everything
 open -a CodeRunner

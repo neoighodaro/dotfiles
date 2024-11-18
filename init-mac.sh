@@ -217,14 +217,6 @@ install_brew_package zellij
 install_brew_package lazygit
 install_brew_package git-delta
 
-# Set the default browser and remove the default browser package
-if [[ ! -f "/tmp/default-browser-installed" ]]; then
-    install_brew_package defaultbrowser
-    defaultbrowser browser
-    brew uninstall defaultbrowser
-    touch /tmp/default-browser-installed
-fi
-
 # Caveat for GPG
 if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
     mkdir -p "$HOME/.gnupg" && touch "$HOME/.gnupg/gpg-agent.conf"
@@ -306,6 +298,14 @@ if [[ ! -d "/Applications/Vivid.app" ]]; then
     curl -L "$download_vivid_url" -o ~/Downloads/Vivid.zip
     unzip ~/Downloads/Vivid.zip -d ~/Downloads
     mv ~/Downloads/Vivid.app /Applications
+fi
+
+# Set the default browser and remove the default browser package
+if [[ ! -f "/tmp/default-browser-installed" ]]; then
+    install_brew_package defaultbrowser
+    defaultbrowser browser
+    brew uninstall defaultbrowser
+    touch /tmp/default-browser-installed
 fi
 
 # Open Some default apps if not already open

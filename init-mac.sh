@@ -315,7 +315,7 @@ if [[ ! -f "/tmp/default-browser-installed" ]]; then
 fi
 
 # Open Some default apps if not already open
-auto_open_apps=("xbar" "raycast" "ice")
+auto_open_apps=("xbar" "Raycast" "Ice")
 for app in "${auto_open_apps[@]}"; do
     if ! is_app_running "$app"; then
         open -a "$app"

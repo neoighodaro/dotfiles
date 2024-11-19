@@ -2,8 +2,10 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = true
-command_timeout = 1000
+
+# A minimal left prompt
 palette = "catppuccin_mocha"
+command_timeout = 1000
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'
@@ -13,8 +15,27 @@ error_symbol = '[✗](bold red)'
 [golang]
 format = '[ ](bold cyan)'
 
-[shell]
-format = "[](bold blue)"
+[git_branch]
+format = '[$symbol$branch](bold pink)'
+
+[git_commit]
+tag_disabled = true
+
+[nodejs]
+format = '[$symbol($version )]($style)'
+
+[package]
+disabled = true
+
+[php]
+format = '[ ](bold blue)'
+
+[custom.docker]
+# command = "echo 󰡨 "
+symbol = "󰡨 "
+format = "[$symbol](bold blue)"
+detect_files = ["Dockerfile", "docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml"]
+when = """ command -v docker &>/dev/null ; exit (echo $?) ; """
 
 # Increase truncation length and add truncation symbol
 [directory]
@@ -23,8 +44,11 @@ truncation_length = 8
 truncation_symbol = '…/'
 
 [directory.substitutions]
-"~/Developer/" = "󰅨 "
-"~/Developer" = "󰅨 "
+"~/Developer/" = "󱃖 "
+"~/Developer" = "󱃖 "
+"~/" = "󰋜 "
+"~" = "󰋜 "
+"pinktum/academy/" = "academy-"
 
 # Palette
 [palettes.catppuccin_mocha]

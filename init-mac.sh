@@ -181,9 +181,9 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 
 # Set wallpaper
 for ext in heic jpg png; do
-  dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
-  [ -f "$dotfiles_wallpaper" ] && link_and_backup "wallpapers/wallpaper.png" "Pictures/wallpaper.$ext"
   wallpaper="$HOME/Pictures/wallpaper.$ext"
+  dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
+  [ -f "$dotfiles_wallpaper" && ! -f "$wallpaper" ] && link_and_backup "wallpapers/wallpaper.$ext" "Pictures/wallpaper.$ext"
   [ -f "$wallpaper" ] && osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$wallpaper\"" && break
 done
 
@@ -215,6 +215,7 @@ install_brew_package fzf
 install_brew_package zellij
 install_brew_package lazygit
 install_brew_package git-delta
+install_brew_package folderify
 
 # Caveat for GPG
 if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
@@ -297,10 +298,8 @@ fi
 
 ck_dir="$HOME/Developer/ck"
 if [[ ! -d "$ck_dir" ]]; then
-    install_brew_package folderify
     mkdir -p "$ck_dir"
     folderify --color-scheme dark "$DOTFILES_DIR/images/ck-mask.png" "$ck_dir"
-    brew uninstall folderify
 fi
 
 # Other Apps

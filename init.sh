@@ -45,7 +45,7 @@ link_and_backup() {
     if [[ "$LINK_FILE" == "$DOTFILES_DIR/.gitignore.work" ]] && [ ! -f "$LINK_FILE" ]; then
         touch "$LINK_FILE"
         echo -e "${GREEN}==> Created empty file for $LINK_FILE.${NC}"
-    if
+    fi
 
     if [ -f "$DEFAULT_FILE" ] && [ ! -L "$DEFAULT_FILE" ]; then
         mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
@@ -87,6 +87,7 @@ link_and_backup "zsh/zshrc.sh" ".zshrc"
 link_and_backup "zsh/aliases.sh" ".zshrc_aliases"
 link_and_backup "zsh/functions.sh" ".zshrc_functions"
 link_and_backup "zsh/paths.sh" ".zshrc_paths"
+link_and_backup "zsh/private.sh" ".zshrc_scripts"
 link_and_backup "starship/starship.toml" ".config/starship.toml"
 link_and_backup "configs/curlrc" ".curlrc"
 link_and_backup "configs/hushlogin" ".hushlogin"

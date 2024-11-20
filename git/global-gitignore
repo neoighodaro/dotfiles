@@ -1,5 +1,4 @@
 *.pyc
-/.idea
 .vimrc
 .DS_Store
 .phpstorm.meta.php
@@ -19,8 +18,6 @@ tags
 tags.lock
 tags.temp
 .php_cs.cache
-.vscode/
-*.code-workspace
 storage/debugbar
 .env.testing
 .phpunit.result.cache

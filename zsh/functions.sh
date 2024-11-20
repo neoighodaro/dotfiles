@@ -21,3 +21,6 @@ storm() { open -na "PhpStorm.app" --args "$@" }
 
 # Find cd
 fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && eza -l --icons --git -a; }
+
+# Brew Cask Uninstall
+buc() { brew uninstall "$@" --cask --zap; }

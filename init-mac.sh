@@ -183,7 +183,7 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 for ext in heic jpg png; do
   wallpaper="$HOME/Pictures/wallpaper.$ext"
   dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
-  [ -f "$dotfiles_wallpaper" && ! -f "$wallpaper" ] && link_and_backup "wallpapers/wallpaper.$ext" "Pictures/wallpaper.$ext"
+  [ -f "$dotfiles_wallpaper" ] && [ ! -f "$wallpaper" ] && link_and_backup "wallpapers/wallpaper.$ext" "Pictures/wallpaper.$ext"
   [ -f "$wallpaper" ] && osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$wallpaper\"" && break
 done
 
@@ -251,7 +251,6 @@ install_cask_app 1password
 install_cask_app nordvpn
 install_cask_app docker
 install_cask_app arc
-install_cask_app zen-browser
 install_cask_app font-jetbrains-mono-nerd-font
 install_cask_app visual-studio-code
 install_cask_app phpstorm

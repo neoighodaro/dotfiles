@@ -251,6 +251,7 @@ install_cask_app 1password
 install_cask_app nordvpn
 install_cask_app docker
 install_cask_app arc
+install_cask_app zen-browser
 install_cask_app font-jetbrains-mono-nerd-font
 install_cask_app visual-studio-code
 install_cask_app phpstorm

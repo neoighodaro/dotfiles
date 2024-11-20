@@ -227,6 +227,11 @@ run = "move-node-to-workspace B"
 if.app-id = 'com.apple.Safari'
 run = "move-node-to-workspace B"
 
+[[on-window-detected]]
+if.app-id = 'org.mozilla.com.zen.browser'
+run = "move-node-to-workspace B"
+
+
 # IDEs
 # ------------------------------------------------------------------------------
 

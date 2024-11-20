@@ -106,10 +106,10 @@ keybinds clear-defaults=true {
         bind "Alt n" { NewPane; SwitchToMode "Pane"; }
         bind "Alt t" { NewTab; SwitchToMode "Tab"; }
         bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
-        bind "Ctrl Alt h" "Ctrl Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Ctrl Alt l" "Ctrl Alt Right" { MoveFocusOrTab "Right"; }
-        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
-        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+        bind "Ctrl Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Ctrl Alt Left" { MoveFocusOrTab "Left"; }
+        bind "Ctrl Alt Down" { MoveFocus "Down"; }
+        bind "Ctrl Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
     }

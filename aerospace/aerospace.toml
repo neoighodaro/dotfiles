@@ -276,3 +276,7 @@ run = "move-node-to-workspace M"
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
 run = "move-node-to-workspace P"
+
+[[on-window-detected]]
+if.app-id = 'com.tinyapp.TablePlus'
+run = "move-node-to-workspace 1"

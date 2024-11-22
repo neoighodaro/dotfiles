@@ -101,6 +101,8 @@ link_and_backup "git/base.cfg" ".gitconfig"
 [[ $IS_MACOS -eq 1 ]] && link_and_backup "git/mac.cfg" ".gitconfig.extended"
 [[ $IS_MACOS -eq 1 ]] && link_and_backup "configs/mackup.cfg" ".mackup.cfg"
 [[ -f "$DOTFILES_DIR/git/private.cfg" ]] && link_and_backup "git/private.cfg" ".gitconfig.private"
+[[ -f "$DOTFILES_DIR/git/personal.cfg" ]] && link_and_backup "git/personal.cfg" ".gitconfig.personal"
+[[ -f "$DOTFILES_DIR/git/work.cfg" ]] && link_and_backup "git/work.cfg" ".gitconfig.work"
 
 # Run platform specific scripts...
 if [[ $IS_MACOS -eq 1 ]]; then

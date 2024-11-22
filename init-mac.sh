@@ -268,6 +268,7 @@ install_cask_app sensei
 install_cask_app postman
 install_cask_app tinkerwell
 install_cask_app ray
+install_cask_app gitkraken
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 

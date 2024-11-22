@@ -251,6 +251,25 @@ run = "move-node-to-workspace I"
 if.app-id = 'com.jetbrains.intellij'
 run = "move-node-to-workspace I"
 
+[[on-window-detected]]
+if.app-id = 'de.beyondco.tinkerwell'
+run = "move-node-to-workspace I"
+
+# Messages
+# ------------------------------------------------------------------------------
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = "move-node-to-workspace M"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = "move-node-to-workspace M"
+
 # Others
 # ------------------------------------------------------------------------------
 [[on-window-detected]]
@@ -264,14 +283,6 @@ run = "move-node-to-workspace 1"
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
 run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.teams2'
-run = "move-node-to-workspace M"
-
-[[on-window-detected]]
-if.app-id = 'com.apple.MobileSMS'
-run = "move-node-to-workspace M"
 
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'

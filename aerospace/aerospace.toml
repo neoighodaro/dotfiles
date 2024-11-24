@@ -231,7 +231,6 @@ run = "move-node-to-workspace B"
 if.app-id = 'org.mozilla.com.zen.browser'
 run = "move-node-to-workspace B"
 
-
 # IDEs
 # ------------------------------------------------------------------------------
 
@@ -253,6 +252,10 @@ run = "move-node-to-workspace I"
 
 [[on-window-detected]]
 if.app-id = 'de.beyondco.tinkerwell'
+run = "move-node-to-workspace I"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.dt.Xcode'
 run = "move-node-to-workspace I"
 
 # Messages

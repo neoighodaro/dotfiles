@@ -215,6 +215,7 @@ install_brew_package fzf
 install_brew_package zellij
 install_brew_package lazygit
 install_brew_package git-delta
+install_brew_package deno
 install_brew_package folderify
 
 # Caveat for GPG

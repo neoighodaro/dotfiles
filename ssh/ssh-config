@@ -21,6 +21,10 @@ Host github
 
 # Raspberry Pi
 # ------------------------------------------------------------------------
+Host ckx01.local
+    User neo
+    Hostname 192.168.0.2
+
 Host ckx02.local
     User neo
     Hostname 192.168.0.3

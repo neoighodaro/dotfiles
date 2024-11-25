@@ -126,8 +126,6 @@ link_and_backup "git/base.cfg" ".gitconfig"
 [[ -f "$DOTFILES_DIR/git/personal.cfg" ]] && link_and_backup "git/personal.cfg" ".gitconfig.personal"
 [[ -f "$DOTFILES_DIR/git/work.cfg" ]] && link_and_backup "git/work.cfg" ".gitconfig.work"
 
-
-
 # Generate SSH Keys
 # ------------------------------------------------------------------------------
 SSH_CHECK_RUN_FILE="/tmp/dotfiles__ssh-skip-check"

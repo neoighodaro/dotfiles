@@ -28,6 +28,8 @@ echo -e "${GREEN}==> Configured SSH.${NC}"
 
 # Swap Memory
 # ---------------------------------------------------------------------------------------------------
+echo -e "${WHITE}==> Configuring Swap...${NC}"
+
 SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
 if [[ $SWAP_FILE_ALREADY_ALLOCATED -eq 0 ]]; then
     RAMSIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
@@ -54,6 +56,8 @@ if [[ $SWAP_FILE_ALREADY_ALLOCATED -eq 0 ]]; then
     else
         echo -e "${RED}===> Not enough RAM to create swap file. Skipping...${NC}"
     fi
+else
+    echo -e "${GRAY}==> Swap file already allocated. Skipping...${NC}"
 fi
 
 echo -e "${GREEN}==> Linux settings updated.${NC}"

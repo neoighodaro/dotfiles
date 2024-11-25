@@ -61,7 +61,8 @@ fi
 # ---------------------------------------------------------------------------------------------------
 echo -e "${WHITE}==> Configuring Swap...${NC}"
 
-SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
+# SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
+SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s 2>/dev/null | grep -c "/swapfile" || echo 0)
 
 echo -e "${WHITE}==> Swap file already allocated? ${SWAP_FILE_ALREADY_ALLOCATED}${NC}"
 

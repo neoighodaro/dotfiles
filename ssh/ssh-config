@@ -10,7 +10,6 @@ Host *
   AddressFamily inet
   ServerAliveInterval 15
   ConnectTimeout 20
-  UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
 
 # GitHub

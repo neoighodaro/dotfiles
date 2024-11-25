@@ -118,7 +118,7 @@ else
 fi
 
 ## Deno
-if ! command -v deno &> /dev/null; then
+if [ ! -s "$HOME.deno/env" ]; then
     echo -e "${WHITE}==> Installing Deno...${NC}"
     curl -fsSL https://deno.land/x/install/install.sh | sh        # Deno
     echo -e "${GREEN}==> Installed Deno.${NC}"

@@ -102,11 +102,21 @@ install_apt_package zsh-syntax-highlighting
 install_apt_package eza
 install_apt_package bat
 install_apt_package zoxide
-install_apt_package fzf
 install_apt_package unzip
 source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta
+
+## FZF
+if ! command -v fzf &> /dev/null; then
+    echo -e "${WHITE}==> Installing FZF...${NC}"
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+    rm -rf ~/.fzf
+    echo -e "${GREEN}==> Installed FZF.${NC}"
+else
+    echo -e "${GRAY}==> Already installed FZF. Skipping...${NC}"
+fi
 
 ## Starship
 if ! command -v starship &> /dev/null; then

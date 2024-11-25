@@ -29,13 +29,32 @@ else
     echo -e "${GREEN}==> Locale set.${NC}"
 fi
 
-## SSH
+# SSH
+# ---------------------------------------------------------------------------------------------------
+CONFIGURED_AT_LEAST_ONCE=false
 echo -e "${WHITE}==> Configuring SSH...${NC}"
-sudo sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
-sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
-sudo systemctl restart ssh
-echo -e "${GREEN}==> Configured SSH.${NC}"
+
+if grep -q "UsePAM yes" /etc/ssh/sshd_config; then
+    CONFIGURED_AT_LEAST_ONCE=true
+    sudo sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+fi
+
+if grep -q "PermitRootLogin yes" /etc/ssh/sshd_config; then
+    CONFIGURED_AT_LEAST_ONCE=true
+    sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+fi
+
+if grep -q "PasswordAuthentication yes" /etc/ssh/sshd_config; then
+    CONFIGURED_AT_LEAST_ONCE=true
+    sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+fi
+
+if [ "$CONFIGURED_AT_LEAST_ONCE" = true ]; then
+    sudo systemctl restart ssh
+    echo -e "${GREEN}==> Configured SSH.${NC}"
+else
+    echo -e "${GRAY}==> SSH is already configured. Skipping...${NC}"
+fi
 
 
 # Swap Memory

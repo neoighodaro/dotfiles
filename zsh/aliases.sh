@@ -9,6 +9,7 @@ alias clr="clear"
 alias k="kubectl"
 alias lg="lazygit"
 alias cat="bat"
+alias rm="trash"
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias reload='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshconfig="code ~/.ssh/config"
@@ -46,7 +47,6 @@ alias phpunit="./vendor/bin/phpunit"
 # Mac Specific
 # ------------------------------------------------------------------------------
 if [[ $IS_MACOS -eq 1 ]]; then
-    alias rm="trash"
     alias pinentry="pinentry-mac"
     alias spotlighton="sudo mdutil -a -i on"
     alias spotlightoff="sudo mdutil -a -i off"

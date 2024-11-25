@@ -2,11 +2,13 @@
 
 set -e
 
-# Directories
+# Variables
+# ----------------------------------------------------------------------------------------
+## Directories
 DOTFILES_DIR="$HOME/Developer/dotfiles"
-LOGGED_IN_USER=`/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }'`
+NVM_VERSION="v0.40.1"
 
-# Colors
+## Colors
 WHITE="\033[1;37m"
 GRAY="\033[0;90m"
 GREEN="\033[0;32m"
@@ -15,23 +17,35 @@ INDIGO="\033[0;94m"
 RED="\033[0;31m"
 NC="\033[0m"
 
-# Check OS
+## OS checks
 IS_MACOS=$(uname -s | grep -i "darwin" | wc -l | tr -d '[:space:]')
 IS_LINUX=$(uname -s | grep -i "linux" | wc -l | tr -d '[:space:]')
 
-# Prevent running script as root...
+
+# Safety checks
+# ----------------------------------------------------------------------------------------
+## Prevent running script as root...
 if [ "$EUID" -eq 0 ]; then
   echo -e "${RED}===> Please don't run as root.${NC}"
   exit 1
 fi
 
-# Check if ZSH is installed
+## Make sure ZSH is installed
 if [[ ! -f "/bin/zsh" ]]; then
-    echo -e "${RED}===> ZSH is not installed. Please install ZSH first.${NC}"
-    exit 1
+    if [[ $IS_LINUX -eq 1 ]]; then
+        echo -e "${YELLOW}===> Installing ZSH...${NC}"
+        sudo apt install zsh
+        chsh -s $(which zsh)
+    else
+        echo -e "${RED}===> ZSH is not installed. Please install ZSH first.${NC}"
+        exit 1
+    fi
 fi
 
-# Link and backup files
+
+# Helper functions
+# ----------------------------------------------------------------------------------------
+## Link and backup files
 link_and_backup() {
     local SKIP_LINKING=0
     local DEFAULT_FILE="$HOME/${2:-$1}"
@@ -68,20 +82,20 @@ link_and_backup() {
     fi
 }
 
-# ---------------------------------------------------------------------------------------------------
-# Begin
-# ---------------------------------------------------------------------------------------------------
 
-echo -e "${WHITE}==> Initializing...${NC}"
-
-# @todo: gpg generation
+# Begin Script
+# ---------------------------------------------------------------------------------------------------
 
 cd $HOME
+echo -e "${WHITE}==> Initializing...${NC}"
 
-# Prepare for dotfiles
+
+# Prepare & link dotfiles
+# ---------------------------------------------------------------------------------------------------
+## Make necessary directories
 mkdir -p ~/.config ~/.config/lazygit
 
-# Copy the dotfiles...
+## Link the dotfiles...
 link_and_backup "zellij" ".config/zellij"
 link_and_backup "zsh/zshrc.sh" ".zshrc"
 link_and_backup "zsh/aliases.sh" ".zshrc_aliases"
@@ -104,7 +118,19 @@ link_and_backup "git/base.cfg" ".gitconfig"
 [[ -f "$DOTFILES_DIR/git/personal.cfg" ]] && link_and_backup "git/personal.cfg" ".gitconfig.personal"
 [[ -f "$DOTFILES_DIR/git/work.cfg" ]] && link_and_backup "git/work.cfg" ".gitconfig.work"
 
+
+# Install NVM
+# ---------------------------------------------------------------------------------------------------
+if [ -f "$NVM_DIR/nvm.sh" ]; then
+    echo -e "${GRAY}==> NVM is already installed. Skipping...${NC}"
+else
+    echo -e "${WHITE}==> Installing NVM...${NC}"
+    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh" | bash
+fi
+
+
 # Run platform specific scripts...
+# ------------------------------------------------------------------------------
 if [[ $IS_MACOS -eq 1 ]]; then
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
     source "$DOTFILES_DIR/init-mac.sh"
@@ -112,24 +138,49 @@ elif [[ $IS_LINUX -eq 1 ]]; then
     source "$DOTFILES_DIR/init-linux.sh"
 fi
 
-# SSH if not existing
-if [[ ! -f "$HOME/.ssh/id_ed25519.pub" ]]; then
-    ssh-keygen -t ed25519 -C "public@neoi.sh" -f $HOME/.ssh/id_ed25519
+# Generate SSH Keys
+# ------------------------------------------------------------------------------
+SSH_CHECK_RUN_FILE="/tmp/dotfiles__ssh-skip-check"
+if [[ ! -f "$HOME/.ssh/id_ed25519.pub" ]] && [[ ! -f "$SSH_CHECK_RUN_FILE" ]]; then
+    touch "$SSH_CHECK_RUN_FILE"
+    echo -e "${WHITE}==> Would you like to generate an SSH key? [y/N]${NC}"
+    read -r answer
+
+    if [[ $answer == "y" || $answer == "Y" ]]; then
+        echo -e "${WHITE}==> Generating SSH key...${NC}"
+        ssh-keygen -t ed25519 -C "public@neoi.sh" -f $HOME/.ssh/id_ed25519
+    else
+        echo -e "${WHITE}==> Skipping SSH key generation...${NC}"
+    fi
 fi
 
-# Generate GPG key if not existing
-if [[ -z "$(gpg --list-keys 2>/dev/null)" ]]; then
-    echo -e "${WHITE}==> Generating GPG key...${NC}"
-    gpg --full-generate-key
+## Additional set up for SSH
+if [[ -f "$HOME/.ssh/id_ed25519.pub" ]]; then
+    link_and_backup "ssh/ssh-config" ".ssh/config"
+    link_and_backup "ssh/config.d" ".ssh/config.d"
 fi
 
-# Additional config files...
-link_and_backup "ssh/ssh-config" ".ssh/config"
-link_and_backup "ssh/config.d" ".ssh/config.d"
+## Add SSH key to keychain
+if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
+    [[ $IS_MACOS -eq 1 ]] && ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1
+    [[ $IS_LINUX -eq 1 ]] && ssh-add -k ~/.ssh/id_ed25519 > /dev/null 2>&1
+fi
 
-# Add SSH key to keychain if not existing
-if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
-    ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1                                                              # Add SSH key to keychain
+
+# Generate GPG key
+# ------------------------------------------------------------------------------
+GPG_CHECK_RUN_FILE="/tmp/dotfiles__gpg-skip-check"
+if [[ -z "$(gpg --list-keys 2>/dev/null)" ]] && [[ ! -f "$GPG_CHECK_RUN_FILE" ]]; then
+    touch "$GPG_CHECK_RUN_FILE"
+    echo -e "${WHITE}==> Would you like to generate a GPG key? [y/N]${NC}"
+    read -r answer
+
+    if [[ $answer == "y" || $answer == "Y" ]]; then
+        echo -e "${WHITE}==> Generating GPG key...${NC}"
+        gpg --full-generate-key
+    else
+        echo -e "${WHITE}==> Skipping GPG key generation...${NC}"
+    fi
 fi
 
 # Vim customisations...

@@ -134,8 +134,14 @@ export LC_ALL=${LC_ALL:-$LANG}                          # Prefer US English and 
 export GREP_OPTIONS="--color=auto"                      # Always enable colored `grep` output
 export GPG_TTY=$(tty)                                   # Fix GPG prompt
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"      # Link Homebrew casks in `/Applications` rather than `~/Applications`
-export NVM_DIR="$HOME/.nvm"                             # Node version manager
 export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
+
+# NVM
+# ----------------------------------------------------------------------------------------
+NVM_POTENTIAL_PATH="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+if [ -d "$NVM_POTENTIAL_PATH" ]; then
+    export NVM_DIR="$NVM_POTENTIAL_PATH"
+fi
 
 [ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
 export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH

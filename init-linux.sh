@@ -64,12 +64,14 @@ echo -e "${WHITE}==> Configuring Swap...${NC}"
 SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
 if [[ $SWAP_FILE_ALREADY_ALLOCATED -eq 0 ]]; then
     echo -e "${WHITE}==> Allocating swap file...${NC}"
-    RAMSIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     SWAPSIZE=0
-    if [ $RAMSIZE -ge 2 ] && [ $RAMSIZE -lt 32 ]; then
-        SWAPSIZE=$((RAMSIZE/2))
-    elif [ $RAMSIZE -ge 32 ]; then
-        SWAPSIZE=$((RAMSIZE/4))
+    RAMSIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+    RAMSIZE_GB=$((RAMSIZE / 1024 / 1024))
+
+    if [ $RAMSIZE_GB -ge 2 ] && [ $RAMSIZE_GB -lt 32 ]; then
+        SWAPSIZE=$((RAMSIZE_GB / 2))
+    elif [ $RAMSIZE_GB -ge 32 ]; then
+        SWAPSIZE=$((RAMSIZE_GB / 4))
     fi
 
     if [ $SWAPSIZE -gt 0 ]; then

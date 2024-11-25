@@ -10,6 +10,9 @@ fi
 # Prevent from running this script multiple times
 ___ALREADY_INITIALIZED_DOTFILES=1
 
+# Completions
+if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
+
 # General Options
 # ------------------------------------------------------------------------------
 ## Fixes tmux 256 color issue
@@ -136,6 +139,10 @@ export GPG_TTY=$(tty)                                   # Fix GPG prompt
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"      # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
 
+# Deno
+# ----------------------------------------------------------------------------------------
+[ -s "$HOME.deno/env" ] && \. "$HOME.deno/env"
+
 # NVM
 # ----------------------------------------------------------------------------------------
 NVM_POTENTIAL_PATH="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -143,6 +150,8 @@ if [[ -d "$NVM_POTENTIAL_PATH" ]] && [[ -f "$NVM_POTENTIAL_PATH/nvm.sh" ]]; then
     export NVM_DIR="$NVM_POTENTIAL_PATH"
 fi
 
+# Other stuff
+# ----------------------------------------------------------------------------------------
 [ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
 export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
 
@@ -153,15 +162,12 @@ export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
 
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"      # Add /usr/local/bin to PATH, LEAVE AS LAST!
 
-# ----------------------------------------------------------------------------------------
 # LOAD PACKAGES
 # ----------------------------------------------------------------------------------------
-
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                    # Node Version Manager
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Node Version Manager
 
-# ----------------------------------------------------------------------------------------
+
 # LOAD CUSTOM SCRIPTS
 # ----------------------------------------------------------------------------------------
-
 [ -f "$HOME/.zshrc_scripts" ] && \. "$HOME/.zshrc_scripts"

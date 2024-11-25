@@ -112,7 +112,6 @@ if ! command -v fzf &> /dev/null; then
     echo -e "${WHITE}==> Installing FZF...${NC}"
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
-    rm -rf ~/.fzf
     echo -e "${GREEN}==> Installed FZF.${NC}"
 else
     echo -e "${GRAY}==> Already installed FZF. Skipping...${NC}"

@@ -8,6 +8,7 @@ local IS_LINUX=$(uname -s | grep -i "linux" | wc -l | tr -d '[:space:]')
 alias clr="clear"
 alias k="kubectl"
 alias lg="lazygit"
+alias nano="vi"
 [[ $IS_MACOS -eq 1 ]] && alias cat="bat"
 [[ $IS_LINUX -eq 1 ]] && alias cat="batcat"
 [[ $IS_MACOS -eq 1 ]] && alias rm="trash"

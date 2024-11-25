@@ -18,6 +18,11 @@ install_apt_package() {
 # ------------------------------------------------------------------------------
 echo -e "${WHITE}==> Configuring Linux...${NC}"
 
+## Locale
+export LC_ALL="en_US.UTF-8"
+sudo locale-gen "en_US.UTF-8"
+sudo dpkg-reconfigure locales
+
 ## SSH
 echo -e "${WHITE}==> Configuring SSH...${NC}"
 sudo sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config

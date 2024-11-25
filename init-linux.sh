@@ -109,7 +109,7 @@ echo -e "${GREEN}==> Linux settings updated.${NC}"
 install_apt_package gnupg
 install_apt_package zsh-autosuggestions
 install_apt_package zsh-syntax-highlighting
-install_apt_packafe eza
+install_apt_package eza
 install_apt_package bat
 install_apt_package zoxide
 install_apt_package fzf

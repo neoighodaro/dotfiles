@@ -32,8 +32,6 @@ fi
 # SSH
 # ---------------------------------------------------------------------------------------------------
 CONFIGURED_AT_LEAST_ONCE=false
-echo -e "${WHITE}==> Configuring SSH...${NC}"
-
 if grep -q "UsePAM yes" /etc/ssh/sshd_config; then
     CONFIGURED_AT_LEAST_ONCE=true
     sudo sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
@@ -50,6 +48,7 @@ if grep -q "PasswordAuthentication yes" /etc/ssh/sshd_config; then
 fi
 
 if [ "$CONFIGURED_AT_LEAST_ONCE" = true ]; then
+    echo -e "${WHITE}==> Configuring SSH...${NC}"
     sudo systemctl restart ssh
     echo -e "${GREEN}==> Configured SSH.${NC}"
 else
@@ -59,15 +58,6 @@ fi
 
 # Swap Memory
 # ---------------------------------------------------------------------------------------------------
-echo -e "${WHITE}==> Configuring Swap...${NC}"
-
-# SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
-# if free | awk '/^Swap:/ {exit !$2}'; then
-#     echo "Have swap"
-# else
-#     echo "No swap"
-# fi
-
 SWAP_FILE_ALREADY_ALLOCATED=$(free | awk '/^Swap:/ {exit !$2}' && echo 1 || echo 0)
 if [[ "$SWAP_FILE_ALREADY_ALLOCATED" -eq 0 ]]; then
     echo -e "${WHITE}==> Allocating swap file...${NC}"
@@ -113,7 +103,6 @@ install_apt_package eza
 install_apt_package bat
 install_apt_package zoxide
 install_apt_package fzf
-install_apt_package starship
 source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta

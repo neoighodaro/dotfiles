@@ -20,7 +20,7 @@ echo -e "${WHITE}==> Configuring Linux...${NC}"
 
 ## Locale
 if grep -q "en_US.UTF-8" /etc/locale.gen; then
-    echo -e "${GREEN}==> Locale already set.${NC}"
+    echo -e "${GRAY}==> Locale already set. Skipping...${NC}"
 else
     echo -e "${WHITE}==> Setting locale...${NC}"
     export LC_ALL="en_US.UTF-8"
@@ -103,6 +103,7 @@ install_apt_package eza
 install_apt_package bat
 install_apt_package zoxide
 install_apt_package fzf
+install_apt_package unzip
 source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta

@@ -19,10 +19,12 @@ install_apt_package() {
 echo -e "${WHITE}==> Configuring Linux...${NC}"
 
 ## SSH
+echo -e "${WHITE}==> Configuring SSH...${NC}"
 sudo sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 sudo systemctl restart ssh
+echo -e "${GREEN}==> Configured SSH.${NC}"
 
 # Swap Memory
 # ---------------------------------------------------------------------------------------------------

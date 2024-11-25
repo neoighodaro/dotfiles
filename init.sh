@@ -89,6 +89,14 @@ link_and_backup() {
 cd $HOME
 echo -e "${WHITE}==> Initializing...${NC}"
 
+# Install NVM
+# ---------------------------------------------------------------------------------------------------
+if [ -f "$NVM_DIR/nvm.sh" ]; then
+    echo -e "${GRAY}==> NVM is already installed. Skipping...${NC}"
+else
+    echo -e "${WHITE}==> Installing NVM...${NC}"
+    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh" | bash
+fi
 
 # Prepare & link dotfiles
 # ---------------------------------------------------------------------------------------------------
@@ -119,24 +127,6 @@ link_and_backup "git/base.cfg" ".gitconfig"
 [[ -f "$DOTFILES_DIR/git/work.cfg" ]] && link_and_backup "git/work.cfg" ".gitconfig.work"
 
 
-# Install NVM
-# ---------------------------------------------------------------------------------------------------
-if [ -f "$NVM_DIR/nvm.sh" ]; then
-    echo -e "${GRAY}==> NVM is already installed. Skipping...${NC}"
-else
-    echo -e "${WHITE}==> Installing NVM...${NC}"
-    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh" | bash
-fi
-
-
-# Run platform specific scripts...
-# ------------------------------------------------------------------------------
-if [[ $IS_MACOS -eq 1 ]]; then
-    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-    source "$DOTFILES_DIR/init-mac.sh"
-elif [[ $IS_LINUX -eq 1 ]]; then
-    source "$DOTFILES_DIR/init-linux.sh"
-fi
 
 # Generate SSH Keys
 # ------------------------------------------------------------------------------
@@ -166,6 +156,15 @@ if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
     [[ $IS_LINUX -eq 1 ]] && ssh-add -k ~/.ssh/id_ed25519 > /dev/null 2>&1
 fi
 
+
+# Run platform specific scripts...
+# ------------------------------------------------------------------------------
+if [[ $IS_MACOS -eq 1 ]]; then
+    export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+    source "$DOTFILES_DIR/init-mac.sh"
+elif [[ $IS_LINUX -eq 1 ]]; then
+    source "$DOTFILES_DIR/init-linux.sh"
+fi
 
 # Generate GPG key
 # ------------------------------------------------------------------------------

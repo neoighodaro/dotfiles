@@ -139,7 +139,7 @@ export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
 # NVM
 # ----------------------------------------------------------------------------------------
 NVM_POTENTIAL_PATH="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-if [ -d "$NVM_POTENTIAL_PATH" ]; then
+if [[ -d "$NVM_POTENTIAL_PATH" ]] && [[ -f "$NVM_POTENTIAL_PATH/nvm.sh" ]]; then
     export NVM_DIR="$NVM_POTENTIAL_PATH"
 fi
 

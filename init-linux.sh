@@ -19,9 +19,15 @@ install_apt_package() {
 echo -e "${WHITE}==> Configuring Linux...${NC}"
 
 ## Locale
-export LC_ALL="en_US.UTF-8"
-sudo locale-gen "en_US.UTF-8"
-sudo dpkg-reconfigure locales
+if grep -q "en_US.UTF-8" /etc/locale.gen; then
+    echo -e "${GREEN}==> Locale already set.${NC}"
+else
+    echo -e "${WHITE}==> Setting locale...${NC}"
+    export LC_ALL="en_US.UTF-8"
+    sudo locale-gen "en_US.UTF-8"
+    sudo dpkg-reconfigure locales
+    echo -e "${GREEN}==> Locale set.${NC}"
+fi
 
 ## SSH
 echo -e "${WHITE}==> Configuring SSH...${NC}"
@@ -30,6 +36,7 @@ sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 sudo systemctl restart ssh
 echo -e "${GREEN}==> Configured SSH.${NC}"
+
 
 # Swap Memory
 # ---------------------------------------------------------------------------------------------------
@@ -40,9 +47,9 @@ if [[ $SWAP_FILE_ALREADY_ALLOCATED -eq 0 ]]; then
     echo -e "${WHITE}==> Allocating swap file...${NC}"
     RAMSIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     SWAPSIZE=0
-    if [ $ram_size -ge 2 ] && [ $ram_size -lt 32 ]; then
+    if [ $RAMSIZE -ge 2 ] && [ $RAMSIZE -lt 32 ]; then
         SWAPSIZE=$((RAMSIZE/2))
-    elif [ $ram_size -ge 32 ]; then
+    elif [ $RAMSIZE -ge 32 ]; then
         SWAPSIZE=$((RAMSIZE/4))
     fi
 

@@ -120,9 +120,11 @@ fi
 # zellij
 # ------------------------------------------------------------------------------
 if type zellij &>/dev/null; then
-  DISABLED_TERMINAL_PROGRAMS=(vscode JetBrains-JediTerm)  # Add more as needed
-  if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]]; then
-    eval "$(zellij setup --generate-auto-start zsh)"
+  if [[ -z "$SSH_CONNECTION" && -z "$SSH_CLIENT" ]]; then
+    DISABLED_TERMINAL_PROGRAMS=(vscode JetBrains-JediTerm)  # Add more as needed
+    if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]]; then
+        eval "$(zellij setup --generate-auto-start zsh)"
+    fi
   fi
 fi
 

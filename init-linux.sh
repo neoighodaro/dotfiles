@@ -62,7 +62,10 @@ fi
 echo -e "${WHITE}==> Configuring Swap...${NC}"
 
 SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
-if [[ $SWAP_FILE_ALREADY_ALLOCATED -eq 0 ]]; then
+
+echo -e "${WHITE}==> Swap file already allocated? ${SWAP_FILE_ALREADY_ALLOCATED}${NC}"
+
+if [[ "$SWAP_FILE_ALREADY_ALLOCATED" -eq 0 ]]; then
     echo -e "${WHITE}==> Allocating swap file...${NC}"
     SWAPSIZE=0
     RAMSIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')

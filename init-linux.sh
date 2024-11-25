@@ -107,14 +107,23 @@ echo -e "${GREEN}==> Linux settings updated.${NC}"
 install_apt_package gnupg
 install_apt_package zsh-autosuggestions
 install_apt_package zsh-syntax-highlighting
-install_apt_package starship
 install_apt_packafe eza
 install_apt_package bat
 install_apt_package zoxide
 install_apt_package fzf
+install_apt_package starship
 source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta
+
+## Starship
+if ! command -v starship &> /dev/null; then
+    echo -e "${WHITE}==> Installing Starship...${NC}"
+    curl -sS https://starship.rs/install.sh | sh
+    echo -e "${GREEN}==> Installed Starship.${NC}"
+else
+    echo -e "${GRAY}==> Already installed Starship. Skipping...${NC}"
+fi
 
 ## Deno
 if ! command -v deno &> /dev/null; then

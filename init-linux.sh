@@ -32,6 +32,7 @@ echo -e "${WHITE}==> Configuring Swap...${NC}"
 
 SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
 if [[ $SWAP_FILE_ALREADY_ALLOCATED -eq 0 ]]; then
+    echo -e "${WHITE}==> Allocating swap file...${NC}"
     RAMSIZE=$(grep MemTotal /proc/meminfo | awk '{print $2}')
     SWAPSIZE=0
     if [ $ram_size -ge 2 ] && [ $ram_size -lt 32 ]; then

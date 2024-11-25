@@ -62,11 +62,13 @@ fi
 echo -e "${WHITE}==> Configuring Swap...${NC}"
 
 # SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s | grep -c "/swapfile")
-SWAP_FILE_ALREADY_ALLOCATED=$(sudo swapon -s 2>/dev/null | grep -c "/swapfile")
-SWAP_FILE_ALREADY_ALLOCATED=${SWAP_FILE_ALREADY_ALLOCATED:-0}
+# if free | awk '/^Swap:/ {exit !$2}'; then
+#     echo "Have swap"
+# else
+#     echo "No swap"
+# fi
 
-echo -e "${WHITE}==> Swap file already allocated? ${SWAP_FILE_ALREADY_ALLOCATED}${NC}"
-
+SWAP_FILE_ALREADY_ALLOCATED=$(free | awk '/^Swap:/ {exit !$2}' && echo 1 || echo 0)
 if [[ "$SWAP_FILE_ALREADY_ALLOCATED" -eq 0 ]]; then
     echo -e "${WHITE}==> Allocating swap file...${NC}"
     SWAPSIZE=0

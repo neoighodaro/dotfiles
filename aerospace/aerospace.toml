@@ -132,7 +132,7 @@ alt-b = 'workspace B'
 # alt-d = 'workspace D'
 # alt-e = 'workspace E'
 # alt-f = 'workspace F'
-# alt-g = 'workspace G'
+alt-g = 'workspace G'
 alt-i = 'workspace I'
 alt-m = 'workspace M'
 # alt-n = 'workspace N'
@@ -165,7 +165,7 @@ alt-shift-b = 'move-node-to-workspace B'
 # alt-shift-d = 'move-node-to-workspace D'
 # alt-shift-e = 'move-node-to-workspace E'
 # alt-shift-f = 'move-node-to-workspace F'
-# alt-shift-g = 'move-node-to-workspace G'
+alt-shift-g = 'move-node-to-workspace G'
 alt-shift-i = 'move-node-to-workspace I'
 alt-shift-m = 'move-node-to-workspace M'
 # alt-shift-n = 'move-node-to-workspace N'
@@ -231,6 +231,13 @@ run = "move-node-to-workspace B"
 if.app-id = 'org.mozilla.com.zen.browser'
 run = "move-node-to-workspace B"
 
+# Git
+# ------------------------------------------------------------------------------
+
+[[on-window-detected]]
+if.app-id = 'com.axosoft.gitkraken'
+run = "move-node-to-workspace G"
+
 # IDEs
 # ------------------------------------------------------------------------------
 
@@ -244,6 +251,10 @@ run = "move-node-to-workspace I"
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.PhpStorm'
+run = "move-node-to-workspace I"
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.WebStorm'
 run = "move-node-to-workspace I"
 
 [[on-window-detected]]

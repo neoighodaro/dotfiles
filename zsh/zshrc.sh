@@ -10,6 +10,9 @@ fi
 # Prevent from running this script multiple times
 ___ALREADY_INITIALIZED_DOTFILES=1
 
+# Completions
+if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
+
 # General Options
 # ------------------------------------------------------------------------------
 ## Fixes tmux 256 color issue
@@ -79,7 +82,32 @@ fi
 
 # fzf
 # ------------------------------------------------------------------------------
-if type fzf &>/dev/null; then
+if [ -f "$HOME/.fzf.zsh" ]; then
+    source "$HOME/.fzf.zsh"
+
+    export FZF_CTRL_R_OPTS="
+    --color header:italic
+    --height=80%
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+    --header 'CTRL-Y: Copy command into clipboard, CTRL-/: Toggle line wrapping, CTRL-R: Toggle sorting by relevance'
+    "
+
+    export FZF_CTRL_T_OPTS="
+    --walker-skip .git,node_modules,target
+    --preview 'bat -n --color=always {}'
+    --height=80%
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'
+    --header 'CTRL-/: Toggle preview window position'
+    "
+
+    # --preview 'tree -C {}'
+    export FZF_ALT_C_OPTS="
+    --walker-skip .git,node_modules,target
+    --height=80%
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'
+    --header 'CTRL-/: Toggle preview window position'
+    "
+elif type fzf &>/dev/null; then
   source <(fzf --zsh)
 
   export FZF_CTRL_R_OPTS="
@@ -117,9 +145,11 @@ fi
 # zellij
 # ------------------------------------------------------------------------------
 if type zellij &>/dev/null; then
-  DISABLED_TERMINAL_PROGRAMS=(vscode JetBrains-JediTerm)  # Add more as needed
-  if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]]; then
-    eval "$(zellij setup --generate-auto-start zsh)"
+  if [[ -z "$SSH_CONNECTION" && -z "$SSH_CLIENT" ]]; then
+    DISABLED_TERMINAL_PROGRAMS=(vscode JetBrains-JediTerm)  # Add more as needed
+    if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]]; then
+        eval "$(zellij setup --generate-auto-start zsh)"
+    fi
   fi
 fi
 
@@ -134,9 +164,21 @@ export LC_ALL=${LC_ALL:-$LANG}                          # Prefer US English and 
 export GREP_OPTIONS="--color=auto"                      # Always enable colored `grep` output
 export GPG_TTY=$(tty)                                   # Fix GPG prompt
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"      # Link Homebrew casks in `/Applications` rather than `~/Applications`
-export NVM_DIR="$HOME/.nvm"                             # Node version manager
 export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
 
+# Deno
+# ----------------------------------------------------------------------------------------
+[ -s "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
+
+# NVM
+# ----------------------------------------------------------------------------------------
+NVM_POTENTIAL_PATH="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+if [[ -d "$NVM_POTENTIAL_PATH" ]] && [[ -f "$NVM_POTENTIAL_PATH/nvm.sh" ]]; then
+    export NVM_DIR="$NVM_POTENTIAL_PATH"
+fi
+
+# Other stuff
+# ----------------------------------------------------------------------------------------
 [ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
 export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
 
@@ -147,15 +189,12 @@ export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
 
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"      # Add /usr/local/bin to PATH, LEAVE AS LAST!
 
-# ----------------------------------------------------------------------------------------
 # LOAD PACKAGES
 # ----------------------------------------------------------------------------------------
-
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                    # Node Version Manager
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Node Version Manager
 
-# ----------------------------------------------------------------------------------------
+
 # LOAD CUSTOM SCRIPTS
 # ----------------------------------------------------------------------------------------
-
 [ -f "$HOME/.zshrc_scripts" ] && \. "$HOME/.zshrc_scripts"

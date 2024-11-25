@@ -10,7 +10,6 @@ Host *
   AddressFamily inet
   ServerAliveInterval 15
   ConnectTimeout 20
-  UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
 
 # GitHub
@@ -21,6 +20,7 @@ Host github
 
 # Raspberry Pi
 # ------------------------------------------------------------------------
+
 Host ckx01.local
     User neo
     Hostname 192.168.0.2

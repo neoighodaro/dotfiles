@@ -83,6 +83,8 @@ fi
 # fzf
 # ------------------------------------------------------------------------------
 if type fzf &>/dev/null; then
+  [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+
   source <(fzf --zsh)
 
   export FZF_CTRL_R_OPTS="

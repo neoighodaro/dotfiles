@@ -9,9 +9,16 @@ alias clr="clear"
 alias k="kubectl"
 alias lg="lazygit"
 alias nano="vi"
+alias snano="sudo vi"
+
 [[ $IS_MACOS -eq 1 ]] && alias cat="bat"
+[[ $IS_MACOS -eq 1 ]] && alias scat="sudo bat"
 [[ $IS_LINUX -eq 1 ]] && alias cat="batcat"
+[[ $IS_LINUX -eq 1 ]] && alias scat="sudo batcat"
+
 [[ $IS_MACOS -eq 1 ]] && alias rm="trash"
+[[ $IS_MACOS -eq 1 ]] && alias srm="sudo trash"
+
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias reload='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias sshconfig="code ~/.ssh/config"

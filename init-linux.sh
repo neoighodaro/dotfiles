@@ -106,6 +106,7 @@ install_apt_package unzip
 source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta
+install_apt_package neofetch
 
 ## FZF
 if ! command -v fzf &> /dev/null; then

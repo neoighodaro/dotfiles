@@ -10,6 +10,22 @@ fi
 # Prevent from running this script multiple times
 ___ALREADY_INITIALIZED_DOTFILES=1
 
+# Function to detect OS
+detect_os() {
+    case "$(uname -s)" in
+        Darwin) echo "macos" ;;
+        Linux) echo "linux" ;;
+        *) echo "unsupported" ;;
+    esac
+}
+
+# Determine OS
+OS=$(detect_os)
+if [[ $OS == "unsupported" ]]; then
+    echo "Unsupported OS. Exiting."
+    exit 1
+fi
+
 # Completions
 if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
 
@@ -63,13 +79,28 @@ bindkey "^[e" end-of-line         # For iTerm. Preferences > Keys, set "Send esc
 ## Load private
 [ -f "$HOME/.zshrc_private" ]   && \. "$HOME/.zshrc_private"
 
-## Load ZSH Plugins
-ZSH_PLUGIN_FILES=(
-    "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# Plugins
+# ------------------------------------------------------------------------------
+## Define plugin paths for each OS
+declare -A ZSH_PLUGIN_PATHS
+ZSH_PLUGIN_PATHS=(
+    ["macos"]="$HOMEBREW_PREFIX/share"
+    ["linux"]="/usr/share"
 )
-for plugin_file in "${ZSH_PLUGIN_FILES[@]}"; do
-    [ -f "$plugin_file" ] && source "$plugin_file"
+PLUGIN_DIR="${ZSH_PLUGIN_PATHS[$OS]}"
+
+## Define plugin files
+ZSH_PLUGINS=(
+    "zsh-autosuggestions/zsh-autosuggestions.zsh"
+    "zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+)
+
+## Load plugins
+for plugin in "${ZSH_PLUGINS[@]}"; do
+    plugin_file="${PLUGIN_DIR}/${plugin}"
+    if [[ -f "$plugin_file" ]]; then
+        source "$plugin_file"
+    fi
 done
 
 

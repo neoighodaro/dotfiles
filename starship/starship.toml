@@ -7,16 +7,72 @@ add_newline = true
 palette = "catppuccin_mocha"
 command_timeout = 1000
 
+# CK: p10k
+# ============================================================================
+format = """\
+[](bg:termbg fg:ckyellow100)\
+[ck ](bold bg:ckyellow100 fg:ckblack100)\
+$git_branch\
+$git_status\
+$git_metrics\
+$directory\
+$php\
+$custom\
+[](fg:ckyellow300 bg:termbg)\
+$character\
+$cmd_duration\
+"""
+
+[directory]
+format = "[ $path ]($style)"
+style = "bold fg:ckblack100 bg:ckyellow300"
+truncate_to_repo = false
+truncation_length = 8
+truncation_symbol = '…/'
+
+[directory.substitutions]
+"~/Developer/dotfiles" = " dotfiles"
+"~/Developer/ck/infrastructure" = " infrastructure"
+"~/Developer/ck" = "ck"
+"pinktum/academy/" = "academy-"
+
+[git_branch]
+format = '[ $symbol$branch(:$remote_branch) ]($style)'
+symbol = " "
+style = "fg:ckblack100 bg:ckyellow200"
+
+[git_status]
+format = '[$all_status]($style)'
+style = "fg:ckblack100 bg:ckyellow200"
+
+[git_metrics]
+format = "([+$added ]($added_style))[]($added_style)"
+added_style = "fg:ckblack100 bg:ckyellow200"
+deleted_style = "fg:bright-red bg:235"
+disabled = false
+
+[hg_branch]
+format = "[ $symbol$branch ]($style)"
+symbol = " "
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[ 󱑍 $time ](bg:#1C3A5E fg:#8DFBD2)]($style)'
+
+# ============================================================================
+# End of CK: p10k
+
+
+
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'
-success_symbol = '[➜](bold green)'
-error_symbol = '[✗](bold red)'
+success_symbol = '[ ➜](bold ckyellow300)'
+error_symbol = '[ ✗](bold red)'
 
 [golang]
 format = '[ ](bold cyan)'
-
-[git_branch]
-format = '[$symbol$branch](bold pink)'
 
 [git_commit]
 tag_disabled = true
@@ -27,31 +83,34 @@ format = '[$symbol($version )]($style)'
 [package]
 disabled = true
 
+[kubernetes]
+symbol = "⎈ "
+format = " [$symbol$context( \\($namespace\\))]($style) "
+style = "bright-blue"
+disabled = false
+
 [php]
-format = '[ ](bold blue)'
+symbol =  " "
+format = '[ $symbol](bold $style)'
+style = "bold fg:ckblack100 bg:ckyellow300"
 
 [custom.docker]
 # command = "echo 󰡨 "
 symbol = "󰡨 "
-format = "[$symbol](bold blue)"
+style = "bold fg:ckblack100 bg:ckyellow300"
+format = "[ $symbol]($style)"
 detect_files = ["Dockerfile", "docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml"]
 when = """ command -v docker &>/dev/null ; exit (echo $?) ; """
 
-# Increase truncation length and add truncation symbol
-[directory]
-truncate_to_repo = false
-truncation_length = 8
-truncation_symbol = '…/'
-
-[directory.substitutions]
-"~/Developer/" = "󱃖 "
-"~/Developer" = "󱃖 "
-"~/" = "󰋜 "
-"~" = "󰋜 "
-"pinktum/academy/" = "academy-"
-
 # Palette
 [palettes.catppuccin_mocha]
+ckyellow100 = "#f6d277"
+ckyellow200 = "#EBBE55"
+ckyellow300 = "#DAAD42"
+ckblack100 = "#2d2b27"
+
+termbg = "#1a1b26"
+
 rosewater = "#f5e0dc"
 flamingo = "#f2cdcd"
 pink = "#f5c2e7"

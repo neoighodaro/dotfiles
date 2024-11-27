@@ -11,7 +11,7 @@ command_timeout = 1000
 # ============================================================================
 format = """\
 [](bg:termbg fg:ckyellow100)\
-[$hostname ](bold bg:ckyellow100 fg:ckblack100)\
+[$os$hostname ](bold bg:ckyellow100 fg:ckblack100)\
 $git_branch\
 $git_status\
 $git_metrics\
@@ -23,8 +23,21 @@ $character\
 $cmd_duration\
 """
 
+[os]
+format = "$symbol "
+disabled = false
+style = "bold"
+
+[os.symbols]
+Macos = ""
+Linux = ""
+Ubuntu = ""
+Windows = ""
+Debian = ""
+
 [hostname]
-format = " $hostname"
+# format = " $hostname"
+format = " $hostname"
 ssh_only = false
 
 [hostname.aliases]

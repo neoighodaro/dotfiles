@@ -11,7 +11,7 @@ command_timeout = 1000
 # ============================================================================
 format = """\
 [](bg:termbg fg:ckyellow100)\
-[ck ](bold bg:ckyellow100 fg:ckblack100)\
+[$hostname ](bold bg:ckyellow100 fg:ckblack100)\
 $git_branch\
 $git_status\
 $git_metrics\
@@ -22,6 +22,14 @@ $custom\
 $character\
 $cmd_duration\
 """
+
+[hostname]
+format = " $hostname"
+ssh_only = false
+
+[hostname.aliases]
+"Neos-Work-MacBook-Pro" = "ck"
+"Neos-MacBook-Pro" = "ck"
 
 [directory]
 format = "[ $path ]($style)"
@@ -107,6 +115,7 @@ when = """ command -v docker &>/dev/null ; exit (echo $?) ; """
 ckyellow100 = "#f6d277"
 ckyellow200 = "#EBBE55"
 ckyellow300 = "#DAAD42"
+ckyellow400 = "#DCAB38"
 ckblack100 = "#2d2b27"
 
 termbg = "#1a1b26"

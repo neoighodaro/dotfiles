@@ -29,7 +29,7 @@ disabled = false
 style = "bold"
 
 [os.symbols]
-Macos = ""
+Macos = ""
 Linux = ""
 Ubuntu = ""
 Windows = ""
@@ -37,7 +37,7 @@ Debian = ""
 
 [hostname]
 # format = " $hostname"
-format = " $hostname"
+format = "$hostname"
 ssh_only = false
 
 [hostname.aliases]

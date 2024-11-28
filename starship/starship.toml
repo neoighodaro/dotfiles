@@ -52,6 +52,7 @@ truncation_symbol = '…/'
 [directory.substitutions]
 "~/Developer/dotfiles" = " dotfiles"
 "~/Developer/ck/infrastructure" = " infrastructure"
+"~/Developer/infrastructure" = " infrastructure"
 "~/Developer/ck" = "ck"
 "~/Developer/pinktum/academy/" = "academy-"
 

@@ -41,6 +41,8 @@ ssh_only = false
 [hostname.aliases]
 "Neos-Work-MacBook-Pro" = "ck"
 "Neos-MacBook-Pro" = "ck"
+"Neos-Work-MBP" = "ck"
+"Neos-MBP" = "ck"
 
 [directory]
 format = "[ $path ]($style)"

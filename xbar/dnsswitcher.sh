@@ -15,10 +15,13 @@
 default="empty"
 
 ## Pi-hole
-pihole="192.168.0.3"
+pihole="10.10.10.2"
 
 ## Cloudflare
 cloudflare="1.1.1.1 1.0.0.1"
+
+## Next DNS
+nextdns="45.90.28.184 45.90.30.184"
 
 # Configuration
 # ------------------------------------------------------------------------------
@@ -26,7 +29,7 @@ cloudflare="1.1.1.1 1.0.0.1"
 network_service="Wi-Fi"
 
 ## Enabled DNS Addresses
-enabled_dns_address=(pihole cloudflare default)
+enabled_dns_address=(pihole nextdns cloudflare default)
 
 # Script
 # ------------------------------------------------------------------------------

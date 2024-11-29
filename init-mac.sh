@@ -266,6 +266,7 @@ install_cask_app pika
 install_cask_app raycast
 install_cask_app aerospace
 install_cask_app xbar
+install_cask_app ray
 install_cask_app boop
 install_cask_app tableplus
 install_cask_app coderunner

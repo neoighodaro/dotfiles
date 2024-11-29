@@ -43,6 +43,8 @@ ssh_only = false
 "Neos-MacBook-Pro" = "ck"
 "Neos-Work-MBP" = "ck"
 "Neos-MBP" = "ck"
+"Mac" = "ck"
+"MacBook-Pro" = "ck"
 
 [directory]
 format = "[ $path ]($style)"

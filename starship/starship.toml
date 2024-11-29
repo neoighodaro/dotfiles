@@ -130,7 +130,8 @@ when = """ command -v docker &>/dev/null ; exit (echo $?) ; """
 [palettes.catppuccin_mocha]
 ckyellow100 = "#f6d277"
 ckyellow200 = "#EBBE55"
-ckyellow300 = "#DAAD42"
+# ckyellow300 = "#DAAD42"
+ckyellow300 = "#DFAE3B"
 ckyellow400 = "#DCAB38"
 ckblack100 = "#2d2b27"
 

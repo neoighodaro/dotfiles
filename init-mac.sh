@@ -12,7 +12,7 @@ is_app_running() {
 install_cask_app() {
   local app_name=$1
   local install_url=$2
-  if ! brew list --cask | grep -q "$app_name"; then
+  if ! brew list --cask | grep -Fxq "$app_name"; then
     echo -e "$app_name not found. Installing..."
 
     # if url use that else use app name
@@ -181,11 +181,10 @@ defaults write com.apple.TextInputMenu visible -bool false                      
 chflags nohidden ~/Library                                                         # Show the ~/Library folder
 source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock
 
-# Enable snap-to-grid for desktop icons
+## Enable snap-to-grid for desktop icons
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
-
-# Set wallpaper
+## Set wallpaper
 for ext in heic jpg png; do
   wallpaper="$HOME/Pictures/wallpaper.$ext"
   dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
@@ -196,7 +195,7 @@ done
 # Kill affected applications
 APPS=(Finder Dock SystemUIServer WindowManager cfprefsd)
 for APP in "${APPS[@]}"; do
-    killall "$APP" &>/dev/null
+    killall "$APP" &>/dev/null || true
 done
 
 echo -e "${GREEN}==> Mac settings updated.${NC}"

@@ -269,6 +269,10 @@ run = "move-node-to-workspace I"
 if.app-id = 'com.apple.dt.Xcode'
 run = "move-node-to-workspace I"
 
+[[on-window-detected]]
+if.app-id = 'be.spatie.ray'
+run = "move-node-to-workspace I"
+
 # Messages
 # ------------------------------------------------------------------------------
 

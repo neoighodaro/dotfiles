@@ -11,25 +11,40 @@ command_timeout = 1000
 # ============================================================================
 format = """\
 [](bg:termbg fg:ckyellow100)\
-[$hostname ](bold bg:ckyellow100 fg:ckblack100)\
+[$os$hostname ](bold bg:ckyellow100 fg:ckblack100)\
 $git_branch\
 $git_status\
 $git_metrics\
 $directory\
-$php\
-$custom\
 [](fg:ckyellow300 bg:termbg)\
 $character\
 $cmd_duration\
 """
 
+[os]
+format = "$symbol "
+disabled = false
+style = "bold"
+
+[os.symbols]
+Macos = ""
+Linux = ""
+Ubuntu = ""
+Windows = ""
+Debian = ""
+
 [hostname]
-format = " $hostname"
+# format = " $hostname"
+format = "$hostname"
 ssh_only = false
 
 [hostname.aliases]
 "Neos-Work-MacBook-Pro" = "ck"
 "Neos-MacBook-Pro" = "ck"
+"Neos-Work-MBP" = "ck"
+"Neos-MBP" = "ck"
+"Mac" = "ck"
+"MacBook-Pro" = "ck"
 
 [directory]
 format = "[ $path ]($style)"
@@ -41,8 +56,9 @@ truncation_symbol = '…/'
 [directory.substitutions]
 "~/Developer/dotfiles" = " dotfiles"
 "~/Developer/ck/infrastructure" = " infrastructure"
+"~/Developer/infrastructure" = " infrastructure"
 "~/Developer/ck" = "ck"
-"pinktum/academy/" = "academy-"
+"~/Developer/pinktum/academy/" = "academy-"
 
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
@@ -54,7 +70,7 @@ format = '[$all_status]($style)'
 style = "fg:ckblack100 bg:ckyellow200"
 
 [git_metrics]
-format = "([+$added ]($added_style))[]($added_style)"
+format = "([+$added ]($added_style))[ ]($added_style)"
 added_style = "fg:ckblack100 bg:ckyellow200"
 deleted_style = "fg:bright-red bg:235"
 disabled = false

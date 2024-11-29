@@ -46,9 +46,10 @@ install_appstore_app() {
 install_brew_package() {
   local package_name=$1
   local package_tap=$2
+  local full_package_name=$([[ -z "$package_tap" ]] && echo "$package_name" || echo "$package_tap/$package_name")
   if ! brew list --formula | grep -q "$package_name"; then
-    echo -e "${YELLOW}==> $package_name not found. Installing...${NC}"
-    brew install "$package_tap/$package_name"
+    echo -e "${YELLOW}==> $full_package_name not found. Installing...${NC}"
+    brew install "$full_package_name"
     echo -e "${GREEN}==> Installed $package_name.${NC}"
   else
     echo -e "${GRAY}==> $package_name is already installed. Skipping...${NC}"
@@ -266,6 +267,7 @@ install_cask_app pika
 install_cask_app raycast
 install_cask_app aerospace
 install_cask_app xbar
+install_cask_app ray
 install_cask_app boop
 install_cask_app tableplus
 install_cask_app coderunner
@@ -319,9 +321,9 @@ fi
 
 ## Set the default browser and remove the default browser package
 if [[ ! -f "/tmp/default-browser-installed" ]]; then
-    install_brew_package defaultbrowser
-    defaultbrowser browser
-    brew uninstall defaultbrowser
+    install_brew_package "defaultbrowser"
+    defaultbrowser "browser"
+    brew uninstall "defaultbrowser"
     touch /tmp/default-browser-installed
 fi
 

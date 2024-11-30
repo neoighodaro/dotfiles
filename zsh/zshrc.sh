@@ -27,7 +27,9 @@ if [[ $OS == "unsupported" ]]; then
 fi
 
 # Completions
-# if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
+if [[ $OS == "linux" ]]; then
+    if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
+fi
 
 # General Options
 # ------------------------------------------------------------------------------

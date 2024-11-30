@@ -278,6 +278,9 @@ install_cask_app gitkraken
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 
+## Kubernetes context plugin
+install_brew_package "kubectx"
+
 ## AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
 

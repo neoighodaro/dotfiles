@@ -10,7 +10,8 @@ Host *
   AddressFamily inet
   ServerAliveInterval 15
   ConnectTimeout 20
-  IdentityFile ~/.ssh/id_ed25519
+  # IdentityFile ~/.ssh/id_ed25519
+  # IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 # GitHub
 # ------------------------------------------------------------------------

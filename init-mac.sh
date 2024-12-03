@@ -246,6 +246,7 @@ mkdir -p "$HOME/.config/aerospace"
 ## Link config files
 link_and_backup "wezterm/wezterm.lua" .wezterm.lua                                              # Wezterm config
 link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml                     # Aerospace config
+link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
 
 ## Tap some brew formulas
 brew tap nikitabobko/tap
@@ -275,6 +276,7 @@ install_cask_app postman
 install_cask_app tinkerwell
 install_cask_app ray
 install_cask_app gitkraken
+install_cask_app karabiner-elements
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 

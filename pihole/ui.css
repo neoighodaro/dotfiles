@@ -141,6 +141,19 @@ html {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
+.content-wrapper .content .page-header {
+  margin-bottom: 40px !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+
+.content-wrapper .content .page-header h1 {
+  text-transform: uppercase;
+  font-size: 2.4rem !important;
+  letter-spacing: 1.5px;
+  margin-top: 0 !important;
+}
+
 .content-wrapper .box {
   box-shadow: none !important;
   border: none !important;
@@ -152,11 +165,120 @@ html {
 }
 
 .content-wrapper .box-header .box-title {
+  text-transform: uppercase;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.3px;
   color: var(--ck-yellow400) !important;
+}
+
+.box-solid, .box {
+  border: none !important;
+}
+
+.box,
+.box-footer,
+.info-box, .box-comment,
+.comment-text,
+.comment-text .username {
+  background-color: var(--ck-black200) !important;
+}
+
+.login-options input,
+.login-options [class*="icheck-"] > input:first-child + input[type="hidden"] + label::before,
+.login-options [class*="icheck-"] > input:first-child + label::before {
+  background-color: var(--ck-black150) !important;
+  border-radius: 5px !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.login-logo .logo-lg {
+  display: none;
+}
+
+.login-card-body .box.box-info {
+  margin-bottom: 0px !important;
+}
+
+.login-card-body .box.box-info h3.box-title {
+  font-size: 1.5rem !important;
+}
+
+.login-card-body br {
+  display: none;
+}
+
+.login-logo {
+  margin: 20px 0 50px !important;
+}
+
+.login-logo .loginpage-logo {
+  width: 100px !important;
+}
+
+.login-donate {
+  display: none;
+}
+
+.card .login-footer {
+  display: none !important;
+}
+
+.table-bordered,
+.table-bordered > tbody > tr > th,
+.table-bordered > thead > tr > th {
+  border: none !important;
+}
+
+.table-bordered,
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+  border-right: none !important;
+  border-left: none !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.progress {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+.progress-bar.progress-bar-blue {
+  background-color: var(--ck-yellow100) !important;
 }
 
 /* Footer */
 .main-footer, .nav-tabs-custom {
   border-top: 0 !important;
   background-color: var(--ck-black200) !important;
+}
+
+/* Others */
+input,
+select,
+select.form-control,
+.form-group .input-group-addon,
+.input-group .input-group-addon,
+.form-group input,
+.input-group input,
+.form-group textarea,
+.input-group textarea,
+.daterangepicker select.hourselect,
+.daterangepicker select.minuteselect,
+.daterangepicker select.secondselect,
+.daterangepicker select.ampmselect,
+.form-control,
+div.dataTables_wrapper div.dataTables_length select {
+  border-radius: 6px !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: var(--ck-black150) !important;
+}
+
+button.btn.btn-primary {
+  border-color: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 8px !important;
+  color: var(--ck-black150) !important;
+  background-color: var(--ck-yellow300) !important;
 }

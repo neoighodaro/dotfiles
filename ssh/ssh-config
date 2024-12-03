@@ -25,7 +25,11 @@ Host github
 Host ckx01.local
     User neo
     Hostname 10.10.10.2
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
 
 Host ckx02.local
     User neo
     Hostname 10.10.10.3
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes

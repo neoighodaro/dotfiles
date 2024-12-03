@@ -42,12 +42,13 @@ on-focus-changed = "move-mouse window-lazy-center"
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
-automatically-unhide-macos-hidden-apps = true
+automatically-unhide-macos-hidden-apps = false
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
 preset = 'qwerty'
+
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -59,10 +60,10 @@ preset = 'qwerty'
 [gaps]
 inner.horizontal = 10
 inner.vertical =   10
-outer.left =       5
-outer.bottom =     5
-outer.top =        5
-outer.right =      5
+outer.left =       10
+outer.bottom =     10
+outer.top =        10
+outer.right =      10
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -95,100 +96,100 @@ outer.right =      5
 # '''
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
+alt-cmd-ctrl-slash = 'layout tiles horizontal vertical'
+alt-cmd-ctrl-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+alt-cmd-ctrl-shift-h = 'focus left'
+alt-cmd-ctrl-shift-j = 'focus down'
+alt-cmd-ctrl-shift-k = 'focus up'
+alt-cmd-ctrl-shift-l = 'focus right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+alt-cmd-ctrl-h = 'move left'
+alt-cmd-ctrl-j = 'move down'
+alt-cmd-ctrl-k = 'move up'
+alt-cmd-ctrl-l = 'move right'
 
-alt-shift-f = 'fullscreen'
+alt-cmd-ctrl-f = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
+alt-cmd-ctrl-minus = 'resize smart -50'
+alt-cmd-ctrl-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-# alt-4 = 'workspace 4'
-# alt-5 = 'workspace 5'
-# alt-6 = 'workspace 6'
-# alt-7 = 'workspace 7'
-# alt-8 = 'workspace 8'
-# alt-9 = 'workspace 9'
-# alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
-alt-b = 'workspace B'
-# alt-c = 'workspace C'
-# alt-d = 'workspace D'
-# alt-e = 'workspace E'
-# alt-f = 'workspace F'
-alt-g = 'workspace G'
-alt-i = 'workspace I'
-alt-m = 'workspace M'
-# alt-n = 'workspace N'
-# alt-o = 'workspace O'
-alt-p = 'workspace P'
-# alt-q = 'workspace Q'
-# alt-r = 'workspace R'
-# alt-s = 'workspace S'
-alt-t = 'workspace T'
-# alt-u = 'workspace U'
-# alt-v = 'workspace V'
-# alt-w = 'workspace W'
-# alt-x = 'workspace X'
-# alt-y = 'workspace Y'
-# alt-z = 'workspace Z'
+alt-cmd-ctrl-shift-1 = 'workspace 1'
+alt-cmd-ctrl-shift-2 = 'workspace 2'
+alt-cmd-ctrl-shift-3 = 'workspace 3'
+# alt-cmd-ctrl-shift-4 = 'workspace 4'
+# alt-cmd-ctrl-shift-5 = 'workspace 5'
+# alt-cmd-ctrl-shift-6 = 'workspace 6'
+# alt-cmd-ctrl-shift-7 = 'workspace 7'
+# alt-cmd-ctrl-shift-8 = 'workspace 8'
+# alt-cmd-ctrl-shift-9 = 'workspace 9'
+# alt-cmd-ctrl-shift-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
+alt-cmd-ctrl-shift-b = 'workspace B'
+# alt-cmd-ctrl-shift-c = 'workspace C'
+# alt-cmd-ctrl-shift-d = 'workspace D'
+# alt-cmd-ctrl-shift-e = 'workspace E'
+# alt-cmd-ctrl-shift-f = 'workspace F'
+alt-cmd-ctrl-shift-g = 'workspace G'
+alt-cmd-ctrl-shift-i = 'workspace I'
+alt-cmd-ctrl-shift-m = 'workspace M'
+# alt-cmd-ctrl-shift-n = 'workspace N'
+# alt-cmd-ctrl-shift-o = 'workspace O'
+alt-cmd-ctrl-shift-p = 'workspace P'
+# alt-cmd-ctrl-shift-q = 'workspace Q'
+# alt-cmd-ctrl-shift-r = 'workspace R'
+# alt-cmd-ctrl-shift-s = 'workspace S'
+alt-cmd-ctrl-shift-t = 'workspace T'
+# alt-cmd-ctrl-shift-u = 'workspace U'
+# alt-cmd-ctrl-shift-v = 'workspace V'
+# alt-cmd-ctrl-shift-w = 'workspace W'
+# alt-cmd-ctrl-shift-x = 'workspace X'
+# alt-cmd-ctrl-shift-y = 'workspace Y'
+# alt-cmd-ctrl-shift-z = 'workspace Z'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-# alt-shift-4 = 'move-node-to-workspace 4'
-# alt-shift-5 = 'move-node-to-workspace 5'
-# alt-shift-6 = 'move-node-to-workspace 6'
-# alt-shift-7 = 'move-node-to-workspace 7'
-# alt-shift-8 = 'move-node-to-workspace 8'
-# alt-shift-9 = 'move-node-to-workspace 9'
-# alt-shift-a = 'move-node-to-workspace A'
-alt-shift-b = 'move-node-to-workspace B'
-# alt-shift-c = 'move-node-to-workspace C'
-# alt-shift-d = 'move-node-to-workspace D'
-# alt-shift-e = 'move-node-to-workspace E'
-# alt-shift-f = 'move-node-to-workspace F'
-alt-shift-g = 'move-node-to-workspace G'
-alt-shift-i = 'move-node-to-workspace I'
-alt-shift-m = 'move-node-to-workspace M'
-# alt-shift-n = 'move-node-to-workspace N'
-# alt-shift-o = 'move-node-to-workspace O'
-alt-shift-p = 'move-node-to-workspace P'
-# alt-shift-q = 'move-node-to-workspace Q'
-# alt-shift-r = 'move-node-to-workspace R'
-# alt-shift-s = 'move-node-to-workspace S'
-alt-shift-t = 'move-node-to-workspace T'
-# alt-shift-u = 'move-node-to-workspace U'
-# alt-shift-v = 'move-node-to-workspace V'
-# alt-shift-w = 'move-node-to-workspace W'
-# alt-shift-x = 'move-node-to-workspace X'
-# alt-shift-y = 'move-node-to-workspace Y'
-# alt-shift-z = 'move-node-to-workspace Z'
+alt-cmd-ctrl-1 = 'move-node-to-workspace 1'
+alt-cmd-ctrl-2 = 'move-node-to-workspace 2'
+alt-cmd-ctrl-3 = 'move-node-to-workspace 3'
+# alt-cmd-ctrl-4 = 'move-node-to-workspace 4'
+# alt-cmd-ctrl-5 = 'move-node-to-workspace 5'
+# alt-cmd-ctrl-6 = 'move-node-to-workspace 6'
+# alt-cmd-ctrl-7 = 'move-node-to-workspace 7'
+# alt-cmd-ctrl-8 = 'move-node-to-workspace 8'
+# alt-cmd-ctrl-9 = 'move-node-to-workspace 9'
+# alt-cmd-ctrl-a = 'move-node-to-workspace A'
+alt-cmd-ctrl-b = 'move-node-to-workspace B'
+# alt-cmd-ctrl-c = 'move-node-to-workspace C'
+# alt-cmd-ctrl-d = 'move-node-to-workspace D'
+# alt-cmd-ctrl-e = 'move-node-to-workspace E'
+# alt-cmd-ctrl-f = 'move-node-to-workspace F'
+alt-cmd-ctrl-g = 'move-node-to-workspace G'
+alt-cmd-ctrl-i = 'move-node-to-workspace I'
+alt-cmd-ctrl-m = 'move-node-to-workspace M'
+# alt-cmd-ctrl-n = 'move-node-to-workspace N'
+# alt-cmd-ctrl-o = 'move-node-to-workspace O'
+alt-cmd-ctrl-p = 'move-node-to-workspace P'
+# alt-cmd-ctrl-q = 'move-node-to-workspace Q'
+# alt-cmd-ctrl-r = 'move-node-to-workspace R'
+# alt-cmd-ctrl-s = 'move-node-to-workspace S'
+alt-cmd-ctrl-t = 'move-node-to-workspace T'
+# alt-cmd-ctrl-u = 'move-node-to-workspace U'
+# alt-cmd-ctrl-v = 'move-node-to-workspace V'
+# alt-cmd-ctrl-w = 'move-node-to-workspace W'
+# alt-cmd-ctrl-x = 'move-node-to-workspace X'
+# alt-cmd-ctrl-y = 'move-node-to-workspace Y'
+# alt-cmd-ctrl-z = 'move-node-to-workspace Z'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-tab = 'workspace-back-and-forth'
+alt-cmd-ctrl-shift-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-cmd-ctrl-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-semicolon = 'mode service'
+alt-cmd-ctrl-semicolon = 'mode service'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

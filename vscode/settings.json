@@ -460,5 +460,6 @@
     "[ ]",
     "[x]",
     "@todo"
-  ]
+  ],
+  "git.openRepositoryInParentFolders": "never"
 }

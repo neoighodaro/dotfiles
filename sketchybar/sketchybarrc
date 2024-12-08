@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Global Includes
+# -------------------------------------------------------------------------------------------
+source "$CONFIG_DIR/colors.sh"
+
+# Variables
+# -------------------------------------------------------------------------------------------
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
+NERD_FONT="Hack Nerd Font"
+SF_PRO_FONT="SF Pro"
+
+# Bar Appearance
+# -------------------------------------------------------------------------------------------
+## https://felixkratz.github.io/SketchyBar/config/bar
+bar=(
+    height=37
+    blur_radius=30
+    position=top
+    sticky=off
+    padding_left=10
+    padding_right=10
+    color=$BAR_COLOR
+)
+sketchybar --bar "${bar[@]}"
+
+# Defaults
+# -------------------------------------------------------------------------------------------
+## https://felixkratz.github.io/SketchyBar/config/items
+default=(
+    icon.font="SF Pro:Semibold:15.0"
+    icon.color=$WHITE
+    label.font="$NERDFONT:Semibold:15.0"
+    label.color=$WHITE
+    background.color=$ITEM_BG_COLOR
+    background.corner_radius=5
+    background.height=24
+    padding_left=5
+    padding_right=5
+    label.padding_left=4
+    label.padding_right=8
+    icon.padding_left=8
+    icon.padding_right=4
+)
+sketchybar --default "${default[@]}"
+
+# Left Side Items
+# -------------------------------------------------------------------------------------------
+source $ITEM_DIR/spaces.sh
+source $ITEM_DIR/front_app.sh
+
+# Right Side Of Notch Items
+# -------------------------------------------------------------------------------------------
+# source $ITEM_DIR/media.sh
+
+# Right Side Items
+# -------------------------------------------------------------------------------------------
+source $ITEM_DIR/calendar.sh
+source $ITEM_DIR/battery.sh
+source $ITEM_DIR/network.sh
+source $ITEM_DIR/volume.sh
+source $ITEM_DIR/weather.sh
+
+
+# Finalizing Setup
+# -------------------------------------------------------------------------------------------
+sketchybar --hotload on
+sketchybar --update

@@ -140,6 +140,7 @@ defaults write com.apple.finder FinderSpawnTab -int 1                           
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
+defaults write NSGlobalDomain _HIHideMenuBar -bool true                             # Hide menu bar
 
 # Window Manager (Deskop & Stage manager)
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false  # Disable standard click to show desktop
@@ -220,6 +221,9 @@ install_brew_package git-delta
 install_brew_package deno
 install_brew_package bun oven-sh/bun
 install_brew_package folderify
+install_brew_package sketchybar FelixKratz/formulae
+install_brew_package font-sketchybar-app-font
+install_brew_package jq
 
 # Caveat for GPG
 # ------------------------------------------------------------------------------
@@ -247,6 +251,14 @@ mkdir -p "$HOME/.config/aerospace"
 link_and_backup "wezterm/wezterm.lua" .wezterm.lua                                              # Wezterm config
 link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml                     # Aerospace config
 link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
+link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
+
+## Start Sketchybar if not running
+SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
+if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
+    brew services start sketchybar
+fi
+sketchybar --reload
 
 ## Tap some brew formulas
 brew tap nikitabobko/tap
@@ -258,6 +270,7 @@ install_cask_app nordvpn
 install_cask_app docker
 install_cask_app arc
 install_cask_app font-jetbrains-mono-nerd-font
+install_cask_app font-hack-nerd-font
 install_cask_app visual-studio-code
 install_cask_app phpstorm
 install_cask_app hazel
@@ -277,6 +290,7 @@ install_cask_app tinkerwell
 install_cask_app ray
 install_cask_app gitkraken
 install_cask_app karabiner-elements
+install_cask_app font-sf-pro
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 

@@ -245,13 +245,17 @@ defaults write org.gpgtools.common DisableKeychain -bool yes                    
 
 # Apps & their config
 # ---------------------------------------------------------------------------------------------------
-mkdir -p "$HOME/.config/aerospace"
-
 ## Link config files
-link_and_backup "wezterm/wezterm.lua" .wezterm.lua                                              # Wezterm config
-link_and_backup "aerospace/aerospace.toml" .config/aerospace/aerospace.toml                     # Aerospace config
+link_and_backup "wezterm/wezterm.lua" ".wezterm.lua"                                            # Wezterm config
+link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
 link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
 link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
+
+# Copy https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm to Zellij plugin folder
+if [[ ! -f "$DOTFILES_DIR/zellij/plugins/zjstatus.wasm" ]]; then
+    curl -L "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" -o "$HOME/.config/zellij/plugins/zjstatus.wasm"
+    chmod a+x "$HOME/.config/zellij/plugins/zjstatus.wasm"
+fi
 
 ## Start Sketchybar if not running
 SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')

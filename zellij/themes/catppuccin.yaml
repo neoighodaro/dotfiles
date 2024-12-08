@@ -39,7 +39,7 @@ themes:
     white: "#cad3f5"
 
   catppuccin-mocha:
-    bg: "#585b70" # Surface2
+    bg: "#011423" # Surface2
     fg: "#cdd6f4"
     red: "#f38ba8"
     green: "#a6e3a1"

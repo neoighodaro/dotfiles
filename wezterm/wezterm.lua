@@ -45,6 +45,12 @@ config.colors = {
 config.window_background_opacity = 0.75
 config.macos_window_background_blur = 20
 
+config.window_padding = {
+  left = 3,
+  right = 3,
+  top = 5,
+  bottom = 0,
+}
 
 -- Keybindings
 config.keys = {

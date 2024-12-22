@@ -150,6 +150,7 @@ fi
 ## Add SSH key to keychain (MacOS only)
 if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
     [[ $IS_MACOS -eq 1 ]] && ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    # [[ $IS_LINUX -eq 1 ]] && eval `ssh-agent`
     [[ $IS_LINUX -eq 1 ]] && ssh-add -k ~/.ssh/id_ed25519
 fi
 

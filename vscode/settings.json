@@ -378,7 +378,6 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "editor.fontWeight": "400",
   "explorer.confirmDragAndDrop": false,
-  "workbench.colorTheme": "Tokyo Night Gogh",
   "diffEditor.hideUnchangedRegions.enabled": true,
   "workbench.activityBar.location": "hidden",
   "remote.SSH.remotePlatform": {
@@ -461,5 +460,18 @@
     "[x]",
     "@todo"
   ],
-  "git.openRepositoryInParentFolders": "never"
+  "git.openRepositoryInParentFolders": "never",
+  "workbench.colorTheme": "Tokyo Night Gogh",
+  "Laravel.appBinding.diagnostics": false,
+  "Laravel.asset.diagnostics": false,
+  "Laravel.auth.diagnostics": false,
+  "Laravel.config.diagnostics": false,
+  "Laravel.controllerAction.diagnostics": false,
+  "Laravel.env.diagnostics": false,
+  "Laravel.inertia.diagnostics": false,
+  "Laravel.middleware.diagnostics": false,
+  "Laravel.mix.diagnostics": false,
+  "Laravel.route.diagnostics": false,
+  "Laravel.translation.diagnostics": false,
+  "Laravel.view.diagnostics": false
 }

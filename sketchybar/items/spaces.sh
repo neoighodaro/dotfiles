@@ -27,20 +27,20 @@ for m in $(aerospace list-monitors | awk '{print $1}'); do
       padding_right=2
       background.height=26
 
-      icon.color=$ITEM_BG_COLOR
-      icon.highlight_color=$ACCENT_COLOR
+      icon.color=$AEROSPACE_TEXT_COLOR
+      icon.highlight_color=$AEROSPACE_ACTIVE_TEXT_COLOR
       icon.padding_left=$LABEL_PADDING_LEFT
       icon.padding_right=$LABEL_PADDING_RIGHT
       icon.font="$LABEL_FONT"
       icon.y_offset=$LABEL_OFFSET_Y
 
       label.padding_right=$ICON_PADDING_RIGHT
-      label.color=$ITEM_BG_COLOR
-      label.highlight_color=$ACCENT_COLOR
+      label.color=$AEROSPACE_TEXT_COLOR
+      label.highlight_color=$AEROSPACE_ACTIVE_TEXT_COLOR
       label.font="$ICON_FONT"
       label.y_offset=$ICON_OFFSET_Y
 
-      background.color=$OVERLAY_COLOR
+      background.color=$AEROSPACE_BG_COLOR
     )
 
     sketchybar --add space space.$sid left                                  \
@@ -73,10 +73,9 @@ space_creator=(
   display=inactive
   padding_left=3
   icon.font="$NERD_FONT:Heavy:13.0"
-  icon.color=$ITEM_BG_COLOR
+  icon.color=$AEROSPACE_TEXT_COLOR
   icon.padding_right=10
   label.drawing=off
-  background.color=$OVERLAY_COLOR
   background.height=26
 )
 

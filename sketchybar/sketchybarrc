@@ -21,7 +21,7 @@ bar=(
     sticky=off
     padding_left=10
     padding_right=10
-    color=$BAR_COLOR
+    color=$BAR_BG_COLOR
 )
 sketchybar --bar "${bar[@]}"
 
@@ -30,9 +30,9 @@ sketchybar --bar "${bar[@]}"
 ## https://felixkratz.github.io/SketchyBar/config/items
 default=(
     icon.font="SF Pro:Semibold:15.0"
-    icon.color=$WHITE
+    icon.color=$TEXT_COLOR
     label.font="$NERDFONT:Semibold:15.0"
-    label.color=$WHITE
+    label.color=$TEXT_COLOR
     background.color=$ITEM_BG_COLOR
     background.corner_radius=5
     background.height=24

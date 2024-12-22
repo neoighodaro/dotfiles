@@ -1,12 +1,12 @@
 -- Helper function:
 -- returns color scheme dependant on operating system theme setting (dark/light)
--- local function color_scheme_for_appearance(appearance)
---   if appearance:find "Dark" then
---     return "Tokyo Night"
---   else
---     return "Tokyo Night Day"
---   end
--- end
+local function color_scheme_for_appearance(appearance)
+  if appearance:find "Dark" then
+    return "Tokyo Night"
+  else
+    return "Tokyo Night Day"
+  end
+end
 
 -- Pull in WezTerm API
 local wezterm = require 'wezterm'
@@ -19,7 +19,7 @@ end
 
 -- Appearance
 config.font_size = 14.0
--- config.color_scheme = color_scheme_for_appearance(wezterm.gui.get_appearance())
+config.color_scheme = color_scheme_for_appearance(wezterm.gui.get_appearance())
 config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 1.0
 config.hide_tab_bar_if_only_one_tab = true
@@ -29,21 +29,34 @@ config.initial_cols = 120
 config.initial_rows = 120
 config.window_close_confirmation = 'NeverPrompt'
 
+-- CK Theme
+-- config.colors = {
+-- 	foreground = "#ffffff",
+-- 	background = "#343131",
+-- 	cursor_bg = "#f6d683",
+-- 	cursor_border = "#f6d683",
+-- 	cursor_fg = "#f6d683",
+-- 	selection_bg = "#f6d683",
+-- 	selection_fg = "#f6d683",
+-- 	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
+-- 	brights = { "#214969" , "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
+-- }
 
-config.colors = {
-	foreground = "#CBE0F0",
-	background = "#061e2e",
-	cursor_bg = "#78f6ec",
-	cursor_border = "#47FF9C",
-	cursor_fg = "#113445",
-	selection_bg = "#033259",
-	selection_fg = "#CBE0F0",
-	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
-	brights = { "#214969" , "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
-}
+-- Teal theme
+-- config.colors = {
+-- 	foreground = "#CBE0F0",
+-- 	background = "#061e2e",
+-- 	cursor_bg = "#78f6ec",
+-- 	cursor_border = "#47FF9C",
+-- 	cursor_fg = "#113445",
+-- 	selection_bg = "#f7ca95",
+-- 	selection_fg = "#033259",
+-- 	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
+-- 	brights = { "#214969" , "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
+-- }
 
 config.window_background_opacity = 0.75
-config.macos_window_background_blur = 20
+config.macos_window_background_blur = 30
 
 config.window_padding = {
   left = 3,

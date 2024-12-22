@@ -5,56 +5,68 @@ export WHITE=0xffffffff
 
 # Teal Scheme
 # -------------------------------------------------------------------------------------------
-export BAR_COLOR=0xff001f30
-export ITEM_BG_COLOR=0xff003547
-export ACCENT_COLOR=0xff2cf9ed
-export OVERLAY_COLOR=0x40000000
+# export BAR_BG_COLOR=0xff001f30
+# export ITEM_BG_COLOR=0xff003547
+# export TEXT_COLOR=0xffffffff
+# export TEXT_COLOR_DIM=0x5f0fffff
+# export ACTIVE_APP_TEXT_COLOR=0xff003547
+# export ACTIVE_APP_BG_COLOR=0xff2cf9ed
+# export AEROSPACE_TEXT_COLOR=0xff003547
+# export AEROSPACE_ACTIVE_TEXT_COLOR=0xff2cf9ed
+# export AEROSPACE_BG_COLOR=0x40000000
+# export AEROSPACE_ACTIVE_BG_COLOR=0xff003547
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Gray Scheme --
-# export BAR_COLOR=0xff101314
+# CK Yellow Scheme
+# -------------------------------------------------------------------------------------------
+export BAR_BG_COLOR=0x40000000
+export ITEM_BG_COLOR=0xff2d2b27
+export TEXT_COLOR=0xffffd676
+export TEXT_COLOR_DIM=0x992d2b27
+export ACTIVE_APP_TEXT_COLOR=0xff2d2b27
+export ACTIVE_APP_BG_COLOR=0xffffd676
+export AEROSPACE_TEXT_COLOR=0x30ffffff
+export AEROSPACE_ACTIVE_TEXT_COLOR=0xffffd676
+export AEROSPACE_BG_COLOR=0x07ffffff
+export AEROSPACE_ACTIVE_BG_COLOR=0xff2d2b27
+
+# Gray Scheme
+# ---------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff101314
 # export ITEM_BG_COLOR=0xff353c3f
-# export ACCENT_COLOR=0xffffffff
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xffffffff
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Purple Scheme --
-# export BAR_COLOR=0xff140c42
+# Purple Scheme
+# ---------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff140c42
 # export ITEM_BG_COLOR=0xff2b1c84
-# export ACCENT_COLOR=0xffeb46f9
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xffeb46f9
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Red Scheme ---
-# export BAR_COLOR=0xff23090e
+# Red Scheme
+# ----------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff23090e
 # export ITEM_BG_COLOR=0xff591221
-# export ACCENT_COLOR=0xffff2453
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xffff2453
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Blue Scheme ---
-# export BAR_COLOR=0xff021254
+# Blue Scheme
+# ----------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff021254
 # export ITEM_BG_COLOR=0xff093aa8
-# export ACCENT_COLOR=0xff15bdf9
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xff15bdf9
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Green Scheme --
-# export BAR_COLOR=0xff003315
+# Green Scheme
+# ---------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff003315
 # export ITEM_BG_COLOR=0xff008c39
-# export ACCENT_COLOR=0xff1dfca1
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xff1dfca1
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Orange Scheme --
-# export BAR_COLOR=0xff381c02
+# Orange Scheme
+# ---------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff381c02
 # export ITEM_BG_COLOR=0xff99440a
-# export ACCENT_COLOR=0xfff97716
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xfff97716
 
-# Teal Scheme
-# -------------------------------------------------------------------------------------------Yellow Scheme --
-# export BAR_COLOR=0xff2d2b02
+# Yellow Scheme
+# ---------------------------------------------------------------------------------------------
+# export BAR_BG_COLOR=0xff2d2b02
 # export ITEM_BG_COLOR=0xff8e7e0a
-# export ACCENT_COLOR=0xfff7fc17
-# export OVERLAY_COLOR=0x40000000
+# export ACTIVE_APP_BG_COLOR=0xfff7fc17

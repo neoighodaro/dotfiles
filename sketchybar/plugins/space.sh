@@ -5,14 +5,15 @@ update() {
   # 현재 forced, space_change 이벤트가 동시에 발생하고 있다.
   if [ "$SENDER" = "space_change" ]; then
     source "$CONFIG_DIR/colors.sh"
+
     COLOR=$BACKGROUND_2
     if [ "$SELECTED" = "true" ]; then
       COLOR=$GREY
     fi
 
-    sketchybar --anim sin 5 --set space.$(aerospace list-workspaces --focused) icon.highlight=true \
-                      label.highlight=true \
-                      background.border_color=$GREY
+    sketchybar --anim sin 5 --set space.$(aerospace list-workspaces --focused) \
+                        icon.highlight=true \
+                        label.highlight=true
   fi
 }
 
@@ -35,15 +36,12 @@ mouse_clicked() {
         fi
       fi
     else
-      #yabai -m space --focus $SID 2>/dev/null
       aerospace workspace ${NAME#*.}
     fi
   fi
 }
 
 case "$SENDER" in
-  "mouse.clicked") mouse_clicked
-  ;;
-  *) update
-  ;;
+  "mouse.clicked") mouse_clicked;;
+  *) update;;
 esac

@@ -21,7 +21,8 @@ end
 config.font_size = 14.0
 config.color_scheme = color_scheme_for_appearance(wezterm.gui.get_appearance())
 config.window_decorations = "RESIZE"
--- config.window_background_opacity = 1.0
+config.window_background_opacity = 0.95
+config.macos_window_background_blur = 30
 config.hide_tab_bar_if_only_one_tab = true
 config.native_macos_fullscreen_mode = false
 config.macos_window_background_blur = 30
@@ -55,13 +56,10 @@ config.window_close_confirmation = 'NeverPrompt'
 -- 	brights = { "#214969" , "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
 -- }
 
-config.window_background_opacity = 0.75
-config.macos_window_background_blur = 30
-
 config.window_padding = {
   left = 3,
   right = 3,
-  top = 5,
+  top = 3,
   bottom = 0,
 }
 

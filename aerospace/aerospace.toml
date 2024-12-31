@@ -232,6 +232,10 @@ if.app-id = 'company.thebrowser.Browser'
 run = "move-node-to-workspace B"
 
 [[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace B"
+
+[[on-window-detected]]
 if.app-id = 'com.apple.Safari'
 run = "move-node-to-workspace B"
 
@@ -244,6 +248,10 @@ run = "move-node-to-workspace B"
 
 [[on-window-detected]]
 if.app-id = 'com.axosoft.gitkraken'
+run = "move-node-to-workspace G"
+
+[[on-window-detected]]
+if.app-id = 'com.gitbutler.app'
 run = "move-node-to-workspace G"
 
 # IDEs

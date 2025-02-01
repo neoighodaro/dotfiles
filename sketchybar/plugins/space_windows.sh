@@ -27,15 +27,14 @@ if [ "$SENDER" = "aerospace_workspace_change" ]; then
   reload_workspace_icon "$AEROSPACE_PREV_WORKSPACE"
   reload_workspace_icon "$AEROSPACE_FOCUSED_WORKSPACE"
 
-  # current workspace space border color
   sketchybar --set space.$AEROSPACE_FOCUSED_WORKSPACE icon.highlight=true \
                          label.highlight=true \
-                         background.color=$ITEM_BG_COLOR
+                         background.color=$AEROSPACE_ACTIVE_BG_COLOR
 
   # prev workspace space border color
   sketchybar --set space.$AEROSPACE_PREV_WORKSPACE icon.highlight=false \
                          label.highlight=false \
-                         background.color=$OVERLAY_COLOR
+                         background.color=$AEROSPACE_BG_COLOR
 
   ## focused 된 모니터에 space 상태 보이게 설정
   for i in $AEROSAPCE_WORKSPACE_FOCUSED_MONITOR; do

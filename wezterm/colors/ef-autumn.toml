@@ -1,0 +1,33 @@
+[colors]
+ansi = [
+    '#26211d',
+    '#ef656a',
+    '#2fa526',
+    '#c48702',
+    '#379cf6',
+    '#d570af',
+    '#4fb0cf',
+    '#cfbcba'
+]
+brights = [
+    '#56524f',
+    '#ff7a7f',
+    '#00b066',
+    '#df8f6f',
+    '#029fff',
+    '#af8aff',
+    '#3dbbb0',
+    '#887c8a'
+]
+cursor_bg = '#ffaa33'
+cursor_border = '#ffaa33'
+cursor_fg = '#0f0e06'
+background = '#0f0e06'
+foreground = '#cfbcba'
+selection_bg = '#3f1324'
+selection_fg = '#cfbcba'
+
+[metadata]
+name = 'Ef-Autumn'
+author = 'anhsirk0'
+origin_url = 'https://git.sr.ht/~protesilaos/ef-themes/tree/main/item/ef-autumn-theme.el'

@@ -135,6 +135,11 @@ else
     echo -e "${GRAY}==> Already installed Deno. Skipping...${NC}"
 fi
 
+# Docker
+if ! command -v docker &> /dev/null; then
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+fi
 
 # Caveat for GPG
 # ------------------------------------------------------------------------------

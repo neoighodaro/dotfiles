@@ -246,7 +246,7 @@ defaults write org.gpgtools.common DisableKeychain -bool yes                    
 # Apps & their config
 # ---------------------------------------------------------------------------------------------------
 ## Link config files
-link_and_backup "wezterm/wezterm.lua" ".wezterm.lua"                                            # Wezterm config
+link_and_backup "wezterm" ".config/wezterm"                                                     # Wezterm config
 link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
 link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
 link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config

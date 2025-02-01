@@ -147,10 +147,11 @@ if [[ -f "$HOME/.ssh/id_ed25519.pub" ]]; then
     link_and_backup "ssh/config.d" ".ssh/config.d"
 fi
 
-## Add SSH key to keychain
+## Add SSH key to keychain (MacOS only)
 if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
-    [[ $IS_MACOS -eq 1 ]] && ssh-add -K ~/.ssh/id_ed25519 > /dev/null 2>&1
-    [[ $IS_LINUX -eq 1 ]] && ssh-add -k ~/.ssh/id_ed25519 > /dev/null 2>&1
+    [[ $IS_MACOS -eq 1 ]] && ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+    # [[ $IS_LINUX -eq 1 ]] && eval `ssh-agent`
+    [[ $IS_LINUX -eq 1 ]] && ssh-add -k ~/.ssh/id_ed25519
 fi
 
 

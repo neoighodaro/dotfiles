@@ -820,7 +820,6 @@
                     },
                     {
                         "description": "Right Option Key → Hyper Key (⌃⌥⇧⌘)",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -829,8 +828,8 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "left_shift",
-                                        "modifiers": ["left_command", "left_control", "left_option"]
+                                        "key_code": "left_option",
+                                        "modifiers": ["left_command", "left_control"]
                                     }
                                 ],
                                 "type": "basic"

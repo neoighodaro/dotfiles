@@ -1,0 +1,33 @@
+[colors]
+ansi = [
+    '#1d202f',
+    '#f47359',
+    '#29a444',
+    '#b58a52',
+    '#3f95f6',
+    '#d369af',
+    '#4fbaef',
+    '#b8c6d5'
+]
+brights = [
+    '#4a4f62',
+    '#ff6a7a',
+    '#00a392',
+    '#df9080',
+    '#029fff',
+    '#af85ea',
+    '#35afbf',
+    '#807c9f'
+]
+cursor_bg = '#ff6ff0'
+cursor_border = '#ff6ff0'
+cursor_fg = '#0f0b15'
+background = '#0f0b15'
+foreground = '#b8c6d5'
+selection_bg = '#342464'
+selection_fg = '#b8c6d5'
+
+[metadata]
+name = 'Ef-Winter'
+author = 'anhsirk0'
+origin_url = 'https://git.sr.ht/~protesilaos/ef-themes/tree/main/item/ef-winter-theme.el'

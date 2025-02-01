@@ -16,10 +16,6 @@
     "command": "workbench.view.debug"
   },
   {
-    "key": "cmd+e",
-    "command": "workbench.action.focusActiveEditorGroup"
-  },
-  {
     "key": "cmd+t",
     "command": "workbench.action.terminal.toggleTerminal"
   },
@@ -519,5 +515,23 @@
     "key": "cmd+z",
     "command": "-excalidraw.preventDefault",
     "when": "activeCustomEditorId == 'editor.excalidraw'"
+  },
+  {
+    "key": "cmd+e",
+    "command": "-actions.findWithSelection"
+  },
+  {
+    "key": "cmd+e",
+    "command": "-editor.action.toggleScreenReaderAccessibilityMode",
+    "when": "accessibilityHelpIsShown"
+  },
+  {
+    "key": "cmd+e",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "cmd+e",
+    "command": "workbench.action.quickOpenNavigateNextInFilePicker",
+    "when": "inFilesPicker && inQuickOpen"
   }
 ]

@@ -1,3 +1,4 @@
+// https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds clear-defaults=true {
     // Modes
@@ -106,12 +107,17 @@ keybinds clear-defaults=true {
         bind "Alt n" { NewPane; SwitchToMode "Pane"; }
         bind "Alt t" { NewTab; SwitchToMode "Tab"; }
         bind "Alt x" { CloseFocus; SwitchToMode "Normal"; }
-        bind "Ctrl Alt Right" { MoveFocusOrTab "Right"; }
-        bind "Ctrl Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Ctrl Alt Down" { MoveFocus "Down"; }
-        bind "Ctrl Alt Up" { MoveFocus "Up"; }
+        bind "Ctrl Alt l" { GoToNextTab; }
+        bind "Ctrl Alt h" { GoToPreviousTab; }
+        bind "Ctrl Alt x" { CloseTab; }
+        bind "Alt l" { MoveFocusOrTab "Right"; }
+        bind "Alt h" { MoveFocusOrTab "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
+        bind "Alt [" { PreviousSwapLayout; }
+        bind "Alt ]" { NextSwapLayout; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }

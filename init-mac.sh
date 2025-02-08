@@ -224,6 +224,7 @@ install_brew_package folderify
 install_brew_package sketchybar FelixKratz/formulae
 install_brew_package font-sketchybar-app-font
 install_brew_package jq
+install_brew_package podman-desktop
 
 # Caveat for GPG
 # ------------------------------------------------------------------------------

@@ -461,7 +461,7 @@
     "@todo"
   ],
   "git.openRepositoryInParentFolders": "never",
-  "workbench.colorTheme": "Tokyo Night Gogh",
+  "workbench.colorTheme": "Catppuccin Mocha",
   "Laravel.appBinding.diagnostics": false,
   "Laravel.asset.diagnostics": false,
   "Laravel.auth.diagnostics": false,

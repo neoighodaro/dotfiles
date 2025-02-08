@@ -20,7 +20,7 @@ keybinds clear-defaults=true {
         bind "x" { CloseFocus; }
         bind "n" { NewPane; }
         bind "d" { NewPane "Down"; }
-        bind "f" { ToggleFloatingPanes; }
+        // bind "f" { ToggleFloatingPanes; }
         bind "h" "Left" { MoveFocus "Left"; }
         bind "l" "Right" { MoveFocus "Right"; }
         bind "j" "Down" { MoveFocus "Down"; }
@@ -110,6 +110,7 @@ keybinds clear-defaults=true {
         bind "Ctrl Alt l" { GoToNextTab; }
         bind "Ctrl Alt h" { GoToPreviousTab; }
         bind "Ctrl Alt x" { CloseTab; }
+        bind "Ctrl Alt f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "Alt l" { MoveFocusOrTab "Right"; }
         bind "Alt h" { MoveFocusOrTab "Left"; }
         bind "Alt j" { MoveFocus "Down"; }
@@ -118,7 +119,6 @@ keybinds clear-defaults=true {
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
-        bind "Alt f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }

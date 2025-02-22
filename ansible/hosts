@@ -1,0 +1,5 @@
+[servers]
+localhost ansible_connection=local
+
+[k3smaster]
+10.10.10.2

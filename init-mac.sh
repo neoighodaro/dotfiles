@@ -300,7 +300,11 @@ install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask
 # install_cask_app mysides
 
 ## Kubernetes context plugin
-install_brew_package "kubectx"
+install_brew_package kubectx
+install_brew_package helm
+install_brew_package ansible
+install_brew_package ansible-lint
+
 
 ## AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
@@ -309,6 +313,9 @@ install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
 mkdir -p "$HOME/Library/Application Support/xbar/plugins"
 mkdir -p "$HOME/Library/Application Support/Code/User"
 link_and_backup "xbar/dnsswitcher.sh" "Library/Application Support/xbar/plugins/dnsswitcher.sh" # Xbar plugin
+
+# Ansible cfg
+link_and_backup "ansible" "/etc/ansible" --realpath --sudo
 
 ## Ask if you want to customize VSCode
 if [[ ! -f "/tmp/vscode-installed" ]]; then

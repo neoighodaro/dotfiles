@@ -105,6 +105,45 @@ for plugin in "${ZSH_PLUGINS[@]}"; do
     fi
 done
 
+# ----------------------------------------------------------------------------------------
+# EXPORTS
+# ----------------------------------------------------------------------------------------
+
+export LANG=${LANG:-en_US.UTF-8}                        # Prefer US English and UTF-8
+export LC_CTYPE=${LC_CTYPE:-$LANG}                      # Prefer US English and UTF-8
+export LC_ALL=${LC_ALL:-$LANG}                          # Prefer US English and UTF-8
+export GREP_OPTIONS="--color=auto"                      # Always enable colored `grep` output
+export GPG_TTY=$(tty)                                   # Fix GPG prompt
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"      # Link Homebrew casks in `/Applications` rather than `~/Applications`
+export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
+
+# Deno
+# ----------------------------------------------------------------------------------------
+[ -s "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
+
+# NVM
+# ----------------------------------------------------------------------------------------
+NVM_POTENTIAL_PATH="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+if [[ -d "$NVM_POTENTIAL_PATH" ]] && [[ -f "$NVM_POTENTIAL_PATH/nvm.sh" ]]; then
+    export NVM_DIR="$NVM_POTENTIAL_PATH"
+fi
+
+# Other stuff
+# ----------------------------------------------------------------------------------------
+[ ! -n $SSH_CONNECTION ] && export EDITOR="code -w"     # Use VSCode as default editor when not connected to a remote machine
+
+[ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
+[ -d "/opt/homebrew/bin" ] && export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
+[ -f "$HOME/.zshrc_paths" ] && \. "$HOME/.zshrc_paths"
+
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"      # Add Composer to PATH
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"      # Add /usr/local/bin to PATH, LEAVE AS LAST!
+
+# LOAD PACKAGES
+# ----------------------------------------------------------------------------------------
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                    # Node Version Manager
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Node Version Manager
+
 
 # starship
 # ------------------------------------------------------------------------------
@@ -185,47 +224,6 @@ if type zellij &>/dev/null; then
     fi
   fi
 fi
-
-
-# ----------------------------------------------------------------------------------------
-# EXPORTS
-# ----------------------------------------------------------------------------------------
-
-export LANG=${LANG:-en_US.UTF-8}                        # Prefer US English and UTF-8
-export LC_CTYPE=${LC_CTYPE:-$LANG}                      # Prefer US English and UTF-8
-export LC_ALL=${LC_ALL:-$LANG}                          # Prefer US English and UTF-8
-export GREP_OPTIONS="--color=auto"                      # Always enable colored `grep` output
-export GPG_TTY=$(tty)                                   # Fix GPG prompt
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"      # Link Homebrew casks in `/Applications` rather than `~/Applications`
-export XDG_CONFIG_HOME="$HOME/.config"                  # XDG config directory
-
-# Deno
-# ----------------------------------------------------------------------------------------
-[ -s "$HOME/.deno/env" ] && \. "$HOME/.deno/env"
-
-# NVM
-# ----------------------------------------------------------------------------------------
-NVM_POTENTIAL_PATH="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-if [[ -d "$NVM_POTENTIAL_PATH" ]] && [[ -f "$NVM_POTENTIAL_PATH/nvm.sh" ]]; then
-    export NVM_DIR="$NVM_POTENTIAL_PATH"
-fi
-
-# Other stuff
-# ----------------------------------------------------------------------------------------
-[ ! -n $SSH_CONNECTION ] && export EDITOR="code -w"     # Use VSCode as default editor when not connected to a remote machine
-
-[ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
-[ -d "/opt/homebrew/bin" ] && export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
-[ -f "$HOME/.zshrc_paths" ] && \. "$HOME/.zshrc_paths"
-
-[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"      # Add Composer to PATH
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"      # Add /usr/local/bin to PATH, LEAVE AS LAST!
-
-# LOAD PACKAGES
-# ----------------------------------------------------------------------------------------
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                    # Node Version Manager
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Node Version Manager
-
 
 # LOAD CUSTOM SCRIPTS
 # ----------------------------------------------------------------------------------------

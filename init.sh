@@ -5,8 +5,18 @@ set -e
 # Variables
 # ----------------------------------------------------------------------------------------
 ## Directories
-DOTFILES_DIR="$HOME/Developer/dotfiles"
+NEO_HOME_DIR="${NEO_HOME_DIR:-$HOME}"
+DOTFILES_DIR="$NEO_HOME_DIR/Developer/dotfiles"
 NVM_VERSION="v0.40.1"
+WHO_AM_I_VALUE=${WHO_AM_I_VALUE:-$(whoami)}
+
+# Check if running in non-interactive mode
+if [[ "$1" == "--non-interactive" ]] || [[ "$NON_INTERACTIVE" == "true" ]] || [[ "$ANSIBLE_MANAGED" == "true" ]]; then
+  echo -e "${YELLOW}Running in non-interactive mode${NC}"
+  NON_INTERACTIVE=true
+else
+  NON_INTERACTIVE=false
+fi
 
 ## Colors
 WHITE="\033[1;37m"
@@ -24,10 +34,12 @@ IS_LINUX=$(uname -s | grep -i "linux" | wc -l | tr -d '[:space:]')
 
 # Safety checks
 # ----------------------------------------------------------------------------------------
-## Prevent running script as root...
-if [ "$EUID" -eq 0 ]; then
-  echo -e "${RED}===> Please don't run as root.${NC}"
-  exit 1
+## Prevent running script as root but only if not running in non-interactive mode
+if [[ "$NON_INTERACTIVE" == "false" ]]; then
+    if [ "$EUID" -eq 0 ]; then
+        echo -e "${RED}===> Please don't run as root.${NC}"
+        exit 1
+    fi
 fi
 
 ## Make sure ZSH is installed
@@ -48,7 +60,7 @@ fi
 ## Link and backup files
 link_and_backup() {
     local SKIP_LINKING=0
-    local DEFAULT_FILE="$HOME/${2:-$1}"
+    local DEFAULT_FILE="$NEO_HOME_DIR/${2:-$1}"
     local LINK_FILE="$DOTFILES_DIR/$1"
     local SUDO=0
 
@@ -111,7 +123,7 @@ link_and_backup() {
 # Begin Script
 # ---------------------------------------------------------------------------------------------------
 
-cd $HOME
+cd $NEO_HOME_DIR
 echo -e "${WHITE}==> Initializing...${NC}"
 
 # Install NVM
@@ -126,7 +138,7 @@ fi
 # Prepare & link dotfiles
 # ---------------------------------------------------------------------------------------------------
 ## Make necessary directories
-mkdir -p ~/.config ~/.config/lazygit
+mkdir -p "$NEO_HOME_DIR/.config" "$NEO_HOME_DIR/.config/lazygit"
 
 ## Link the dotfiles...
 link_and_backup "zellij" ".config/zellij"
@@ -153,30 +165,37 @@ link_and_backup "git/base.cfg" ".gitconfig"
 # Generate SSH Keys
 # ------------------------------------------------------------------------------
 SSH_CHECK_RUN_FILE="/tmp/dotfiles__ssh-skip-check"
-if [[ ! -f "$HOME/.ssh/id_ed25519.pub" ]] && [[ ! -f "$SSH_CHECK_RUN_FILE" ]]; then
+if [[ ! -f "$NEO_HOME_DIR/.ssh/id_ed25519.pub" ]] && [[ ! -f "$SSH_CHECK_RUN_FILE" ]]; then
     touch "$SSH_CHECK_RUN_FILE"
-    echo -e "${WHITE}==> Would you like to generate an SSH key? [y/N]${NC}"
-    read -r answer
 
-    if [[ $answer == "y" || $answer == "Y" ]]; then
-        echo -e "${WHITE}==> Generating SSH key...${NC}"
-        ssh-keygen -t ed25519 -C "public@neoi.sh" -f $HOME/.ssh/id_ed25519
+    if [[ "$NON_INTERACTIVE" == "true" ]]; then
+        echo -e "${YELLOW}==> Automatically generating SSH key in non-interactive mode${NC}"
+        mkdir -p "$NEO_HOME_DIR/.ssh"
+        ssh-keygen -t ed25519 -C "public@neoi.sh" -f "$NEO_HOME_DIR/.ssh/id_ed25519" -N "" -q
     else
-        echo -e "${WHITE}==> Skipping SSH key generation...${NC}"
+        echo -e "${WHITE}==> Would you like to generate an SSH key? [y/N]${NC}"
+        read -r answer
+
+        if [[ $answer == "y" || $answer == "Y" ]]; then
+            echo -e "${WHITE}==> Generating SSH key...${NC}"
+            ssh-keygen -t ed25519 -C "public@neoi.sh" -f $NEO_HOME_DIR/.ssh/id_ed25519
+        else
+            echo -e "${WHITE}==> Skipping SSH key generation...${NC}"
+        fi
     fi
 fi
 
 ## Additional set up for SSH
-if [[ -f "$HOME/.ssh/id_ed25519.pub" ]]; then
+if [[ -f "$NEO_HOME_DIR/.ssh/id_ed25519.pub" ]]; then
     link_and_backup "ssh/ssh-config" ".ssh/config"
     link_and_backup "ssh/config.d" ".ssh/config.d"
 fi
 
 ## Add SSH key to keychain (MacOS only)
-if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
-    [[ $IS_MACOS -eq 1 ]] && ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+if [[ -f "$NEO_HOME_DIR/.ssh/id_ed25519" ]]; then
+    [[ $IS_MACOS -eq 1 ]] && ssh-add --apple-use-keychain $NEO_HOME_DIR/.ssh/id_ed25519
     # [[ $IS_LINUX -eq 1 ]] && eval `ssh-agent`
-    [[ $IS_LINUX -eq 1 ]] && ssh-add -k ~/.ssh/id_ed25519
+    # [[ $IS_LINUX -eq 1 ]] && ssh-add -k $NEO_HOME_DIR/.ssh/id_ed25519
 fi
 
 
@@ -194,14 +213,35 @@ fi
 GPG_CHECK_RUN_FILE="/tmp/dotfiles__gpg-skip-check"
 if [[ -z "$(gpg --list-keys 2>/dev/null)" ]] && [[ ! -f "$GPG_CHECK_RUN_FILE" ]]; then
     touch "$GPG_CHECK_RUN_FILE"
-    echo -e "${WHITE}==> Would you like to generate a GPG key? [y/N]${NC}"
-    read -r answer
 
-    if [[ $answer == "y" || $answer == "Y" ]]; then
-        echo -e "${WHITE}==> Generating GPG key...${NC}"
-        gpg --full-generate-key
+    if [[ "$NON_INTERACTIVE" == "true" ]]; then
+        echo -e "${YELLOW}==> Automatically generating GPG key in non-interactive mode${NC}"
+        # Create batch file for unattended GPG key generation
+        cat > /tmp/gpg-batch <<EOF
+%echo Generating GPG key
+Key-Type: RSA
+Key-Length: 4096
+Subkey-Type: RSA
+Subkey-Length: 4096
+Name-Real: Neo Automated
+Name-Email: public@neoi.sh
+Expire-Date: 0
+%no-protection
+%commit
+%echo Done
+EOF
+        gpg --batch --generate-key /tmp/gpg-batch
+        rm -f /tmp/gpg-batch
     else
-        echo -e "${WHITE}==> Skipping GPG key generation...${NC}"
+        echo -e "${WHITE}==> Would you like to generate a GPG key? [y/N]${NC}"
+        read -r answer
+
+        if [[ $answer == "y" || $answer == "Y" ]]; then
+            echo -e "${WHITE}==> Generating GPG key...${NC}"
+            gpg --full-generate-key
+        else
+            echo -e "${WHITE}==> Skipping GPG key generation...${NC}"
+        fi
     fi
 fi
 

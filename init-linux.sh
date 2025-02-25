@@ -133,7 +133,7 @@ fi
 ## Starship
 if ! command -v starship &> /dev/null; then
     echo -e "${WHITE}==> Installing Starship...${NC}"
-    curl -sS https://starship.rs/install.sh | sh
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
     echo -e "${GREEN}==> Installed Starship.${NC}"
 else
     echo -e "${GRAY}==> Already installed Starship. Skipping...${NC}"

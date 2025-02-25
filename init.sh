@@ -47,11 +47,16 @@ if [[ ! -f "/bin/zsh" ]]; then
     if [[ $IS_LINUX -eq 1 ]]; then
         echo -e "${YELLOW}===> Installing ZSH...${NC}"
         sudo apt install -y zsh
-        chsh -s $(which zsh)
     else
         echo -e "${RED}===> ZSH is not installed. Please install ZSH first.${NC}"
         exit 1
     fi
+fi
+
+# If zsh is not main shell, switch to it
+if [[ $SHELL != *"zsh"* ]]; then
+    echo -e "${YELLOW}===> Switching to zsh...${NC}"
+    chsh -s $(which zsh)
 fi
 
 

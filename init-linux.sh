@@ -72,9 +72,8 @@ if [[ "$SWAP_FILE_ALREADY_ALLOCATED" -eq 0 ]]; then
     fi
 
     if [ $SWAPSIZE -gt 0 ]; then
-        echo -e "${WHITE}==> Creating swap file with size ${SWAPSIZE}GB. Do you want to proceed? [y/N]${NC}"
-        read -r answer
-        if [[ $answer == "y" || $answer == "Y" ]]; then
+        if [[ "$NON_INTERACTIVE" == "true" ]]; then
+            echo -e "${YELLOW}==> Automatically creating swap file with size ${SWAPSIZE}GB in non-interactive mode${NC}"
             sudo fallocate -l ${SWAPSIZE}G /swapfile
             sudo chmod 600 /swapfile
             sudo mkswap /swapfile
@@ -82,7 +81,18 @@ if [[ "$SWAP_FILE_ALREADY_ALLOCATED" -eq 0 ]]; then
             sudo echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
             echo -e "${GREEN}==> Created swap file.${NC}"
         else
-            echo -e "${RED}===> Not creating swap file. Skipping...${NC}"
+            echo -e "${WHITE}==> Creating swap file with size ${SWAPSIZE}GB. Do you want to proceed? [y/N]${NC}"
+            read -r answer
+            if [[ $answer == "y" || $answer == "Y" ]]; then
+                sudo fallocate -l ${SWAPSIZE}G /swapfile
+                sudo chmod 600 /swapfile
+                sudo mkswap /swapfile
+                sudo swapon /swapfile
+                sudo echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
+                echo -e "${GREEN}==> Created swap file.${NC}"
+            else
+                echo -e "${RED}===> Not creating swap file. Skipping...${NC}"
+            fi
         fi
     else
         echo -e "${RED}===> Not enough RAM to create swap file. Skipping...${NC}"
@@ -110,8 +120,8 @@ install_apt_package git-delta
 ## FZF
 if ! command -v fzf &> /dev/null; then
     echo -e "${WHITE}==> Installing FZF...${NC}"
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    git clone --depth 1 https://github.com/junegunn/fzf.git $NEO_HOME_DIR/.fzf
+    $NEO_HOME_DIR/.fzf/install
     echo -e "${GREEN}==> Installed FZF.${NC}"
 else
     echo -e "${GRAY}==> Already installed FZF. Skipping...${NC}"
@@ -127,7 +137,7 @@ else
 fi
 
 ## Deno
-if [[ ! -f "$HOME/.deno/env" ]]; then
+if [[ ! -f "$NEO_HOME_DIR/.deno/env" ]]; then
     echo -e "${WHITE}==> Installing Deno...${NC}"
     curl -fsSL https://deno.land/x/install/install.sh | sh        # Deno
     echo -e "${GREEN}==> Installed Deno.${NC}"
@@ -137,15 +147,48 @@ fi
 
 # Docker
 if ! command -v docker &> /dev/null; then
+    echo -e "${WHITE}==> Installing Docker...${NC}"
     curl -fsSL https://get.docker.com -o get-docker.sh
     sudo sh get-docker.sh
+    rm get-docker.sh
+    echo -e "${GREEN}==> Docker installed successfully.${NC}"
+else
+    echo -e "${GRAY}==> Docker already installed. Skipping...${NC}"
+fi
+
+# Check if Portainer is already installed/running
+if ! docker ps -a | grep -q portainer; then
+    if [[ "$NON_INTERACTIVE" == "true" ]]; then
+        echo -e "${YELLOW}==> Automatically installing Portainer in non-interactive mode${NC}"
+        sudo docker volume create portainer_data
+        sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v portainer_data:/data portainer/portainer-ce:lts
+        echo -e "${GREEN}==> Portainer installed successfully.${NC}"
+    else
+        echo -e "${WHITE}==> Would you like to install Portainer? [y/N]${NC}"
+        read -r answer
+        if [[ $answer == "y" || $answer == "Y" ]]; then
+            echo -e "${WHITE}==> Installing Portainer...${NC}"
+            sudo docker volume create portainer_data
+            sudo docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                -v portainer_data:/data portainer/portainer-ce:lts
+            echo -e "${GREEN}==> Portainer installed successfully.${NC}"
+            echo -e "${WHITE}==> Portainer is now available at https://$(hostname -I | awk '{print $1}'):9443${NC}"
+        else
+            echo -e "${RED}===> Not installing Portainer. Skipping...${NC}"
+        fi
+    fi
+else
+    echo -e "${GRAY}==> Portainer already installed. Skipping...${NC}"
 fi
 
 # Caveat for GPG
 # ------------------------------------------------------------------------------
-if [[ ! -f "$HOME/.gnupg/gpg-agent.conf" ]]; then
-    mkdir -p "$HOME/.gnupg" && touch "$HOME/.gnupg/gpg-agent.conf"
-    sudo chown -R $(whoami) "$HOME/.gnupg"
-    sudo find "$HOME/.gnupg" -type d -exec chmod 700 {} \;
-    sudo find "$HOME/.gnupg" -type f -exec chmod 600 {} \;
+if [[ ! -f "$NEO_HOME_DIR/.gnupg/gpg-agent.conf" ]]; then
+    mkdir -p "$NEO_HOME_DIR/.gnupg" && touch "$NEO_HOME_DIR/.gnupg/gpg-agent.conf"
+    sudo chown -R $WHO_AMI_VALUE "$NEO_HOME_DIR/.gnupg"
+    sudo find "$NEO_HOME_DIR/.gnupg" -type d -exec chmod 700 {} \;
+    sudo find "$NEO_HOME_DIR/.gnupg" -type f -exec chmod 600 {} \;
 fi

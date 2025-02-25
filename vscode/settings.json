@@ -217,7 +217,7 @@
   "php-cs-fixer.rules": "@PSR2",
   "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
   "php-cs-fixer.executablePath": "/Users/neo/.composer/vendor/bin/php-cs-fixer", // "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1626619725701,
+  "php-cs-fixer.lastDownload": 1740243811467,
 
   // Laravel
   "blade.format.enable": true, // Enable blade format
@@ -461,7 +461,7 @@
     "@todo"
   ],
   "git.openRepositoryInParentFolders": "never",
-  "workbench.colorTheme": "Tokyo Night Gogh",
+  "workbench.colorTheme": "Catppuccin Mocha",
   "Laravel.appBinding.diagnostics": false,
   "Laravel.asset.diagnostics": false,
   "Laravel.auth.diagnostics": false,
@@ -473,5 +473,6 @@
   "Laravel.mix.diagnostics": false,
   "Laravel.route.diagnostics": false,
   "Laravel.translation.diagnostics": false,
-  "Laravel.view.diagnostics": false
+  "Laravel.view.diagnostics": false,
+  "intelephense.environment.phpVersion": "8.4.4"
 }

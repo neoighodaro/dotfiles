@@ -50,6 +50,15 @@ link_and_backup() {
     local SKIP_LINKING=0
     local DEFAULT_FILE="$HOME/${2:-$1}"
     local LINK_FILE="$DOTFILES_DIR/$1"
+    local SUDO=0
+
+    if [[ $3 == "--realpath" ]]; then
+        DEFAULT_FILE="$2"
+    fi
+
+    if [[ $4 == "--sudo" ]]; then
+        SUDO=1
+    fi
 
     if [ ! -f "$LINK_FILE" ] && [ ! -d "$LINK_FILE" ]; then
         echo -e "${RED}==> $LINK_FILE does not exist. Skipping!${NC}"
@@ -57,31 +66,47 @@ link_and_backup() {
     fi
 
     if [[ "$LINK_FILE" == "$DOTFILES_DIR/.gitignore.work" ]] && [ ! -f "$LINK_FILE" ]; then
-        touch "$LINK_FILE"
+        if [[ $SUDO -ne 1 ]]; then
+            touch "$LINK_FILE"
+        else
+            sudo touch "$LINK_FILE"
+        fi
+
         echo -e "${GREEN}==> Created empty file for $LINK_FILE.${NC}"
     fi
 
     if [ -f "$DEFAULT_FILE" ] && [ ! -L "$DEFAULT_FILE" ]; then
-        mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
+        if [[ $SUDO -ne 1 ]]; then
+            mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
+        else
+            sudo mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
+        fi
         echo -e "${GREEN}==> Created backup for $DEFAULT_FILE.${NC}"
     else
         if [[ -L $DEFAULT_FILE ]] && [[ $LINK_FILE == $(readlink "$DEFAULT_FILE") ]]; then
             SKIP_LINKING=1
         elif [[ -f "$DEFAULT_FILE" ]]; then
-            mv "$DEFAULT_FILE" "$DEFAULT_FILE.bak"
+            if [[ $SUDO -ne 1 ]]; then
+                mv "$DEFAULT_FILE" "$DEFAULT_FILE.bak"
+            else
+                sudo mv "$DEFAULT_FILE" "$DEFAULT_FILE.bak"
+            fi
             echo -e "${GREEN}==> Created backup for $DEFAULT_FILE.${NC}"
         fi
     fi
 
     if [[ $SKIP_LINKING -eq 0 ]]; then
-        ln -s "$LINK_FILE" "$DEFAULT_FILE"
+        if [[ $SUDO -ne 1 ]]; then
+            ln -s "$LINK_FILE" "$DEFAULT_FILE"
+        else
+            sudo ln -s "$LINK_FILE" "$DEFAULT_FILE"
+        fi
         echo -e "${GREEN}==> Created symlink for $DEFAULT_FILE from $LINK_FILE.${NC}"
     else
         DEFAULT_FILE_BASENAME=$(basename "$DEFAULT_FILE")
         echo -e "${GRAY}==> Symlink already exists for $DEFAULT_FILE_BASENAME. Skipping!${NC}"
     fi
 }
-
 
 # Begin Script
 # ---------------------------------------------------------------------------------------------------

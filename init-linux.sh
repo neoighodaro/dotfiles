@@ -124,7 +124,7 @@ if ! command -v fzf &> /dev/null; then
         git clone --depth 1 https://github.com/junegunn/fzf.git $NEO_HOME_DIR/.fzf
     fi
 
-    $NEO_HOME_DIR/.fzf/install --no-completion
+    $NEO_HOME_DIR/.fzf/install --no-completion --no-key-bindings --no-update-rc
     echo -e "${GREEN}==> Installed FZF.${NC}"
 else
     echo -e "${GRAY}==> Already installed FZF. Skipping...${NC}"

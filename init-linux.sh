@@ -120,8 +120,11 @@ install_apt_package git-delta
 ## FZF
 if ! command -v fzf &> /dev/null; then
     echo -e "${WHITE}==> Installing FZF...${NC}"
-    git clone --depth 1 https://github.com/junegunn/fzf.git $NEO_HOME_DIR/.fzf
-    $NEO_HOME_DIR/.fzf/install
+    if [ ! -d "$NEO_HOME_DIR/.fzf" ]; then
+        git clone --depth 1 https://github.com/junegunn/fzf.git $NEO_HOME_DIR/.fzf
+    fi
+
+    $NEO_HOME_DIR/.fzf/install --no-completion
     echo -e "${GREEN}==> Installed FZF.${NC}"
 else
     echo -e "${GRAY}==> Already installed FZF. Skipping...${NC}"

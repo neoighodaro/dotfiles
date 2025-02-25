@@ -117,6 +117,9 @@ source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta
 
+## Config
+mkdir -p $NEO_HOME_DIR/bin
+
 ## FZF
 if ! command -v fzf &> /dev/null; then
     echo -e "${WHITE}==> Installing FZF...${NC}"
@@ -133,7 +136,7 @@ fi
 ## Starship
 if ! command -v starship &> /dev/null; then
     echo -e "${WHITE}==> Installing Starship...${NC}"
-    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir=$NEO_HOME_DIR/bin
     echo -e "${GREEN}==> Installed Starship.${NC}"
 else
     echo -e "${GRAY}==> Already installed Starship. Skipping...${NC}"

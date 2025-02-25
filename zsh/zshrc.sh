@@ -212,14 +212,13 @@ fi
 
 # Other stuff
 # ----------------------------------------------------------------------------------------
-[ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
-export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
-
 [ ! -n $SSH_CONNECTION ] && export EDITOR="code -w"     # Use VSCode as default editor when not connected to a remote machine
 
-# Load custom paths
+[ -d "$HOME/.composer/vendor/bin" ] && export PATH="$HOME/.composer/vendor/bin:$PATH"      # Add Composer to PATH
+[ -d "/opt/homebrew/bin" ] && export PATH="/opt/homebrew/bin:$PATH"                   # Add Homebrew to PATH
 [ -f "$HOME/.zshrc_paths" ] && \. "$HOME/.zshrc_paths"
 
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"      # Add Composer to PATH
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"      # Add /usr/local/bin to PATH, LEAVE AS LAST!
 
 # LOAD PACKAGES

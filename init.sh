@@ -54,9 +54,11 @@ if [[ ! -f "/bin/zsh" ]]; then
 fi
 
 # If zsh is not main shell, switch to it
-if [[ $SHELL != *"zsh"* ]]; then
-    echo -e "${YELLOW}===> Switching to zsh...${NC}"
-    chsh -s $(which zsh)
+if [[ "$NON_INTERACTIVE" == "false" ]]; then
+    if [[ $SHELL != *"zsh"* ]]; then
+        echo -e "${YELLOW}===> Switching to zsh...${NC}"
+        chsh -s $(which zsh)
+    fi
 fi
 
 

@@ -255,3 +255,4 @@ fi
 # fi
 
 echo -e "${GREEN}==> Initialization complete.${NC}"
+exit 0

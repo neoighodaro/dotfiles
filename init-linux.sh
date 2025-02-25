@@ -145,7 +145,7 @@ fi
 ## Deno
 if [[ ! -f "$NEO_HOME_DIR/.deno/env" ]]; then
     echo -e "${WHITE}==> Installing Deno...${NC}"
-    curl -fsSL https://deno.land/x/install/install.sh | sh        # Deno
+    curl -fsSL https://deno.land/x/install/install.sh | sh -s --no-modify-path
     echo -e "${GREEN}==> Installed Deno.${NC}"
 else
     echo -e "${GRAY}==> Already installed Deno. Skipping...${NC}"

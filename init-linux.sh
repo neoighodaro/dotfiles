@@ -113,7 +113,7 @@ install_apt_package eza
 install_apt_package bat
 install_apt_package zoxide
 install_apt_package unzip
-instal_apt_package starship
+install_apt_package starship
 source "$DOTFILES_DIR/misc/init-linux-install-zellij.sh"          # Zellij
 source "$DOTFILES_DIR/misc/init-linux-install-lazygit.sh"         # Lazygit
 install_apt_package git-delta

@@ -13,7 +13,7 @@ command_timeout = 1000
 
 format = """
 [░▒▓](fg:ckyellow100)\
-[ $os](bg:ckyellow100 fg:ckbrown100)\
+[ $os$hostname](bg:ckyellow100 fg:ckbrown100)\
 [](bg:ckyellow200 fg:ckyellow100)\
 $directory\
 [](fg:ckyellow200 bg:ckyellow300)\

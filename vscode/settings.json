@@ -216,8 +216,8 @@
   "php.validate.enable": true,
   "php-cs-fixer.rules": "@PSR2",
   "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
-  "php-cs-fixer.executablePath": "/Users/neo/.composer/vendor/bin/php-cs-fixer", // "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1740243811467,
+  "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar", // "${extensionPath}/php-cs-fixer.phar",
+  "php-cs-fixer.lastDownload": 1740867043971,
 
   // Laravel
   "blade.format.enable": true, // Enable blade format

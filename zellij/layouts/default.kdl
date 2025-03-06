@@ -19,17 +19,8 @@ layout {
         pane size=1 borderless=true name=""
     }
 
-    tab name=" pinktum-academy" split_direction="vertical" {
-        pane name="Backend" size="60%" cwd="~/Developer/pinktum/academy/backend"
-        pane name="Frontend" size="40%" cwd="~/Developer/pinktum/academy/frontend"
-    }
-
-    tab name=" main" split_direction="vertical" {
-        pane size=1 borderless=true name=""
-    }
-
-    tab name=" pinktum-academy" split_direction="vertical" {
-        pane name="Backend" size="60%" cwd="~/Developer/pinktum/academy/backend"
-        pane name="Frontend" size="40%" cwd="~/Developer/pinktum/academy/frontend"
-    }
+    // tab name=" pinktum-academy" split_direction="vertical" {
+        // pane name="Backend" size="60%" cwd="~/Developer/pinktum/academy/backend"
+        // pane name="Frontend" size="40%" cwd="~/Developer/pinktum/academy/frontend"
+    // }
 }

@@ -217,7 +217,7 @@
   "php-cs-fixer.rules": "@PSR2",
   "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar", // "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1740867043971,
+  "php-cs-fixer.lastDownload": 1741472595929,
 
   // Laravel
   "blade.format.enable": true, // Enable blade format

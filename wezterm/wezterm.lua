@@ -18,7 +18,12 @@ end
 
 config.color_scheme = color_scheme_for_appearance(wezterm.gui.get_appearance())
 
-config.default_prog = { 'zsh', '-c', 'zellij da -y && zellij' }
+config.launch_menu = {
+  {
+    label = "Zellij",
+    args = { "zellij", "da", "-y" },
+  },
+}
 
 -- Font settings
 config.font = wezterm.font({ family = 'Hack Nerd Font' })

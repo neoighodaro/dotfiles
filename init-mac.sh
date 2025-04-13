@@ -224,7 +224,6 @@ install_brew_package folderify
 install_brew_package sketchybar FelixKratz/formulae
 install_brew_package font-sketchybar-app-font
 install_brew_package jq
-install_brew_package podman-desktop
 
 # Caveat for GPG
 # ------------------------------------------------------------------------------
@@ -284,7 +283,6 @@ install_cask_app herd
 install_cask_app pika
 install_cask_app raycast
 install_cask_app aerospace
-install_cask_app xbar
 install_cask_app ray
 install_cask_app boop
 install_cask_app tableplus
@@ -310,9 +308,7 @@ install_brew_package ansible-lint
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
 
 ## Other Configs
-mkdir -p "$HOME/Library/Application Support/xbar/plugins"
 mkdir -p "$HOME/Library/Application Support/Code/User"
-link_and_backup "xbar/dnsswitcher.sh" "Library/Application Support/xbar/plugins/dnsswitcher.sh" # Xbar plugin
 
 # Ansible cfg
 link_and_backup "ansible" "/etc/ansible" --realpath --sudo
@@ -358,7 +354,7 @@ if [[ ! -f "/tmp/default-browser-installed" ]]; then
 fi
 
 ## Open Some default apps if not already open
-auto_open_apps=("xbar" "Raycast" "Ice" "AeroSpace")
+auto_open_apps=("Raycast" "Ice" "AeroSpace")
 for app in "${auto_open_apps[@]}"; do
     if ! is_app_running "$app"; then
         open -a "$app"

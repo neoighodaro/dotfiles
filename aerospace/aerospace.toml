@@ -1,6 +1,7 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
+
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
@@ -65,12 +66,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 10
-inner.vertical =   10
-outer.left =       10
-outer.bottom =     10
-outer.top =        15
-outer.right =      10
+inner.horizontal = [{ monitor."Studio Display" = 10 }, 10]
+inner.vertical = [{ monitor."Studio Display" = 10 }, 10]
+outer.left = [{ monitor."Studio Display" = 10 }, 10]
+outer.bottom = [{ monitor."Studio Display" = 10 }, 10]
+outer.top = [{ monitor."Studio Display" = 45 }, 15]
+outer.right = [{ monitor."Studio Display" = 10 }, 10]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -267,6 +268,10 @@ run = "move-node-to-workspace I"
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.PhpStorm'
+run = "move-node-to-workspace I"
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
 run = "move-node-to-workspace I"
 
 [[on-window-detected]]

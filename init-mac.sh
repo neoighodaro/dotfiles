@@ -12,8 +12,24 @@ is_app_running() {
 install_cask_app() {
   local app_name=$1
   local install_url=$2
+  local is_aerospace=false
+  local install_app_name=$app_name
+
+  if [[ "$app_name" == "nikitabobko/tap/aerospace" ]]; then
+    is_aerospace=true
+    app_name="aerospace"
+  fi
+
   if ! brew list --cask | grep -Fxq "$app_name"; then
     echo -e "$app_name not found. Installing..."
+
+    # IF AeroSpace, force install
+    if [[ "$is_aerospace" == true ]]; then
+      brew uninstall --force --cask "$install_app_name"
+      brew install --cask --force "$install_app_name"
+      killall AeroSpace
+      return
+    fi
 
     # if url use that else use app name
     if [[ -n $install_url ]]; then
@@ -45,6 +61,7 @@ uninstall_cask_app() {
 install_appstore_app() {
   local app_name=$1
   local app_id=$2
+
   if ! /usr/bin/open -a "$app_name"; then
     echo -e "$app_name not found. Installing..."
     /usr/bin/open https://apps.apple.com/us/app/"$app_id"
@@ -74,6 +91,11 @@ uninstall_brew_package() {
   if brew list --formula | grep -q "$package_name"; then
     echo -e "${YELLOW}==> $full_package_name found. Uninstalling...${NC}"
     brew uninstall "$full_package_name"
+
+    if [[ ! -z "$package_tap" ]]; then
+      brew untap "$package_tap"
+    fi
+
     echo -e "${GREEN}==> Uninstalled $package_name.${NC}"
   else
     echo -e "${GRAY}==> $package_name is not installed. Skipping...${NC}"
@@ -164,7 +186,8 @@ defaults write com.apple.finder FinderSpawnTab -int 1                           
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
-defaults write NSGlobalDomain _HIHideMenuBar -bool false                           # Auto-hide menu bar
+# defaults write NSGlobalDomain _HIHideMenuBar -bool true                           # Auto-hide menu bar
+osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to false' # Turn off Auto-hide menu bar
 
 # Window Manager (Deskop & Stage manager)
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false  # Disable standard click to show desktop
@@ -293,9 +316,6 @@ fi
 # fi
 # sketchybar --reload
 
-## Tap some brew formulas
-brew tap nikitabobko/tap
-
 ## Install Needed Apps using Homebrew Cask
 install_cask_app wezterm
 install_cask_app 1password
@@ -311,7 +331,7 @@ install_cask_app jordanbaird-ice
 install_cask_app herd
 # install_cask_app pika
 install_cask_app raycast
-install_cask_app aerospace
+install_cask_app nikitabobko/tap/aerospace
 install_cask_app ray
 install_cask_app boop
 install_cask_app tableplus

@@ -28,27 +28,27 @@
   // Quickly Toggle Settings
   // --------------------------------------------------------------------------------------------------------------
 
-  {
-    "key": "cmd+k cmd+k",
-    "command": "toggle",
-    "when": "editorTextFocus",
-    "args": {
-      "id": "fontSize",
-      "value": [
-        { "editor.fontSize": 16, "editor.lineHeight": 45 },
-        { "editor.fontSize": 12, "editor.lineHeight": 0 }
-      ]
-    }
-  },
-  {
-    "key": "cmd+k cmd+l",
-    "command": "toggle",
-    "when": "editorTextFocus",
-    "args": {
-      "id": "lineNumbers",
-      "value": [{ "editor.lineNumbers": "on" }, { "editor.lineNumbers": "off" }]
-    }
-  },
+  // {
+  //   "key": "cmd+k cmd+k",
+  //   "command": "toggle",
+  //   "when": "editorTextFocus",
+  //   "args": {
+  //     "id": "fontSize",
+  //     "value": [
+  //       { "editor.fontSize": 16, "editor.lineHeight": 45 },
+  //       { "editor.fontSize": 12, "editor.lineHeight": 0 }
+  //     ]
+  //   }
+  // },
+  // {
+  //   "key": "cmd+k cmd+l",
+  //   "command": "toggle",
+  //   "when": "editorTextFocus",
+  //   "args": {
+  //     "id": "lineNumbers",
+  //     "value": [{ "editor.lineNumbers": "on" }, { "editor.lineNumbers": "off" }]
+  //   }
+  // },
 
   // --------------------------------------------------------------------------------------------------------------
   // File Explorer
@@ -89,11 +89,11 @@
   // Line Manipulation
   // --------------------------------------------------------------------------------------------------------------
 
-  {
-    "key": "cmd+l",
-    "command": "editor.action.copyLinesDownAction",
-    "when": "editorTextFocus"
-  },
+  // {
+  //   "key": "shift+cmd+l",
+  //   "command": "editor.action.copyLinesDownAction",
+  //   "when": "editorTextFocus"
+  // },
   {
     "key": "cmd+j",
     "command": "editor.action.joinLines",
@@ -319,39 +319,16 @@
   // -----------------------------------------------------------------------------------------------------------
 
   {
-    "key": "shift+alt+x",
-    "command": "comment-divider.makeSubHeader",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "alt+x",
-    "command": "-comment-divider.makeSubHeader",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "alt+/",
     "command": "comment-divider.makeMainHeader",
     "when": "editorTextFocus"
   },
-  {
-    "key": "shift+alt+x",
-    "command": "-comment-divider.makeMainHeader",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "alt+/",
-    "command": "-gitlens.gitCommands",
-    "when": "!gitlens:disabled && config.gitlens.keymap == 'alternate'"
-  },
-  {
-    "key": "ctrl+w",
-    "command": "-workbench.action.switchWindow"
-  },
-  {
-    "key": "alt+cmd+,",
-    "command": "workbench.files.action.collapseExplorerFolders"
-  },
-  {
+
+  // -----------------------------------------------------------------------------------------------------------
+  // Bookmarks
+  // -----------------------------------------------------------------------------------------------------------
+
+    {
     "key": "shift+alt+]",
     "command": "bookmarks.jumpToNext",
     "when": "editorTextFocus"
@@ -385,6 +362,19 @@
     "key": "shift+alt+k",
     "command": "-bookmarks.shrinkSelection",
     "when": "editorTextFocus"
+  },
+
+  // -----------------------------------------------------------------------------------------------------------
+  // Others
+  // -----------------------------------------------------------------------------------------------------------
+
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.switchWindow"
+  },
+  {
+    "key": "alt+cmd+,",
+    "command": "workbench.files.action.collapseExplorerFolders"
   },
   {
     "key": "ctrl+alt+\\",
@@ -447,44 +437,9 @@
     "when": "viewContainer.workbench.view.extensions.enabled"
   },
   {
-    "key": "shift+cmd+x",
-    "command": "-workbench.view.extensions",
-    "when": "viewContainer.workbench.view.extensions.enabled"
-  },
-  {
-    "key": "shift+cmd+m",
-    "command": "-workbench.actions.view.problems",
-    "when": "workbench.panel.markers.view.active"
-  },
-  {
-    "key": "shift+f12",
-    "command": "-editor.action.goToReferences",
-    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
-  },
-  {
-    "key": "cmd+k cmd+b",
-    "command": "-editor.action.setSelectionAnchor",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "cmd+k cmd+b",
-    "command": "references-view.findReferences",
-    "when": "editorHasReferenceProvider"
-  },
-  {
-    "key": "shift+alt+f12",
-    "command": "-references-view.findReferences",
-    "when": "editorHasReferenceProvider"
-  },
-  {
     "key": "alt+enter",
     "command": "-notebook.cell.executeAndInsertBelow",
     "when": "notebookCellListFocused && notebookCellType == 'markup' || notebookCellListFocused && notebookMissingKernelExtension && !notebookCellExecuting && notebookCellType == 'code' || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelCount > 0 || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelSourceCount > 0"
-  },
-  {
-    "key": "alt+enter",
-    "command": "-debug.openBreakpointToSide",
-    "when": "breakpointsFocused"
   },
   {
     "key": "alt+enter",
@@ -512,11 +467,6 @@
     "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
   },
   {
-    "key": "cmd+z",
-    "command": "-excalidraw.preventDefault",
-    "when": "activeCustomEditorId == 'editor.excalidraw'"
-  },
-  {
     "key": "cmd+e",
     "command": "-actions.findWithSelection"
   },
@@ -533,5 +483,36 @@
     "key": "cmd+e",
     "command": "workbench.action.quickOpenNavigateNextInFilePicker",
     "when": "inFilesPicker && inQuickOpen"
+  },
+  {
+    "key": "cmd+k cmd+w",
+    "command": "workbench.action.closeAllEditors"
+  },
+  {
+    "key": "cmd+r cmd+w",
+    "command": "-workbench.action.closeAllEditors"
+  },
+  {
+    "key": "cmd+[IntlBackslash]",
+    "command": "aichat.newchataction"
+  },
+  {
+    "key": "cmd+l",
+    "command": "-aichat.newchataction"
+  },
+  {
+    "key": "cmd+[IntlBackslash]",
+    "command": "composer.sendToAgent",
+    "when": "editorHasPromptBar && editorPromptBarFocused"
+  },
+  {
+    "key": "cmd+l",
+    "command": "-composer.sendToAgent",
+    "when": "editorHasPromptBar && editorPromptBarFocused"
+  },
+  {
+    "key": "cmd+w",
+    "command": "-workbench.action.closeWindow",
+    "when": "!editorIsOpen && !multipleEditorGroups"
   }
 ]

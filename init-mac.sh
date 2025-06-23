@@ -30,6 +30,17 @@ install_cask_app() {
   fi
 }
 
+uninstall_cask_app() {
+  local app_name=$1
+  if brew list --cask | grep -q "$app_name"; then
+    echo -e "${YELLOW}==> $app_name found. Uninstalling...${NC}"
+    brew uninstall --cask "$app_name"
+    echo -e "${GREEN}==> Uninstalled $app_name.${NC}"
+  else
+    echo -e "${GRAY}==> $app_name is not installed. Skipping...${NC}"
+  fi
+}
+
 ## Install an app from the App Store if not installed
 install_appstore_app() {
   local app_name=$1
@@ -53,6 +64,19 @@ install_brew_package() {
     echo -e "${GREEN}==> Installed $package_name.${NC}"
   else
     echo -e "${GRAY}==> $package_name is already installed. Skipping...${NC}"
+  fi
+}
+
+uninstall_brew_package() {
+  local package_name=$1
+  local package_tap=$2
+  local full_package_name=$([[ -z "$package_tap" ]] && echo "$package_name" || echo "$package_tap/$package_name")
+  if brew list --formula | grep -q "$package_name"; then
+    echo -e "${YELLOW}==> $full_package_name found. Uninstalling...${NC}"
+    brew uninstall "$full_package_name"
+    echo -e "${GREEN}==> Uninstalled $package_name.${NC}"
+  else
+    echo -e "${GRAY}==> $package_name is not installed. Skipping...${NC}"
   fi
 }
 
@@ -140,7 +164,7 @@ defaults write com.apple.finder FinderSpawnTab -int 1                           
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
-defaults write NSGlobalDomain _HIHideMenuBar -bool true                             # Hide menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool false                           # Auto-hide menu bar
 
 # Window Manager (Deskop & Stage manager)
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false  # Disable standard click to show desktop
@@ -221,9 +245,14 @@ install_brew_package git-delta
 install_brew_package deno
 install_brew_package bun oven-sh/bun
 install_brew_package folderify
-install_brew_package sketchybar FelixKratz/formulae
-install_brew_package font-sketchybar-app-font
+# install_brew_package sketchybar FelixKratz/formulae
+# install_brew_package font-sketchybar-app-font
 install_brew_package jq
+
+# Uninstall if installed
+uninstall_brew_package "sketchybar" "FelixKratz/formulae"
+uninstall_brew_package "font-sketchybar-app-font"
+
 
 # Caveat for GPG
 # ------------------------------------------------------------------------------
@@ -249,7 +278,7 @@ defaults write org.gpgtools.common DisableKeychain -bool yes                    
 link_and_backup "wezterm" ".config/wezterm"                                                     # Wezterm config
 link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
 link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
-link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
+# link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
 
 # Copy https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm to Zellij plugin folder
 if [[ ! -f "$DOTFILES_DIR/zellij/plugins/zjstatus.wasm" ]]; then
@@ -258,11 +287,11 @@ if [[ ! -f "$DOTFILES_DIR/zellij/plugins/zjstatus.wasm" ]]; then
 fi
 
 ## Start Sketchybar if not running
-SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
-if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
-    brew services start sketchybar
-fi
-sketchybar --reload
+# SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
+# if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
+#     brew services start sketchybar
+# fi
+# sketchybar --reload
 
 ## Tap some brew formulas
 brew tap nikitabobko/tap
@@ -280,13 +309,13 @@ install_cask_app phpstorm
 install_cask_app hazel
 install_cask_app jordanbaird-ice
 install_cask_app herd
-install_cask_app pika
+# install_cask_app pika
 install_cask_app raycast
 install_cask_app aerospace
 install_cask_app ray
 install_cask_app boop
 install_cask_app tableplus
-install_cask_app coderunner
+# install_cask_app coderunner
 install_cask_app sensei
 install_cask_app postman
 install_cask_app tinkerwell
@@ -297,15 +326,23 @@ install_cask_app font-sf-pro
 install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb # Sketch 100.3
 # install_cask_app mysides
 
+## Uninstall if installed
+install_cask_app coderunner
+uninstall_cask_app "pika"
+
 ## Kubernetes context plugin
 install_brew_package kubectx
 install_brew_package helm
 install_brew_package ansible
 install_brew_package ansible-lint
 
-
 ## AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver
+
+## CodeRunner is too presumptuous, it always tries to set itself as default for everything
+# open -a CodeRunner
+# /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -u /Applications/CodeRunner.app
+# killall CodeRunner
 
 ## Other Configs
 mkdir -p "$HOME/Library/Application Support/Code/User"
@@ -360,8 +397,3 @@ for app in "${auto_open_apps[@]}"; do
         open -a "$app"
     fi
 done
-
-## CodeRunner is too presumptuous, it always tries to set itself as default for everything
-open -a CodeRunner
-/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -u /Applications/CodeRunner.app
-killall CodeRunner

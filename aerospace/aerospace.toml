@@ -70,7 +70,7 @@ inner.horizontal = [{ monitor."Studio Display" = 10 }, 10]
 inner.vertical = [{ monitor."Studio Display" = 10 }, 10]
 outer.left = [{ monitor."Studio Display" = 10 }, 10]
 outer.bottom = [{ monitor."Studio Display" = 10 }, 10]
-outer.top = [{ monitor."Studio Display" = 45 }, 15]
+outer.top = [{ monitor."Studio Display" = 15 }, 15]
 outer.right = [{ monitor."Studio Display" = 10 }, 10]
 
 # 'main' binding mode declaration

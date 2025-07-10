@@ -271,6 +271,11 @@ install_brew_package folderify
 # install_brew_package sketchybar FelixKratz/formulae
 # install_brew_package font-sketchybar-app-font
 install_brew_package jq
+install_brew_package xh
+install_brew_package kubectx
+install_brew_package helm
+install_brew_package ansible
+install_brew_package ansible-lint
 
 # Uninstall if installed
 uninstall_brew_package "sketchybar" "FelixKratz/formulae"
@@ -347,14 +352,8 @@ install_cask_app sketch https://raw.githubusercontent.com/Homebrew/homebrew-cask
 # install_cask_app mysides
 
 ## Uninstall if installed
-install_cask_app coderunner
+uninstall_cask_app coderunner
 uninstall_cask_app "pika"
-
-## Kubernetes context plugin
-install_brew_package kubectx
-install_brew_package helm
-install_brew_package ansible
-install_brew_package ansible-lint
 
 ## AppStore Apps
 install_appstore_app "Dropover" "dropover/id1355679052" # DropOver

@@ -233,7 +233,7 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 ## Set wallpaper
-for ext in heic jpg png; do
+for ext in heic jpg jpeg png; do
   wallpaper="$HOME/Pictures/wallpaper.$ext"
   dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
   [ -f "$dotfiles_wallpaper" ] && [ ! -f "$wallpaper" ] && link_and_backup "wallpapers/wallpaper.$ext" "Pictures/wallpaper.$ext"

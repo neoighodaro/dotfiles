@@ -416,3 +416,8 @@ for app in "${auto_open_apps[@]}"; do
         open -a "$app"
     fi
 done
+
+# Move the remove-ms-autoupdate.sh script to /usr/local/bin
+if [[ ! -f "/usr/local/bin/remove-ms-autoupdate" ]]; then
+    cp "$DOTFILES_DIR/scripts/remove-ms-autoupdate.sh" "/usr/local/bin/remove-ms-autoupdate"
+fi

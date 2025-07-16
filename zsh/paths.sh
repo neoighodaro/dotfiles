@@ -14,3 +14,5 @@ if [[ $IS_MACOS -eq 1 ]]; then
     export HERD_PHP_83_INI_SCAN_DIR="/Users/neo/Library/Application Support/Herd/config/php/83/"
     export PATH="/Users/neo/Library/Application Support/Herd/bin/":$PATH
 fi
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

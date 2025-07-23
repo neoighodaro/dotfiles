@@ -60,11 +60,15 @@ TMP_DIR=$(mktemp -d)
 # Extract the zip file to the temporary directory
 unzip -q "$ZIP_FILE_PATH" -d "$TMP_DIR"
 
-# Find the jar file (it might have different naming patterns)
-JAR_FILE=$(find "$TMP_DIR" -name "*.jar" -path "*/lib/*" | head -1)
+# Find the main plugin jar file (should contain "supermaven" in the name)
+JAR_FILE=$(find "$TMP_DIR" -name "*supermaven*.jar" -path "*/lib/*" | head -1)
 
 if [ -z "$JAR_FILE" ]; then
-    echo "Error: Could not find jar file in the expected location (*/lib/*.jar)"
+    echo "Error: Could not find supermaven jar file in the expected location (*/lib/*supermaven*.jar)"
+    echo "Available jar files:"
+    find "$TMP_DIR" -name "*.jar" -path "*/lib/*" | while read jar; do
+        echo "  $(basename "$jar")"
+    done
     rm -rf "$TMP_DIR"
     exit 1
 fi
@@ -106,7 +110,9 @@ echo "Repackaging jar file..."
 rm -rf "$JAR_DIR/$JAR_BASENAME"
 
 # Create a new zip file from the temporary directory
-OUTPUT_FILE="$DIR/${ZIP_BASENAME}-updated.zip"
+# Save in the same directory as the input zip file
+ZIP_DIR=$(dirname "$ZIP_FILE_PATH")
+OUTPUT_FILE="$ZIP_DIR/${ZIP_BASENAME}-updated.zip"
 echo "Creating updated zip file..."
 (cd "$TMP_DIR" && zip -qr "$OUTPUT_FILE" .)
 
@@ -115,3 +121,4 @@ rm -rf "$TMP_DIR"
 
 echo "Done!"
 echo "Updated file saved as: $OUTPUT_FILE"
+exit 0

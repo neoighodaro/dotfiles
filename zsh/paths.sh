@@ -3,6 +3,10 @@
 local IS_MACOS=$(uname -s | grep -i "darwin" | wc -l | tr -d '[:space:]')
 local IS_LINUX=$(uname -s | grep -i "linux" | wc -l | tr -d '[:space:]')
 
+# Misc
+# ------------------------------------------------------------------------------
+export PATH="$HOME/Developer/bin:$PATH"
+
 # Bun
 # ------------------------------------------------------------------------------
 export BUN_INSTALL="$HOME/.bun"
@@ -15,4 +19,8 @@ if [[ $IS_MACOS -eq 1 ]]; then
     export PATH="/Users/neo/Library/Application Support/Herd/bin/":$PATH
 fi
 
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+# Kiro
+# ------------------------------------------------------------------------------
+if [[ $IS_MACOS -eq 1 ]]; then
+    [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+fi

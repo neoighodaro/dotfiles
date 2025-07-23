@@ -392,6 +392,22 @@ if [[ ! -d "$ck_dir" ]]; then
     folderify --color-scheme dark "$DOTFILES_DIR/images/ck-mask.png" "$ck_dir"
 fi
 
+mkdir -p "$HOME/Scripts"
+
+# Move the remove-ms-autoupdate.sh script to /usr/local/bin
+scripts_dir="$HOME/Developer/bin"
+if [[ ! -d "$scripts_dir" ]]; then
+    mkdir -p "$scripts_dir"
+    folderify --color-scheme dark "$DOTFILES_DIR/images/ck-mask.png" "$scripts_dir"
+fi
+
+# Link all scripts to the scripts directory
+for script in "$DOTFILES_DIR/scripts"/*; do
+    script_name=$(basename "$script")
+    script_name_without_extension="${script_name%.*}"
+    link_and_backup "scripts/$script_name" "Developer/bin/$script_name_without_extension"
+done
+
 ## Install Vivid
 if [[ ! -d "/Applications/Vivid.app" ]]; then
     echo -e "${WHITE}==> Installing Vivid...${NC}"
@@ -416,8 +432,3 @@ for app in "${auto_open_apps[@]}"; do
         open -a "$app"
     fi
 done
-
-# Move the remove-ms-autoupdate.sh script to /usr/local/bin
-if [[ ! -f "/usr/local/bin/remove-ms-autoupdate" ]]; then
-    cp "$DOTFILES_DIR/scripts/remove-ms-autoupdate.sh" "/usr/local/bin/remove-ms-autoupdate"
-fi

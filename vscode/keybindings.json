@@ -514,5 +514,105 @@
     "key": "cmd+w",
     "command": "-workbench.action.closeWindow",
     "when": "!editorIsOpen && !multipleEditorGroups"
+  },
+  {
+    "key": "cmd+k cmd+1",
+    "command": "editor.foldLevel1",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+1",
+    "command": "-editor.foldLevel1",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+2",
+    "command": "editor.foldLevel2",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+2",
+    "command": "-editor.foldLevel2",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+3",
+    "command": "editor.foldLevel3",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+3",
+    "command": "-editor.foldLevel3",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+4",
+    "command": "editor.foldLevel4",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+4",
+    "command": "-editor.foldLevel4",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+/",
+    "command": "editor.foldAllBlockComments",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+/",
+    "command": "-editor.foldAllBlockComments",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+-",
+    "command": "editor.foldAllExcept",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+-",
+    "command": "-editor.foldAllExcept",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+5",
+    "command": "editor.foldLevel5",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+5",
+    "command": "-editor.foldLevel5",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+6",
+    "command": "editor.foldLevel6",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+6",
+    "command": "-editor.foldLevel6",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+7",
+    "command": "editor.foldLevel7",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+7",
+    "command": "-editor.foldLevel7",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+k cmd+[",
+    "command": "editor.foldRecursively",
+    "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "cmd+r cmd+[",
+    "command": "-editor.foldRecursively",
+    "when": "editorTextFocus && foldingEnabled"
   }
 ]

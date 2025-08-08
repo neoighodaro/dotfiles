@@ -7,7 +7,45 @@ layout {
     default_tab_template {
         children
         pane size=1 borderless=true {
-            plugin location="zjstatus"
+            plugin location="file:/Users/neo/.config/zellij/plugins/zjstatus.wasm" {
+                // Format
+                format_left   "{mode}#[fg=yellow]{tabs}"
+                format_center ""
+                format_right  "#[fg=#6867AF,bold] {command_cpu} ⋮ {command_memo} ⋮ {datetime} "
+                format_space  "#[fg=#FEA871] "
+
+                hide_frame_for_single_pane "false"
+                border_enabled  "false"
+
+                mode_normal  "#[fg=#FEA871,bold]   "
+                mode_locked  "#[fg=red]   "
+                mode_tmux    "#[bg=cyan]"
+
+                tab_normal              "#[fg=#6C7086]{name}"
+                tab_normal_fullscreen   "#[fg=#6C7086]{name}"
+                tab_normal_sync         "#[fg=#6C7086]{name}"
+                tab_active              "#[fg=#FEA871,bold]{name}#[fg=yellow,bold]{floating_indicator}"
+                tab_active_fullscreen   "#[fg=yellow,bold]{name}#[fg=yellow,bold]{fullscreen_indicator}"
+                tab_active_sync         "#[fg=green,bold]{name}#[fg=yellow,bold]{sync_indicator}"
+                tab_separator           "#[fg=cyan,bold] ⋮ "
+                tab_sync_indicator       " "
+                tab_fullscreen_indicator " "
+                tab_floating_indicator   ""
+
+                datetime        "#[fg=#6C7086,bold]  {format}"
+                datetime_format "%d-%m-%Y %H:%M"
+                datetime_timezone "Europe/Berlin"
+
+                command_memo_command    "bash -c \"echo $(top -l 1 | grep PhysMem | awk '{print $2}')\""
+                command_memo_format     "#[fg=#6C7086]  {stdout}"
+                command_memo_interval   "5"
+                command_memo_rendermode "static"
+
+                command_cpu_command    "bash -c \"echo $(top -l 1 -s 0 | grep 'CPU usage' | awk '{print $3}' | sed 's/%//')\""
+                command_cpu_format     "#[fg=#6C7086]  {stdout}%"
+                command_cpu_interval   "5"
+                command_cpu_rendermode "static"
+            }
         }
     }
 
@@ -15,8 +53,8 @@ layout {
     // Definition of tabs
     // -------------------------------------------------------------------------------------
 
-    tab name=" main" split_direction="vertical" {
-        pane size=1 borderless=true name=""
+    tab name="Main" split_direction="vertical" borderless=true {
+        pane focus=true name="Pane 1" borderless=true
     }
 
     // tab name=" pinktum-academy" split_direction="vertical" {

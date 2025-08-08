@@ -226,6 +226,10 @@ run = "move-node-to-workspace T"
 if.app-id = 'com.apple.Terminal'
 run = "move-node-to-workspace T"
 
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace T"
+
 # Browsers
 # ------------------------------------------------------------------------------
 [[on-window-detected]]

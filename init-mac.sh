@@ -233,12 +233,31 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 ## Set wallpaper
+SET_WALLPAPER_EXT="false"
+LINK_WALLPAPER="false"
 for ext in heic jpg jpeg png; do
   wallpaper="$HOME/Pictures/wallpaper.$ext"
   dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
-  [ -f "$dotfiles_wallpaper" ] && [ ! -f "$wallpaper" ] && link_and_backup "wallpapers/wallpaper.$ext" "Pictures/wallpaper.$ext"
-  [ -f "$wallpaper" ] && osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$wallpaper\"" && break
+
+  if [[ "$SET_WALLPAPER_EXT" == "false" ]] && [[ ! -f "$wallpaper" ]] && [[ -f "$dotfiles_wallpaper" ]]; then
+    SET_WALLPAPER_EXT="$ext"
+    LINK_WALLPAPER="true"
+  elif [[ -f "$wallpaper" ]]; then
+    SET_WALLPAPER_EXT="false"
+    LINK_WALLPAPER="false"
+    break
+  fi
 done
+
+if [[ "$SET_WALLPAPER_EXT" != "false" ]]; then
+    if [[ "$LINK_WALLPAPER" == "true" ]]; then
+        link_and_backup "wallpapers/wallpaper.$SET_WALLPAPER_EXT" "Pictures/wallpaper.$SET_WALLPAPER_EXT"
+    fi
+
+    if [[ -f "$HOME/Pictures/wallpaper.$SET_WALLPAPER_EXT" ]]; then
+        osascript -e "tell application \"System Events\" to set picture of every desktop to POSIX file \"$HOME/Pictures/wallpaper.$SET_WALLPAPER_EXT\""
+    fi
+fi
 
 # Kill affected applications
 APPS=(Finder Dock SystemUIServer WindowManager cfprefsd)
@@ -304,6 +323,7 @@ defaults write org.gpgtools.common DisableKeychain -bool yes                    
 # ---------------------------------------------------------------------------------------------------
 ## Link config files
 link_and_backup "wezterm" ".config/wezterm"                                                     # Wezterm config
+link_and_backup "ghostty" ".config/ghostty"                                                     # Ghostty config
 link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
 link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
 # link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config

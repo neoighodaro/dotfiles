@@ -1,0 +1,34 @@
+# This is the configuration file for Ghostty.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+
+# Config syntax crash course
+# ==========================
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+# background = #123abc
+#
+# # Empty values are used to reset config keys to default.
+# key =
+
+
+# Look and feel
+# =============================================================================
+window-decoration = none
+window-padding-balance = true
+window-save-state = always
+
+theme = dark:tokyonight_moon,light:Monokai Pro Light Sun
+
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 14
+font-style = Bold
+
+cursor-style = block
+
+auto-update = check
+auto-update-channel = stable
+
+confirm-close-surface = false

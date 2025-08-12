@@ -3,24 +3,25 @@
 # This script is used to update the supermaven extension manifest to run on IntelliJ 2025
 
 show_help() {
-    echo "Usage: $0 <path-to-supermaven-zip>"
+    echo "Usage: $0 <path-to-supermaven-zip> <build-number>"
     echo ""
     echo "This script updates the supermaven extension manifest to run on IntelliJ 2025."
     echo ""
     echo "Arguments:"
     echo "  <path-to-supermaven-zip>    Path to the supermaven zip file"
+    echo "  <build-number>              Build number to use, for example 251"
     echo ""
     echo "Example:"
-    echo "  $0 ./supermaven-1.43.zip"
-    echo "  $0 /path/to/supermaven-1.43.zip"
+    echo "  $0 ./supermaven-1.43.zip 251"
+    echo "  $0 /path/to/supermaven-1.43.zip 251"
     echo ""
     echo "You can download the supermaven zip file from:"
     echo "https://plugins.jetbrains.com/plugin/23893-supermaven/versions/stable"
 }
 
 # Check if argument is provided
-if [ $# -eq 0 ]; then
-    echo "Error: No zip file path provided."
+if [ $# -lt 2 ]; then
+    echo "Error: No zip file path or build number provided."
     echo ""
     show_help
     exit 1
@@ -34,6 +35,7 @@ fi
 
 # Get the zip file path from command line argument
 ZIP_FILE_PATH="$1"
+BUILD_NUMBER="$2.*"
 
 # Get current script directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -93,13 +95,13 @@ fi
 
 echo "Updating plugin.xml..."
 
-# Update the until-build attribute to support IntelliJ 2025 (251.*)
+# Update the until-build attribute to support IntelliJ
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
-    sed -i '' 's/until-build="[0-9]*\.\*"/until-build="251.*"/g' "$PLUGIN_XML"
+    sed -i '' "s/until-build=\"[0-9]*\.\*\"/until-build=\"$BUILD_NUMBER\"/g" "$PLUGIN_XML"
 else
     # Linux
-    sed -i 's/until-build="[0-9]*\.\*"/until-build="251.*"/g' "$PLUGIN_XML"
+    sed -i "s/until-build=\"[0-9]*\.\*\"/until-build=\"$BUILD_NUMBER\"/g" "$PLUGIN_XML"
 fi
 
 # Update the jar file with the new plugin.xml file

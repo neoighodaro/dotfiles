@@ -16,7 +16,7 @@
 
 # Look and feel
 # =============================================================================
-#window-decoration = none
+window-decoration = none
 window-padding-balance = true
 window-save-state = always
 

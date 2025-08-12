@@ -11,7 +11,7 @@ layout {
                 // Format
                 format_left   "{mode}#[fg=yellow]{tabs}"
                 format_center ""
-                format_right  "#[fg=#6867AF,bold] {command_cpu} ⋮ {command_memo} ⋮ {datetime} "
+                format_right  "#[fg=#6867AF,bold] {command_cpu} ⋮ {command_memo} "
                 format_space  "#[fg=#FEA871] "
 
                 hide_frame_for_single_pane "false"
@@ -32,9 +32,9 @@ layout {
                 tab_fullscreen_indicator " "
                 tab_floating_indicator   ""
 
-                datetime        "#[fg=#6C7086,bold]  {format}"
-                datetime_format "%d-%m-%Y %H:%M"
-                datetime_timezone "Europe/Berlin"
+                //datetime        "#[fg=#6C7086,bold]  {format}"
+                //datetime_format "%d-%m-%Y %H:%M"
+                //datetime_timezone "Europe/Berlin"
 
                 command_memo_command    "bash -c \"echo $(top -l 1 | grep PhysMem | awk '{print $2}')\""
                 command_memo_format     "#[fg=#6C7086]  {stdout}"

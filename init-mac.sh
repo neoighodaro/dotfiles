@@ -186,7 +186,7 @@ defaults write com.apple.finder FinderSpawnTab -int 1                           
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
-# defaults write NSGlobalDomain _HIHideMenuBar -bool true                           # Auto-hide menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true                           # Auto-hide menu bar
 osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to false' # Turn off Auto-hide menu bar
 
 # Window Manager (Deskop & Stage manager)
@@ -233,21 +233,30 @@ source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                             
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 ## Set wallpaper
+SKIP_WALLPAPER_SET="false"
 SET_WALLPAPER_EXT="false"
 LINK_WALLPAPER="false"
-for ext in heic jpg jpeg png; do
-  wallpaper="$HOME/Pictures/wallpaper.$ext"
-  dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
 
-  if [[ "$SET_WALLPAPER_EXT" == "false" ]] && [[ ! -f "$wallpaper" ]] && [[ -f "$dotfiles_wallpaper" ]]; then
-    SET_WALLPAPER_EXT="$ext"
-    LINK_WALLPAPER="true"
-  elif [[ -f "$wallpaper" ]]; then
-    SET_WALLPAPER_EXT="false"
-    LINK_WALLPAPER="false"
-    break
-  fi
-done
+# if there's a .skip file, skip the wallpaper set
+if [[ -f "$HOME/Pictures/wallpaper.skip" ]]; then
+    SKIP_WALLPAPER_SET="true"
+fi
+
+if [[ "$SKIP_WALLPAPER_SET" == "false" ]]; then
+    for ext in heic jpg jpeg png; do
+    wallpaper="$HOME/Pictures/wallpaper.$ext"
+    dotfiles_wallpaper="$DOTFILES_DIR/wallpapers/wallpaper.$ext"
+
+    if [[ "$SET_WALLPAPER_EXT" == "false" ]] && [[ ! -f "$wallpaper" ]] && [[ -f "$dotfiles_wallpaper" ]]; then
+        SET_WALLPAPER_EXT="$ext"
+        LINK_WALLPAPER="true"
+    elif [[ -f "$wallpaper" ]]; then
+        SET_WALLPAPER_EXT="false"
+        LINK_WALLPAPER="false"
+        break
+    fi
+    done
+fi
 
 if [[ "$SET_WALLPAPER_EXT" != "false" ]]; then
     if [[ "$LINK_WALLPAPER" == "true" ]]; then
@@ -287,8 +296,8 @@ install_brew_package git-delta
 install_brew_package deno
 install_brew_package bun oven-sh/bun
 install_brew_package folderify
-# install_brew_package sketchybar FelixKratz/formulae
-# install_brew_package font-sketchybar-app-font
+install_brew_package sketchybar FelixKratz/formulae
+install_brew_package font-sketchybar-app-font
 install_brew_package jq
 install_brew_package xh
 install_brew_package kubectx
@@ -297,8 +306,8 @@ install_brew_package ansible
 install_brew_package ansible-lint
 
 # Uninstall if installed
-uninstall_brew_package "sketchybar" "FelixKratz/formulae"
-uninstall_brew_package "font-sketchybar-app-font"
+# uninstall_brew_package "sketchybar" "FelixKratz/formulae"
+# uninstall_brew_package "font-sketchybar-app-font"
 
 
 # Caveat for GPG
@@ -326,7 +335,7 @@ link_and_backup "wezterm" ".config/wezterm"                                     
 link_and_backup "ghostty" ".config/ghostty"                                                     # Ghostty config
 link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
 link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
-# link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
+link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
 
 # Copy https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm to Zellij plugin folder
 if [[ ! -f "$DOTFILES_DIR/zellij/plugins/zjstatus.wasm" ]]; then
@@ -335,11 +344,11 @@ if [[ ! -f "$DOTFILES_DIR/zellij/plugins/zjstatus.wasm" ]]; then
 fi
 
 ## Start Sketchybar if not running
-# SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
-# if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
-#     brew services start sketchybar
-# fi
-# sketchybar --reload
+SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
+if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
+    brew services start sketchybar
+fi
+sketchybar --reload
 
 ## Install Needed Apps using Homebrew Cask
 install_cask_app wezterm

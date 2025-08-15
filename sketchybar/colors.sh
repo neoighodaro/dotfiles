@@ -41,9 +41,9 @@ export TEXT_COLOR_DIM=0x99ffffff
 export ACTIVE_APP_TEXT_COLOR=0xcc120993
 export ACTIVE_APP_BG_COLOR=$WHITE
 export AEROSPACE_TEXT_COLOR=0x99ffffff
-export AEROSPACE_ACTIVE_TEXT_COLOR=$WHITE
+export AEROSPACE_ACTIVE_TEXT_COLOR=0xcc120993
 export AEROSPACE_BG_COLOR=0x4d53618f
-export AEROSPACE_ACTIVE_BG_COLOR=$WHITE
+export AEROSPACE_ACTIVE_BG_COLOR=0xccffffff
 
 # CK Yellow Scheme
 # -------------------------------------------------------------------------------------------

@@ -187,7 +187,7 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false  
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
 defaults write NSGlobalDomain _HIHideMenuBar -bool true                           # Auto-hide menu bar
-osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to false' # Turn off Auto-hide menu bar
+osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to true' # Turn off Auto-hide menu bar
 
 # Window Manager (Deskop & Stage manager)
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false  # Disable standard click to show desktop

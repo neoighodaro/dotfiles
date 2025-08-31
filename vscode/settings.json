@@ -217,7 +217,7 @@
   "php-cs-fixer.rules": "@PSR2",
   "php-cs-fixer.config": ".php-cs-fixer.php;.php-cs-fixer.dist.php;.php_cs;.php_cs.dist",
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar", // "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1749658933846,
+  "php-cs-fixer.lastDownload": 1756101404233,
 
   // Laravel
   "blade.format.enable": true, // Enable blade format
@@ -477,5 +477,6 @@
   "intelephense.environment.phpVersion": "8.4.4",
   "window.autoDetectColorScheme": true,
   "workbench.preferredLightColorTheme": "Tokyo Night Light",
-  "docker.extension.enableComposeLanguageServer": false
+  "docker.extension.enableComposeLanguageServer": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden"
 }

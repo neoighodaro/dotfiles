@@ -1,0 +1,10 @@
+k9s:
+  cluster: k8s-01
+  namespace:
+    active: academy-dev
+    lockFavorites: false
+    favorites:
+      - academy-dev
+      - academy-qa
+      - academy-po
+      - academy-prod

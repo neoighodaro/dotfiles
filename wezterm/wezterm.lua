@@ -36,12 +36,14 @@ config.initial_rows = 120
 config.window_background_opacity = 0.9999
 config.macos_window_background_blur = 30
 
+config.enable_kitty_keyboard = true
+
 -- Window padding
 config.window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
+    left = 10,
+    right = 10,
+    top = 10,
+    bottom = 10,
 }
 
 -----------------------------------------------------------

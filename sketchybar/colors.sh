@@ -34,12 +34,12 @@ export TRANSPARENT=0x00000000
 
 # MacOS 26 Scheme
 # -------------------------------------------------------------------------------------------
-export BAR_BG_COLOR=$TRANSPARENT
+export BAR_BG_COLOR=0x0dffffff
 export ITEM_BG_COLOR=0x4d53618f
 export TEXT_COLOR=$WHITE
 export TEXT_COLOR_DIM=0x99ffffff
-export ACTIVE_APP_TEXT_COLOR=0xcc120993
-export ACTIVE_APP_BG_COLOR=$WHITE
+export ACTIVE_APP_TEXT_COLOR=$WHITE
+export ACTIVE_APP_BG_COLOR=0x4d53618f
 export AEROSPACE_TEXT_COLOR=0x99ffffff
 export AEROSPACE_ACTIVE_TEXT_COLOR=0xcc120993
 export AEROSPACE_BG_COLOR=0x4d53618f

@@ -26,6 +26,8 @@ font-family = JetBrainsMono Nerd Font Mono
 font-size = 14
 font-style = Bold
 
+background-blur = 15
+
 cursor-style = block
 
 auto-update = check
@@ -39,3 +41,5 @@ background = #091F3A
 # Miscellaneous
 # =============================================================================
 keybind = shift+enter=text:\n
+
+quit-after-last-window-closed = true

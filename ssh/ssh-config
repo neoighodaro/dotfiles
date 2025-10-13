@@ -38,3 +38,15 @@ Host ckx02.local
     Hostname 10.10.10.3
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
+
+Host ckx-node-01
+    User neo
+    Hostname 10.10.10.10
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+
+Host ckx-node-lite-01
+    User neo
+    Hostname 10.10.10.15
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes

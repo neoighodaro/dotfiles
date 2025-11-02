@@ -22,4 +22,5 @@ tags.temp
 storage/debugbar
 .env.testing
 .phpunit.result.cache
-supervisord*
+supervisord.pid
+supervisord.log

@@ -13,14 +13,18 @@
 # # Empty values are used to reset config keys to default.
 # key =
 
+term = xterm-256color
 
 # Look and feel
 # =============================================================================
-window-decoration = none
 window-padding-balance = true
 window-save-state = always
+window-decoration = false
+window-colorspace = "display-p3"
 
-theme = dark:tokyonight_moon,light:Monokai Pro Light Sun
+macos-titlebar-style=transparent
+
+theme = dark:Catppuccin Mocha,light:Monokai Pro Light Sun
 
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 14
@@ -35,11 +39,12 @@ auto-update-channel = stable
 
 confirm-close-surface = false
 
-background = #091F3A
+# background = #091F3A
 
 
 # Miscellaneous
 # =============================================================================
 keybind = shift+enter=text:\n
+keybind = cmd+s>r=reload_config
 
 quit-after-last-window-closed = true

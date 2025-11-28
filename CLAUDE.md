@@ -150,6 +150,11 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 **Adding a new config symlink:**
 1. Add `link_and_backup` call to appropriate script (init.sh for cross-platform, init-mac.sh/init-linux.sh for platform-specific)
 2. Format: `link_and_backup "source/path" "target/path"` (relative to `$NEO_HOME_DIR` unless `--realpath` used)
+3. **CRITICAL: NEVER create symlinks directly using `ln -s` commands. ALWAYS update the init scripts to use `link_and_backup` instead.**
+4. **If a user wants to track app preferences in dotfiles:**
+   - First, copy the existing preference file to the dotfiles directory
+   - Then add a `link_and_backup` call to the appropriate init script
+   - Run the init script to create the symlink properly
 
 **Modifying system preferences (macOS):**
 1. Add `defaults write` commands to `update_mac_settings()` function in init-mac.sh

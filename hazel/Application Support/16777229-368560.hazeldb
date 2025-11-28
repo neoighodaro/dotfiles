@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Contents</key>
+	<dict>
+		<key>.DS_Store</key>
+		<dict>
+			<key>File ID</key>
+			<string>369573</string>
+		</dict>
+	</dict>
+	<key>File Map</key>
+	<dict>
+		<key>369573</key>
+		<dict>
+			<key>Name</key>
+			<string>.DS_Store</string>
+		</dict>
+	</dict>
+	<key>Last Poll Time</key>
+	<date>2024-11-24T07:19:47Z</date>
+	<key>Version</key>
+	<integer>3</integer>
+</dict>
+</plist>

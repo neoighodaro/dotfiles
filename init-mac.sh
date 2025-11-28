@@ -46,6 +46,7 @@ BREW_PACKAGES_TO_INSTALL=(
 
 # Cask apps with optional URLs (format: "app_name" or "app_name:url")
 BREW_CASKS_TO_INSTALL=(
+    "claude-code"
     "ghostty"
     "affinity"
     "1password"

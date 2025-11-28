@@ -67,7 +67,3 @@ alias drmc='docker rm $(docker ps -q -f status=exited)'
 # ------------------------------------------------------------------------------
 alias k="kubectl"
 alias kscale="kubectl scale deploy"
-
-# Others
-# ------------------------------------------------------------------------------
-alias claude="~/.claude/local/claude"

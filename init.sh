@@ -150,6 +150,7 @@ mkdir -p "$NEO_HOME_DIR/.config" "$NEO_HOME_DIR/.config/lazygit"
 ## Link the dotfiles...
 link_and_backup "zellij" ".config/zellij"
 link_and_backup "k9s" ".config/k9s"
+link_and_backup "zsh/zprofile.sh" ".zprofile"
 link_and_backup "zsh/zshrc.sh" ".zshrc"
 link_and_backup "zsh/aliases.sh" ".zshrc_aliases"
 link_and_backup "zsh/functions.sh" ".zshrc_functions"

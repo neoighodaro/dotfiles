@@ -46,6 +46,8 @@ BREW_PACKAGES_TO_INSTALL=(
 
 # Cask apps with optional URLs (format: "app_name" or "app_name:url")
 BREW_CASKS_TO_INSTALL=(
+    "cursor"
+    "claude-code"
     "ghostty"
     "affinity"
     "1password"
@@ -324,7 +326,7 @@ update_mac_settings() {
     defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
     defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
     defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
-    defaults write NSGlobalDomain _HIHideMenuBar -bool true                           # Auto-hide menu bar
+    defaults write NSGlobalDomain _HIHideMenuBar -bool true                            # Auto-hide menu bar
     osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to true' # Turn off Auto-hide menu bar
 
     # Window Manager (Deskop & Stage manager)
@@ -363,6 +365,9 @@ update_mac_settings() {
     defaults write com.apple.HIToolbox AppleFnUsageType -int 0                         # Disable globe key
     defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0                 # Disable globe key auto dictation
     defaults write com.apple.TextInputMenu visible -bool false                         # Disable text input menu
+
+    defaults write com.apple.CoreBrightness "CBUser-$(dscl . -read /Users/$(whoami)/ GeneratedUID | awk -F': ' '{print $2}'):CBColorAdaptationEnabled" -bool false # Disable True Tone
+    defaults write NSGlobalDomain SLSMenuBarUseBlurredAppearance -bool true            # Add a background to the menu bar
 
     chflags nohidden ~/Library                                                         # Show the ~/Library folder
     source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock
@@ -445,6 +450,9 @@ configure_installed_apps_and_packages() {
     link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
     link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
     link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
+    link_and_backup "claude/settings.json" ".claude/settings.json"                                  # Claude Code settings
+    link_and_backup "claude/plugins" ".claude/plugins"                                              # Claude Code plugins
+    link_and_backup "claude/agents" ".claude/agents"                                                # Claude Code custom agents
     link_and_backup "ansible" "/etc/ansible" --realpath --sudo                                      # Ansible config
 
     # Zellij...

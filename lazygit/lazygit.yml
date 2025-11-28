@@ -34,9 +34,9 @@ git:
   commit:
     autoWrapCommitMessage: true
     autoWrapWidth: 72
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never --line-numbers --syntax-theme=Nord
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --line-numbers --syntax-theme=Nord
 os:
   editPreset: "vscode"
   open: "open {{filename}}"

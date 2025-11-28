@@ -497,6 +497,11 @@ configure_installed_apps_and_packages() {
         echo -e "${GRAY}==> Skipping VSCode customization...${NC}"
     fi
 
+    # Cursor (uses same settings as VSCode)...
+    mkdir -p "$HOME/Library/Application Support/Cursor/User"
+    link_and_backup "vscode/keybindings.json" "Library/Application Support/Cursor/User/keybindings.json"      # Cursor keybindings
+    link_and_backup "vscode/settings.json" "Library/Application Support/Cursor/User/settings.json"            # Cursor config
+
     # Default browser...
     if [[ ! -f "/tmp/default-browser-installed" ]]; then
         install_brew_package "defaultbrowser"

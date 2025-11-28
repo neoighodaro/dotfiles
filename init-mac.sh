@@ -326,7 +326,7 @@ update_mac_settings() {
     defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false     # Disable automatic correction
     defaults write NSGlobalDomain AppleShowAllExtensions -bool true                    # Show all file extensions
     defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true        # Expand save panel by default
-    defaults write NSGlobalDomain _HIHideMenuBar -bool true                           # Auto-hide menu bar
+    defaults write NSGlobalDomain _HIHideMenuBar -bool true                            # Auto-hide menu bar
     osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to true' # Turn off Auto-hide menu bar
 
     # Window Manager (Deskop & Stage manager)
@@ -365,6 +365,9 @@ update_mac_settings() {
     defaults write com.apple.HIToolbox AppleFnUsageType -int 0                         # Disable globe key
     defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0                 # Disable globe key auto dictation
     defaults write com.apple.TextInputMenu visible -bool false                         # Disable text input menu
+
+    defaults write com.apple.CoreBrightness "CBUser-$(dscl . -read /Users/$(whoami)/ GeneratedUID | awk -F': ' '{print $2}'):CBColorAdaptationEnabled" -bool false # Disable True Tone
+    defaults write NSGlobalDomain SLSMenuBarUseBlurredAppearance -bool true            # Add a background to the menu bar
 
     chflags nohidden ~/Library                                                         # Show the ~/Library folder
     source "$DOTFILES_DIR/misc/init-mac-app-in-dock.sh"                                # Add applications folder to the dock

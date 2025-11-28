@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Contents</key>
+	<dict>
+		<key>Sensei.dmg</key>
+		<dict>
+			<key>File ID</key>
+			<string>3824118</string>
+			<key>Predicted Process Time</key>
+			<real>786124044</real>
+			<key>Should Poll</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>File Map</key>
+	<dict>
+		<key>3824118</key>
+		<dict>
+			<key>Name</key>
+			<string>Sensei.dmg</string>
+		</dict>
+	</dict>
+	<key>Last Poll Time</key>
+	<date>2025-11-28T15:52:29Z</date>
+	<key>Version</key>
+	<integer>3</integer>
+</dict>
+</plist>

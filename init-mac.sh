@@ -450,6 +450,9 @@ configure_installed_apps_and_packages() {
     link_and_backup "aerospace" ".config/aerospace"                                                 # Aerospace config
     link_and_backup "karabiner" ".config/karabiner"                                                 # Karabiner config
     link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
+    link_and_backup "raycast/com.raycast.macos.plist" "Library/Preferences/com.raycast.macos.plist" # RayCast preferences
+    link_and_backup "hazel/com.noodlesoft.Hazel.plist" "Library/Preferences/com.noodlesoft.Hazel.plist" # Hazel preferences
+    link_and_backup "hazel/Application Support" "Library/Application Support/Hazel"                # Hazel rules and database
     link_and_backup "claude/settings.json" ".claude/settings.json"                                  # Claude Code settings
     link_and_backup "claude/plugins" ".claude/plugins"                                              # Claude Code plugins
     link_and_backup "claude/agents" ".claude/agents"                                                # Claude Code custom agents

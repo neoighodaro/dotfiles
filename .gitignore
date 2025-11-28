@@ -1,2 +1,5 @@
 zsh/private.sh
 git/private.cfg
+hazel/Application Support/license
+hazel/Application Support/*.hazellock
+hazel/Application Support/trash-*

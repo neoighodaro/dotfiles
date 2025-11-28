@@ -101,6 +101,13 @@ link_and_backup() {
             sudo mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
         fi
         echo -e "${GREEN}==> Created backup for $DEFAULT_FILE.${NC}"
+    elif [ -d "$DEFAULT_FILE" ] && [ ! -L "$DEFAULT_FILE" ]; then
+        if [[ $SUDO -ne 1 ]]; then
+            mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
+        else
+            sudo mv "$DEFAULT_FILE" "$DEFAULT_FILE.backup"
+        fi
+        echo -e "${GREEN}==> Created backup for directory $DEFAULT_FILE.${NC}"
     else
         if [[ -L $DEFAULT_FILE ]] && [[ $LINK_FILE == $(readlink "$DEFAULT_FILE") ]]; then
             SKIP_LINKING=1

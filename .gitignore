@@ -3,3 +3,5 @@ git/private.cfg
 hazel/Application Support/license
 hazel/Application Support/*.hazellock
 hazel/Application Support/trash-*
+
+cursor/default-profile.code-profile

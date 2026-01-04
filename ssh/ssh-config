@@ -42,5 +42,8 @@ Host ckx-node-02 02
 Host ckx-node-03 03
     Hostname 10.10.10.30
 
-Host ckx-node-lite-01
+Host ckx-node-lite-01 lite-01
     Hostname 10.10.10.15
+
+Host ckx-node-lite-02 lite-02
+    Hostname 10.10.10.25

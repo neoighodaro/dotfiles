@@ -25,7 +25,7 @@
   "editor.minimap.enabled": false,
   "editor.guides.indentation": false,
   "editor.colorDecorators": false,
-  "editor.hover.enabled": true,
+  "editor.hover.enabled": "on",
   "editor.gotoLocation.multipleDeclarations": "goto",
   "editor.gotoLocation.multipleDefinitions": "goto",
   "editor.gotoLocation.multipleImplementations": "goto",
@@ -317,13 +317,13 @@
 
   "[json]": {
     "editor.formatOnSave": true,
-    "editor.hover.enabled": true,
+    "editor.hover.enabled": "on",
     "editor.tabSize": 2
   },
 
   "[jsonc]": {
     "editor.formatOnSave": true,
-    "editor.hover.enabled": true,
+    "editor.hover.enabled": "on",
     "editor.tabSize": 2
   },
 

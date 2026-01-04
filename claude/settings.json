@@ -1,5 +1,10 @@
 {
-  "alwaysThinkingEnabled": false,
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "laravel-boost@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
+  },
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710
   }

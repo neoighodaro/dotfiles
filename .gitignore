@@ -5,3 +5,4 @@ hazel/Application Support/*.hazellock
 hazel/Application Support/trash-*
 
 cursor/default-profile.code-profile
+claude/plugins/cache/claude-plugins-official

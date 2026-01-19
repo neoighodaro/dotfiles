@@ -5,6 +5,14 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "/Users/neo/.claude/plugins/marketplaces/claude-plugins-official",
-    "lastUpdated": "2026-01-08T14:37:59.924Z"
+    "lastUpdated": "2026-01-19T16:38:53.810Z"
+  },
+  "claude-dashboard": {
+    "source": {
+      "source": "github",
+      "repo": "uppinote20/claude-dashboard"
+    },
+    "installLocation": "/Users/neo/.claude/plugins/marketplaces/claude-dashboard",
+    "lastUpdated": "2026-01-12T17:47:27.858Z"
   }
 }

@@ -5,4 +5,7 @@ hazel/Application Support/*.hazellock
 hazel/Application Support/trash-*
 
 cursor/default-profile.code-profile
-claude/plugins/cache/claude-plugins-official
+claude/plugins/cache/
+claude/plugins/marketplaces/
+
+claude/plugins/install-counts-cache.json

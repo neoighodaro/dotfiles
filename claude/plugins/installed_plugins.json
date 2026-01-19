@@ -4,30 +4,30 @@
     "commit-commands@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/neo/.claude/plugins/cache/claude-plugins-official/commit-commands/113b335d11ae",
-        "version": "113b335d11ae",
+        "installPath": "/Users/neo/.claude/plugins/cache/claude-plugins-official/commit-commands/96276205880a",
+        "version": "96276205880a",
         "installedAt": "2025-12-16T08:06:13.042Z",
-        "lastUpdated": "2026-01-08T07:35:49.251Z",
+        "lastUpdated": "2026-01-19T16:38:53.846Z",
         "gitCommitSha": "0e2bf9409f4098efe113a7453275e5aeb0a24b50"
       }
     ],
     "feature-dev@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/neo/.claude/plugins/cache/claude-plugins-official/feature-dev/113b335d11ae",
-        "version": "113b335d11ae",
+        "installPath": "/Users/neo/.claude/plugins/cache/claude-plugins-official/feature-dev/96276205880a",
+        "version": "96276205880a",
         "installedAt": "2025-12-16T08:06:45.820Z",
-        "lastUpdated": "2026-01-08T07:35:49.254Z",
+        "lastUpdated": "2026-01-19T16:38:53.848Z",
         "gitCommitSha": "0e2bf9409f4098efe113a7453275e5aeb0a24b50"
       }
     ],
     "laravel-boost@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/neo/.claude/plugins/cache/claude-plugins-official/laravel-boost/113b335d11ae",
-        "version": "113b335d11ae",
+        "installPath": "/Users/neo/.claude/plugins/cache/claude-plugins-official/laravel-boost/96276205880a",
+        "version": "96276205880a",
         "installedAt": "2025-12-16T08:07:20.874Z",
-        "lastUpdated": "2026-01-08T07:35:49.255Z",
+        "lastUpdated": "2026-01-19T16:38:53.849Z",
         "gitCommitSha": "0e2bf9409f4098efe113a7453275e5aeb0a24b50"
       }
     ],
@@ -39,6 +39,16 @@
         "installedAt": "2025-12-20T08:04:29.041Z",
         "lastUpdated": "2025-12-20T08:04:29.041Z",
         "gitCommitSha": "0e2bf9409f4098efe113a7453275e5aeb0a24b50"
+      }
+    ],
+    "claude-dashboard@claude-dashboard": [
+      {
+        "scope": "user",
+        "installPath": "/Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.2.0",
+        "version": "1.2.0",
+        "installedAt": "2026-01-12T17:47:43.642Z",
+        "lastUpdated": "2026-01-12T17:47:43.642Z",
+        "gitCommitSha": "1ca7624d2d4cc9afb04a86e8baf89f1241680b21"
       }
     ]
   }

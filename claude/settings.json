@@ -1,11 +1,17 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.2.0/dist/index.js"
+  },
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "laravel-boost@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "claude-dashboard@claude-dashboard": true
   },
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710
-  }
+  },
+  "model": "sonnet"
 }

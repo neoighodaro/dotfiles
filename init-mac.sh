@@ -42,6 +42,8 @@ BREW_PACKAGES_TO_INSTALL=(
     "ansible"
     "ansible-lint"
     "mas"
+    "ripgrep"
+    "fd"
 )
 
 # Cask apps with optional URLs (format: "app_name" or "app_name:url")

@@ -5,6 +5,7 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "/Users/neo/.claude/plugins/marketplaces/claude-plugins-official",
+<<<<<<< HEAD
     "lastUpdated": "2026-01-19T16:38:53.810Z"
   },
   "claude-dashboard": {
@@ -14,5 +15,10 @@
     },
     "installLocation": "/Users/neo/.claude/plugins/marketplaces/claude-dashboard",
     "lastUpdated": "2026-01-12T17:47:27.858Z"
+||||||| 1ca7624
+    "lastUpdated": "2026-01-03T11:09:27.038Z"
+=======
+    "lastUpdated": "2026-01-18T08:47:44.608Z"
+>>>>>>> origin/develop
   }
 }

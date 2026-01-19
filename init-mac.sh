@@ -462,7 +462,12 @@ configure_installed_apps_and_packages() {
     # Cursor extensions...
     if [[ -f "$DOTFILES_DIR/cursor/extensions.txt" ]] && command -v cursor &> /dev/null; then
         echo "Installing Cursor extensions..."
-        cat "$DOTFILES_DIR/cursor/extensions.txt" | xargs -I {} cursor --install-extension {}
+        while IFS= read -r extension; do
+            # Skip empty lines
+            [[ -z "$extension" ]] && continue
+            echo "Installing $extension..."
+            cursor --install-extension "$extension" || echo "Skipping $extension (already installed or failed)"
+        done < "$DOTFILES_DIR/cursor/extensions.txt"
     fi
 
     # Zellij...

@@ -177,6 +177,9 @@ link_and_backup "git/base.cfg" ".gitconfig"
 [[ $IS_MACOS -eq 1 ]] && link_and_backup "configs/mackup.cfg" ".mackup.cfg"
 [[ -f "$DOTFILES_DIR/git/private.cfg" ]] && link_and_backup "git/private.cfg" ".gitconfig.private"
 [[ -f "$DOTFILES_DIR/git/work.cfg" ]] && link_and_backup "git/work.cfg" ".gitconfig.work"
+link_and_backup "claude/settings.json" ".claude/settings.json"
+link_and_backup "claude/CLAUDE.md" ".claude/CLAUDE.md"
+link_and_backup "claude/skills" ".claude/skills"
 
 # Generate SSH Keys
 # ------------------------------------------------------------------------------

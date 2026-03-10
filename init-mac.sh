@@ -42,6 +42,8 @@ BREW_PACKAGES_TO_INSTALL=(
     "ansible"
     "ansible-lint"
     "mas"
+    "ripgrep"
+    "fd"
 )
 
 # Cask apps with optional URLs (format: "app_name" or "app_name:url")
@@ -452,15 +454,17 @@ configure_installed_apps_and_packages() {
     link_and_backup "sketchybar" ".config/sketchybar"                                               # Sketchybar config
     link_and_backup "hazel/com.noodlesoft.Hazel.plist" "Library/Preferences/com.noodlesoft.Hazel.plist" # Hazel preferences
     link_and_backup "hazel/Application Support" "Library/Application Support/Hazel"                # Hazel rules and database
-    link_and_backup "claude/settings.json" ".claude/settings.json"                                  # Claude Code settings
-    link_and_backup "claude/plugins" ".claude/plugins"                                              # Claude Code plugins
-    link_and_backup "claude/agents" ".claude/agents"                                                # Claude Code custom agents
     link_and_backup "ansible" "/etc/ansible" --realpath --sudo                                      # Ansible config
 
     # Cursor extensions...
     if [[ -f "$DOTFILES_DIR/cursor/extensions.txt" ]] && command -v cursor &> /dev/null; then
         echo "Installing Cursor extensions..."
-        cat "$DOTFILES_DIR/cursor/extensions.txt" | xargs -I {} cursor --install-extension {}
+        while IFS= read -r extension; do
+            # Skip empty lines
+            [[ -z "$extension" ]] && continue
+            echo "Installing $extension..."
+            cursor --install-extension "$extension" || echo "Skipping $extension (already installed or failed)"
+        done < "$DOTFILES_DIR/cursor/extensions.txt"
     fi
 
     # Zellij...

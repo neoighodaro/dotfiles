@@ -1,8 +1,24 @@
 {
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay -v 15 /System/Library/Sounds/Pop.aiff"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.4.2/dist/index.js"
+  },
   "enabledPlugins": {
-    "commit-commands@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "laravel-boost@claude-plugins-official": true,
+    "commit-commands@claude-code-plugins": true,
+    "claude-dashboard@claude-dashboard": true,
     "swift-lsp@claude-plugins-official": true
   },
   "feedbackSurveyState": {

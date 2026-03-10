@@ -614,5 +614,10 @@
     "key": "cmd+r cmd+[",
     "command": "-editor.foldRecursively",
     "when": "editorTextFocus && foldingEnabled"
+  },
+  {
+    "key": "alt+cmd+s",
+    "command": "workbench.action.toggleUnifiedSidebarFromKeyboard",
+    "when": "cursor.agentIdeUnification.enabled == true && !isAuxiliaryWindowFocusedContext"
   }
 ]

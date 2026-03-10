@@ -1,15 +1,25 @@
 {
-  "model": "sonnet",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay -v 15 /System/Library/Sounds/Pop.aiff"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
-    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.2.0/dist/index.js"
+    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.4.2/dist/index.js"
   },
   "enabledPlugins": {
-    "laravel-boost@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "frontend-design@claude-code-plugins": true,
     "commit-commands@claude-code-plugins": true,
-    "claude-dashboard@claude-dashboard": true
+    "claude-dashboard@claude-dashboard": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710

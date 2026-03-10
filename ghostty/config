@@ -18,7 +18,7 @@ term = xterm-256color
 # Look and feel
 # =============================================================================
 window-padding-balance = true
-window-save-state = always
+window-save-state = never
 window-decoration = false
 window-colorspace = "display-p3"
 

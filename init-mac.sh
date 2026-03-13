@@ -129,10 +129,10 @@ install_cask_app() {
     # If url use that else use app name...
     if [[ -n $install_url ]]; then
       curl -O "$install_url"
-      brew install --cask "$(basename $install_url)"
+      brew install --cask "$(basename $install_url)" || { rm -f "$(basename $install_url)"; echo -e "${RED}==> Failed to install $app_name.${NC}"; return; }
       rm "$(basename $install_url)"
     else
-      brew install --cask "$app_name"
+      brew install --cask "$app_name" || { echo -e "${RED}==> Failed to install $app_name.${NC}"; return; }
     fi
 
     echo -e "${GREEN}==> Installed $app_name.${NC}"

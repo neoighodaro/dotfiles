@@ -12,14 +12,14 @@ command_timeout = 1000
 # -----------------------------------------------------------
 
 format = """
-[░▒▓](fg:ckyellow100)\
-[ $os$hostname](bg:ckyellow100 fg:ckbrown100)\
-[](bg:ckyellow200 fg:ckyellow100)\
+[░▒▓](fg:ckorange100)\
+[ $os](bg:ckorange100 fg:ckbrown100)\
+[](bg:ckorange200 fg:ckorange100)\
 $directory\
-[](fg:ckyellow200 bg:ckyellow300)\
+[](fg:ckorange200 bg:ckorange300)\
 $git_branch\
 $git_status\
-[](fg:ckyellow300 bg:ckbrown100)\
+[](fg:ckorange300 bg:ckbrown100)\
 $php\
 $custom\
 [](fg:ckbrown100 bg:termbg)\
@@ -32,7 +32,7 @@ $cmd_duration\
 # -----------------------------------------------------------
 
 [directory]
-style = "fg:ckbrown100 bg:ckyellow200"
+style = "fg:ckbrown100 bg:ckorange200"
 format = "[ $path]($style)"
 truncation_length = 8
 truncate_to_repo = false
@@ -51,12 +51,12 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:ckyellow300"
-format = '[[ $symbol $branch ](fg:ckbrown100 bg:ckyellow300)]($style)'
+style = "bg:ckorange300"
+format = '[[ $symbol $branch ](fg:ckbrown100 bg:ckorange300)]($style)'
 
 [git_status]
 style = "bg:#394260"
-format = '[[($all_status$ahead_behind )](fg:ckbrown100 bg:ckyellow300)]($style)'
+format = '[[($all_status$ahead_behind )](fg:ckbrown100 bg:ckorange300)]($style)'
 
 [git_commit]
 tag_disabled = true
@@ -68,7 +68,7 @@ tag_disabled = true
 [php]
 symbol = ""
 style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:ckyellow100 bg:ckbrown100)]($style)'
+format = '[[ $symbol ($version) ](fg:ckorange100 bg:ckbrown100)]($style)'
 
 [kubernetes]
 symbol = "⎈ "
@@ -78,13 +78,13 @@ disabled = false
 
 [custom.nuxtjs]
 symbol = ""
-format = '[ $symbol ](fg:ckyellow100 bg:ckbrown100)($style)'
+format = '[ $symbol ](fg:ckorange100 bg:ckbrown100)($style)'
 style = "bg:#212736"
 detect_files = ["nuxt.config.ts", "nuxt.config.js", "nuxt.config.mjs"]
 
 # [custom.docker]
 # symbol = "󰡨 "
-# style = "fg:ckyellow100 bg:ckbrown100"
+# style = "fg:ckorange100 bg:ckbrown100"
 # format = "[ $symbol ]($style)"
 # detect_files = ["Dockerfile", "docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml"]
 # when = """ command -v docker &>/dev/null ; exit (echo $?) ; """
@@ -99,7 +99,7 @@ disabled = false
 style = "bold"
 
 [os.symbols]
-Macos = ""
+Macos = "" # ""
 Linux = ""
 Ubuntu = ""
 Windows = ""
@@ -124,7 +124,7 @@ ssh_only = false
 # -----------------------------------------------------------
 
 [character]
-success_symbol = '[ ➜](bold ckyellow300)'
+success_symbol = '[ ➜](bold ckorange300)'
 error_symbol = '[ ✗](bold red)'
 
 # -----------------------------------------------------------
@@ -133,11 +133,17 @@ error_symbol = '[ ✗](bold red)'
 
 [palettes.catppuccin_mocha]
 
-# Custom CK Colors
-ckyellow100 = "#f6d277"
-ckyellow200 = "#EBBE55"
-ckyellow300 = "#DFAE3B"
-ckyellow400 = "#DCAB38"
+# Custom CK Colors (yellow - original)
+# ckyellow100 = "#f6d277"
+# ckyellow200 = "#EBBE55"
+# ckyellow300 = "#DFAE3B"
+# ckyellow400 = "#DCAB38"
+
+# Custom CK Colors (orange - active)
+ckorange100 = "#FFC49A"
+ckorange200 = "#FFA468"
+ckorange300 = "#E08A4A"
+ckorange400 = "#D47F3E"
 ckbrown100 = "#2d2b27"
 termbg = "#131c2b"
 

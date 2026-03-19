@@ -44,6 +44,7 @@ BREW_PACKAGES_TO_INSTALL=(
     "mas"
     "ripgrep"
     "fd"
+    "nushell"
     "worktrunk"
 )
 

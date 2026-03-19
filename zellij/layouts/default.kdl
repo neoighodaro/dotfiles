@@ -11,7 +11,9 @@ layout {
                 format_center "#[fg=#494d64,italic]{session}"
                 format_right  "{command_cpu} #[fg=#494d64]⋮ {command_memo} "
 
-                // Show status and hints: https://github.com/dj95/zjstatus/discussions/44#discussioncomment-13395482
+                // Show status and hints:
+                //   - https://github.com/dj95/zjstatus/discussions/44#discussioncomment-13395482
+                //   - https://github.com/b0o/zjstatus-hints/pull/30
                 // format_right  "{pipe_zjstatus_hints} "
                 // pipe_zjstatus_hints_format "#[bg=#101C2C,fg=#FEA871]{output}"
 

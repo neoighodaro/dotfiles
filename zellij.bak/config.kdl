@@ -1,80 +1,5 @@
-// Examples:
-//   - https://github.com/D3B-0x0/dotfiles/blob/main/.config/zellij/config.kdl
-
-
-// The name of the default layout to load on startup
-default_layout "default"
-
-// Choose the mode that zellij uses when starting up.
-default_mode "normal"
-
-// Choose the path to the default shell that zellij will use for opening new panes
-// Default: $SHELL
-//
-// default_shell "fish"
-
-// If enabled, sessions will be serialized to the cache folder (and thus become resurrectable
-// between reboots or on exit). Read more about session resurrection.
-session_serialization false
-
-// Show startup tips
-show_startup_tips false
-
-// Whether to show release notes on first version run
-show_release_notes false
-
-// Send a request for a simplified ui (without arrow fonts) to plugins
-simplified_ui true
-
-// Choose the theme that is specified in the themes section.
-theme "catppuccin-mocha"
-
-// Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
-// eg. when terminal window with an active zellij session is closed
-// (Requires restart)
-// Options:
-//   - detach (Default)
-//   - quit
-//
-on_force_close "quit"
-
-// Enable automatic copying (and clearing) of selection when releasing mouse
-copy_on_select true
-
-// -----------------------------------------------------------------------------
-// UI
-// -----------------------------------------------------------------------------
-
-ui {
-    pane_frames {
-        hide_session_name false
-        rounded_corners true
-    }
-}
-
-// -------------------------------------------------------------------------------------
-// Plugins
-// -------------------------------------------------------------------------------------
-
-plugins {
-    tab-bar { path "tab-bar"; }
-    status-bar { path "status-bar"; }
-    strider { path "strider"; }
-    compact-bar { path "compact-bar"; }
-    zjstatus location="file:/Users/neo/.config/zellij/plugins/zjstatus.wasm"
-    zjstatus-hints location="https://github.com/b0o/zjstatus-hints/releases/latest/download/zjstatus-hints.wasm"
-}
-
-load_plugins {
-    zjstatus-hints
-}
-
-// -----------------------------------------------------------------------------
-// Keybinds
-// -----------------------------------------------------------------------------
-
-// keybinds clear-defaults=true {}
-
+// https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl
+// If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds clear-defaults=true {
     // Modes
     // -----------------------------------------------------------------------------
@@ -198,4 +123,68 @@ keybinds clear-defaults=true {
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
     }
+}
+
+// Other Settings
+// -----------------------------------------------------------------------------
+// Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
+// eg. when terminal window with an active zellij session is closed
+// Options:
+//   - detach (Default)
+//   - quit
+//
+on_force_close "quit"
+
+//If enabled, sessions will be serialized to the cache folder (and thus become resurrectable
+// between reboots or on exit). Read more about session resurrection.
+// Options:
+//    - true (default)
+//    - false
+session_serialization false
+
+// Choose the theme that is specified in the themes section.
+// Default: default
+//
+theme "catppuccin-mocha"
+
+//  Send a request for a simplified ui (without arrow fonts) to plugins
+//  Options:
+//    - true
+//    - false (Default)
+//
+simplified_ui true
+
+// The name of the default layout to load on startup
+// Options:
+//   - default (Default)
+//   - compact
+//
+default_layout "default"
+
+// Choose the mode that zellij uses when starting up.
+// Options:
+//   - normal (Default)
+//   - locked
+//
+default_mode "normal"
+
+// -------------------------------------------------------------------------------------
+// UI
+// -------------------------------------------------------------------------------------
+
+ui {
+    pane_frames {
+        hide_session_name false
+    }
+}
+
+// -------------------------------------------------------------------------------------
+// Plugins
+// -------------------------------------------------------------------------------------
+
+plugins {
+    tab-bar { path "tab-bar"; }
+    status-bar { path "status-bar"; }
+    strider { path "strider"; }
+    compact-bar { path "compact-bar"; }
 }

@@ -55,20 +55,26 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 
 **ZSH Configuration (sourced from zsh/zshrc.sh):**
 - `zsh/zshrc.sh` - Main ZSH config with plugin loading, tool initialization
-- `zsh/aliases.sh` - Command aliases
+- `zsh/aliases.sh` - Command aliases (includes nushell-powered `ls`/`ll`/`la` aliases when `nu` is available)
 - `zsh/functions.sh` - Custom shell functions
 - `zsh/paths.sh` - PATH modifications
+- `zsh/zprofile.sh` - ZSH profile configuration
+- `zsh/install.sh` - ZSH plugin installation
 - `zsh/private.sh` - Private scripts and environment variables
 
 **Application Configs:**
 - `zellij/` - Terminal multiplexer config (requires zjstatus.wasm plugin, auto-downloaded by init-mac.sh:454)
 - `aerospace/` - Window manager (macOS)
 - `karabiner/` - Keyboard customization (macOS)
-- `sketchybar/` - Status bar (macOS, auto-started via brew services)
+- `sketchybar/` - Status bar (macOS, auto-started via brew services, includes Claude status indicator)
 - `ghostty/`, `wezterm/` - Terminal emulator configs
 - `vscode/` - VS Code settings, keybindings, and optional custom CSS/JS
-- `starship/` - Shell prompt configuration
-- `lazygit/` - Git TUI configuration
+- `cursor/` - Cursor IDE config (extensions list and default profile)
+- `starship/` - Shell prompt configuration (Catppuccin Mocha theme with custom orange palette)
+- `lazygit/` - Git TUI configuration (includes Claude-powered commit message generation)
+- `claude/` - Claude Code settings, hooks, custom agents, and skills
+- `hazel/` - Hazel file automation rules (macOS)
+- `supermaven/` - Supermaven IDE plugin (patched JAR)
 
 ### macOS Setup Details
 
@@ -85,9 +91,30 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 - Wallpaper auto-set if found in `~/Pictures/` or `wallpapers/` directory
 
 **Special App Configurations:**
-- Sketchybar: Auto-started via `brew services start sketchybar`
+- Sketchybar: Auto-started via `brew services start sketchybar`, includes Claude busy indicator (`/tmp/claude-busy` marker)
 - GPG: pinentry-touchid configured for Touch ID authentication (init-mac.sh:424-439)
 - VSCode: Custom CSS/JS optional, user prompted during setup
+
+### Claude Code Integration
+
+**Settings & Hooks (`claude/settings.json`):**
+- `UserPromptSubmit` hook: Creates `/tmp/claude-busy` marker file
+- `Stop` hook: Removes `/tmp/claude-busy` marker
+- `SessionEnd` hook: Cleanup of busy marker
+- `Notification` hook: Plays system sound for permission prompts
+
+**Sketchybar Indicator:**
+- `sketchybar/items/claude.sh` and `sketchybar/plugins/claude.sh` show Claude status in the menu bar
+- Checks for `/tmp/claude-busy` file every 5 seconds
+- Uses Claude app-font icon with custom orange color
+
+**Custom Agents & Skills:**
+- `claude/agents/` - Custom agent definitions (e.g., requirements-engineer)
+- `claude/skills/` - Custom skills (hotfix, solving-phpstan-errors, frontend-design)
+
+**Lazygit Integration:**
+- Key `C` in lazygit triggers Claude-powered commit message generation
+- Uses `haiku` model with `--output-format text` for conventional commit messages
 
 ### Linux Setup Details
 
@@ -102,7 +129,7 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 **Package Installation:**
 - Core utilities: eza, bat, zoxide, fzf, lazygit, git-delta
 - Docker with optional Portainer installation
-- Starship, Deno installed via direct downloads
+- Starship installed via direct downloads
 
 ## Directory Structure Conventions
 
@@ -115,6 +142,7 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 
 **Config directories:**
 - `~/.config/` - XDG-compliant application configs
+- `~/.claude/` - Claude Code configuration (settings, agents, skills, plugins)
 - `~/.gnupg/` - GPG configuration (permissions: 700 for dirs, 600 for files)
 - `~/.ssh/` - SSH keys and config
 
@@ -168,8 +196,9 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 - Loaded from `/usr/share` (Linux) or `$HOMEBREW_PREFIX/share` (macOS)
 
 **Key Tools:**
-- **Starship** - Cross-shell prompt (config: `starship/starship.toml`)
+- **Starship** - Cross-shell prompt (config: `starship/starship.toml`, Catppuccin Mocha with custom orange palette)
 - **Zellij** - Terminal multiplexer (auto-attaches via `zattach` function, skipped in VSCode/JetBrains terminals)
+- **Nushell** - Modern shell used for enhanced `ls`/`ll`/`la` aliases (conditional on `nu` being available)
 - **fzf** - Fuzzy finder (CTRL-R for history, CTRL-T for files, ALT-C for directories)
 - **zoxide** - Smarter cd (replaces cd command via `--cmd cd` flag)
 - **delta** - Git diff pager (theme: Nord, line numbers enabled)
@@ -188,12 +217,19 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 - Main branch: `main` (configured as default)
 - Work directory conditional config: `~/Developer/pinktum` includes `~/.gitconfig.work`
 
+## Scripts
+
+- `scripts/remove-ms-autoupdate.sh` - Removes Microsoft AutoUpdate
+- `scripts/patch-supermaven.sh` - Patches Supermaven IDE plugin
+- `scripts/fetch-supermaven.sh` - Fetches Supermaven IDE plugin
+
 ## Special Files
 
 - `/tmp/dotfiles__ssh-skip-check` - Marker to prevent re-prompting for SSH key generation
 - `/tmp/dotfiles__gpg-skip-check` - Marker to prevent re-prompting for GPG key generation
 - `/tmp/vscode-customized` - Marker for VSCode customization prompt
 - `/tmp/default-browser-installed` - Marker for default browser setup
+- `/tmp/claude-busy` - Claude Code processing status (created/removed by Claude hooks, read by sketchybar)
 - `~/Pictures/wallpaper.skip` - Prevents wallpaper auto-setting on macOS
 
 ## Testing & Development

@@ -180,6 +180,7 @@ link_and_backup "git/base.cfg" ".gitconfig"
 link_and_backup "claude/settings.json" ".claude/settings.json"
 link_and_backup "claude/CLAUDE.md" ".claude/CLAUDE.md"
 link_and_backup "claude/skills" ".claude/skills"
+link_and_backup "claude/hooks" ".claude/hooks"
 
 # Generate SSH Keys
 # ------------------------------------------------------------------------------

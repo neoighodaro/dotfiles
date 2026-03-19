@@ -230,6 +230,10 @@ run = "move-node-to-workspace Terminal"
 if.app-id = 'com.mitchellh.ghostty'
 run = "move-node-to-workspace Terminal"
 
+[[on-window-detected]]
+if.app-id = 'com.cmuxterm.app'
+run = "move-node-to-workspace Terminal"
+
 # Browsers
 # ------------------------------------------------------------------------------
 [[on-window-detected]]
@@ -345,6 +349,10 @@ run = "move-node-to-workspace Claude"
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
+run = "move-node-to-workspace Claude"
+
+[[on-window-detected]]
+if.app-id = 'com.conductor.app'
 run = "move-node-to-workspace Claude"
 
 # Superwhisper

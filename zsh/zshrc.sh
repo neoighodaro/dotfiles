@@ -228,7 +228,7 @@ zattach() {
 if type zellij &>/dev/null; then
   if [[ -z "$SSH_CONNECTION" && -z "$SSH_CLIENT" ]]; then
     DISABLED_TERMINAL_PROGRAMS=(vscode JetBrains-JediTerm)
-    if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]]; then
+    if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]] && [[ -z "$CMUX_WORKSPACE_ID" ]] && [[ -z "$CONDUCTOR_WORKSPACE_NAME" ]]; then
         if [[ -z "$ZELLIJ" ]]; then
             zattach
         fi
@@ -260,3 +260,5 @@ export HERD_PHP_84_INI_SCAN_DIR="/Users/neo/Library/Application Support/Herd/con
 
 # Herd injected PHP 8.5 configuration.
 export HERD_PHP_85_INI_SCAN_DIR="/Users/neo/Library/Application Support/Herd/config/php/85/"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

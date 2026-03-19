@@ -30,7 +30,7 @@ BREW_PACKAGES_TO_INSTALL=(
     "zellij"
     "lazygit"
     "git-delta"
-    "deno"
+    # "deno"
     "bun:oven-sh/bun"
     "folderify"
     "sketchybar:FelixKratz/formulae"
@@ -44,6 +44,8 @@ BREW_PACKAGES_TO_INSTALL=(
     "mas"
     "ripgrep"
     "fd"
+    "nushell"
+    "worktrunk"
 )
 
 # Cask apps with optional URLs (format: "app_name" or "app_name:url")
@@ -76,7 +78,7 @@ BREW_CASKS_TO_INSTALL=(
     "karabiner-elements"
     "font-sf-pro"
     "sketch:https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb"
-    # wezterm
+    wezterm
     # coderunner
     # pika
     # mysides
@@ -129,10 +131,10 @@ install_cask_app() {
     # If url use that else use app name...
     if [[ -n $install_url ]]; then
       curl -O "$install_url"
-      brew install --cask "$(basename $install_url)"
+      brew install --cask "$(basename $install_url)" || { rm -f "$(basename $install_url)"; echo -e "${RED}==> Failed to install $app_name.${NC}"; return; }
       rm "$(basename $install_url)"
     else
-      brew install --cask "$app_name"
+      brew install --cask "$app_name" || { echo -e "${RED}==> Failed to install $app_name.${NC}"; return; }
     fi
 
     echo -e "${GREEN}==> Installed $app_name.${NC}"
@@ -460,10 +462,10 @@ configure_installed_apps_and_packages() {
     if [[ -f "$DOTFILES_DIR/cursor/extensions.txt" ]] && command -v cursor &> /dev/null; then
         echo "Installing Cursor extensions..."
         while IFS= read -r extension; do
-            # Skip empty lines
             [[ -z "$extension" ]] && continue
-            echo "Installing $extension..."
-            cursor --install-extension "$extension" || echo "Skipping $extension (already installed or failed)"
+            if ! cursor --install-extension "$extension" &> /dev/null; then
+                echo "Failed to install Cursor extension: $extension"
+            fi
         done < "$DOTFILES_DIR/cursor/extensions.txt"
     fi
 
@@ -475,6 +477,9 @@ configure_installed_apps_and_packages() {
     fi
 
     # Sketchybar...
+    # Update icon map from latest sketchybar-app-font release
+    "$DOTFILES_DIR/scripts/update-sketchybar-icons.sh"
+
     SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
     if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
         brew services start sketchybar
@@ -524,11 +529,12 @@ configure_installed_apps_and_packages() {
 uninstall_installed_apps_and_packages() {
     # Brew...
     uninstall_brew_package "mas"
+    uninstall_brew_package "deno"
 
     # Cask...
     uninstall_cask_app "coderunner"
     uninstall_cask_app "pika"
-    uninstall_cask_app "wezterm"
+    # uninstall_cask_app "wezterm"
     uninstall_cask_app "coderunner"
 }
 

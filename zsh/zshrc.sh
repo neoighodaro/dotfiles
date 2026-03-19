@@ -260,3 +260,5 @@ export HERD_PHP_84_INI_SCAN_DIR="/Users/neo/Library/Application Support/Herd/con
 
 # Herd injected PHP 8.5 configuration.
 export HERD_PHP_85_INI_SCAN_DIR="/Users/neo/Library/Application Support/Herd/config/php/85/"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

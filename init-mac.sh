@@ -461,10 +461,10 @@ configure_installed_apps_and_packages() {
     if [[ -f "$DOTFILES_DIR/cursor/extensions.txt" ]] && command -v cursor &> /dev/null; then
         echo "Installing Cursor extensions..."
         while IFS= read -r extension; do
-            # Skip empty lines
             [[ -z "$extension" ]] && continue
-            echo "Installing $extension..."
-            cursor --install-extension "$extension" || echo "Skipping $extension (already installed or failed)"
+            if ! cursor --install-extension "$extension" &> /dev/null; then
+                echo "Failed to install Cursor extension: $extension"
+            fi
         done < "$DOTFILES_DIR/cursor/extensions.txt"
     fi
 

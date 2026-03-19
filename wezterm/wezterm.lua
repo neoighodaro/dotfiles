@@ -18,15 +18,8 @@ end
 
 config.color_scheme = color_scheme_for_appearance(wezterm.gui.get_appearance())
 
-config.launch_menu = {
-  {
-    label = "Zellij",
-    args = { "zellij", "da", "-y" },
-  },
-}
-
 -- Font settings
-config.font = wezterm.font({ family = 'Hack Nerd Font' })
+config.font = wezterm.font({ family = 'JetBrainsMonoNL Nerd Font' })
 config.font_size = 14
 
 -- Window appearance
@@ -93,6 +86,18 @@ config.keys = {
         action = wezterm.action{SendString="\x05"}   -- end of line
     },
 
+    -- Line deletion
+    {
+        key = "Backspace",
+        mods = "SUPER",
+        action = wezterm.action{SendString="\x15"}   -- delete to beginning of line (Ctrl-U)
+    },
+    {
+        key = "Delete",
+        mods = "SUPER",
+        action = wezterm.action{SendString="\x0b"}   -- delete to end of line (Ctrl-K)
+    },
+
     -- Quick Select
     {
         key = 'A',
@@ -106,7 +111,7 @@ config.keys = {
         mods = 'SUPER',
         action = wezterm.action.SpawnCommandInNewWindow({
             cwd = wezterm.home_dir,
-            args = { 'code', wezterm.config_file },
+            args = { 'cursor', wezterm.config_file },
         }),
     },
 

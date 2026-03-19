@@ -8,8 +8,8 @@ layout {
             // plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
             plugin location="zjstatus" {
                 format_left   " {mode}#[bg=#101C2C] {tabs}"
-                format_center "#[bg=#101C2C,fg=#494d64,italic]{session}"
-                format_right  "{command_cpu} #[bg=#101C2C,fg=#494d64]⋮ {command_memo} "
+                format_center "#[fg=#494d64,italic]{session}"
+                format_right  "{command_cpu} #[fg=#494d64]⋮ {command_memo} "
 
                 // Show status and hints: https://github.com/dj95/zjstatus/discussions/44#discussioncomment-13395482
                 // format_right  "{pipe_zjstatus_hints} "
@@ -44,12 +44,12 @@ layout {
                 tab_truncate_end_format   "   +{count} "
 
                 command_memo_command    "bash -c \"echo $(top -l 1 | grep PhysMem | awk '{print $2}')\""
-                command_memo_format     "#[bg=#101C2C,fg=#494d64] {stdout}"
+                command_memo_format     "#[fg=#494d64] {stdout}"
                 command_memo_interval   "5"
                 command_memo_rendermode "static"
 
                 command_cpu_command    "bash -c \"echo $(top -l 1 -s 0 | grep 'CPU usage' | awk '{print $3}' | sed 's/%//')\""
-                command_cpu_format     "#[bg=#101C2C,fg=#494d64] {stdout}%"
+                command_cpu_format     "#[fg=#494d64] {stdout}%"
                 command_cpu_interval   "5"
                 command_cpu_rendermode "static"
 

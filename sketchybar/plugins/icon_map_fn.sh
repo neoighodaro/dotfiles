@@ -72,6 +72,9 @@ function __icon_map() {
    "Bear")
         icon_result=":bear:"
         ;;
+   "Beekeeper Studio")
+        icon_result=":beekeeper_studio:"
+        ;;
    "BetterTouchTool")
         icon_result=":bettertouchtool:"
         ;;
@@ -117,8 +120,14 @@ function __icon_map() {
    "CotEditor")
         icon_result=":coteditor:"
         ;;
+   "Conductor")
+        icon_result=":conductor:"
+        ;;
    "Creative Cloud")
         icon_result=":creative_cloud:"
+        ;;
+   "Cursor")
+        icon_result=":cursor:"
         ;;
    "Cypress")
         icon_result=":cypress:"
@@ -134,6 +143,9 @@ function __icon_map() {
         ;;
    "Default")
         icon_result=":default:"
+        ;;
+   "Claude")
+        icon_result=":claude:"
         ;;
    "CleanMyMac X")
         icon_result=":desktop:"
@@ -197,6 +209,9 @@ function __icon_map() {
         ;;
    "System Preferences" | "System Settings" | "系统设置" | "Réglages Système")
         icon_result=":gear:"
+        ;;
+   "Ghostty")
+        icon_result=":ghostty:"
         ;;
    "GitHub Desktop")
         icon_result=":git_hub:"
@@ -468,6 +483,9 @@ function __icon_map() {
    "Raindrop.io")
         icon_result=":raindrop_io:"
         ;;
+   "Raycast")
+        icon_result=":raycast:"
+        ;;
    "Reeder")
         icon_result=":reeder5:"
         ;;
@@ -521,6 +539,9 @@ function __icon_map() {
         ;;
    "Tana")
         icon_result=":tana:"
+        ;;
+   "TablePlus")
+        icon_result=":tableplus:"
         ;;
    "TeamSpeak 3")
         icon_result=":team_speak:"
@@ -614,6 +635,9 @@ function __icon_map() {
         ;;
    "Zed")
         icon_result=":zed:"
+        ;;
+   "Zen" | "Zen Browser")
+        icon_result=":zen_browser:"
         ;;
    "Zeplin")
         icon_result=":zeplin:"

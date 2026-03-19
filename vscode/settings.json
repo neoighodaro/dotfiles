@@ -73,7 +73,7 @@
   "explorer.confirmDelete": false,
   "explorer.openEditors.visible": 1,
 
-  "extensions.ignoreRecommendations": false,
+  "extensions.ignoreRecommendations": true,
 
   "git.decorations.enabled": false,
   "git.enableCommitSigning": true,
@@ -373,7 +373,7 @@
   // Misc
   // -----------------------------------------------------------------------------------------------------------
 
-  "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   "workbench.preferredHighContrastLightColorTheme": "Tokyo Night Light",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "editor.fontWeight": "400",

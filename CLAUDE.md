@@ -102,7 +102,7 @@ Scripts detect OS via `uname -s` and set `IS_MACOS`/`IS_LINUX` flags to conditio
 **Package Installation:**
 - Core utilities: eza, bat, zoxide, fzf, lazygit, git-delta
 - Docker with optional Portainer installation
-- Starship, Deno installed via direct downloads
+- Starship installed via direct downloads
 
 ## Directory Structure Conventions
 

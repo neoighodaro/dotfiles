@@ -144,15 +144,6 @@ else
     echo -e "${GRAY}==> Already installed Starship. Skipping...${NC}"
 fi
 
-## Deno
-if [[ ! -f "$NEO_HOME_DIR/.deno/env" ]]; then
-    echo -e "${WHITE}==> Installing Deno...${NC}"
-    curl -fsSL https://deno.land/x/install/install.sh | sh -s --no-modify-path
-    echo -e "${GREEN}==> Installed Deno.${NC}"
-else
-    echo -e "${GRAY}==> Already installed Deno. Skipping...${NC}"
-fi
-
 # Docker
 if ! command -v docker &> /dev/null; then
     echo -e "${WHITE}==> Installing Docker...${NC}"

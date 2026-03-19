@@ -30,7 +30,7 @@ BREW_PACKAGES_TO_INSTALL=(
     "zellij"
     "lazygit"
     "git-delta"
-    "deno"
+    # "deno"
     "bun:oven-sh/bun"
     "folderify"
     "sketchybar:FelixKratz/formulae"
@@ -76,7 +76,7 @@ BREW_CASKS_TO_INSTALL=(
     "karabiner-elements"
     "font-sf-pro"
     "sketch:https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb"
-    # wezterm
+    wezterm
     # coderunner
     # pika
     # mysides
@@ -524,11 +524,12 @@ configure_installed_apps_and_packages() {
 uninstall_installed_apps_and_packages() {
     # Brew...
     uninstall_brew_package "mas"
+    uninstall_brew_package "deno"
 
     # Cask...
     uninstall_cask_app "coderunner"
     uninstall_cask_app "pika"
-    uninstall_cask_app "wezterm"
+    # uninstall_cask_app "wezterm"
     uninstall_cask_app "coderunner"
 }
 

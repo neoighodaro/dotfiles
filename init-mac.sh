@@ -44,6 +44,7 @@ BREW_PACKAGES_TO_INSTALL=(
     "mas"
     "ripgrep"
     "fd"
+    "worktrunk"
 )
 
 # Cask apps with optional URLs (format: "app_name" or "app_name:url")

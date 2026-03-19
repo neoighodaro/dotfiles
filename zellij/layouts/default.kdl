@@ -1,50 +1,60 @@
+// https://github.com/wiraki/dotfiles/blob/main/private_dot_config/zellij/layouts/default.kdl
+
 layout {
-
-    // -------------------------------------------------------------------------------------
-    // Default Template
-    // -------------------------------------------------------------------------------------
-
+    // ...
     default_tab_template {
         children
         pane size=1 borderless=true {
-            plugin location="file:/Users/neo/.config/zellij/plugins/zjstatus.wasm" {
-                // Format
-                format_left   "{mode}#[fg=yellow]{tabs}"
-                format_center ""
-                format_right  "#[fg=#6867AF,bold] {command_cpu} ⋮ {command_memo} "
-                format_space  "#[fg=#FEA871] "
+            // plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm"
+            plugin location="zjstatus" {
+                format_left   " {mode}#[bg=#101C2C] {tabs}"
+                format_center "#[bg=#101C2C,fg=#494d64,italic]{session}"
+                format_right  "{command_cpu} #[bg=#101C2C,fg=#494d64]⋮ {command_memo} "
 
-                hide_frame_for_single_pane "false"
-                border_enabled  "false"
+                // Show status and hints: https://github.com/dj95/zjstatus/discussions/44#discussioncomment-13395482
+                // format_right  "{pipe_zjstatus_hints} "
+                // pipe_zjstatus_hints_format "#[bg=#101C2C,fg=#FEA871]{output}"
 
-                mode_normal  "#[fg=#FEA871,bold]   "
-                mode_locked  "#[fg=red]   "
-                mode_tmux    "#[bg=cyan]"
+                // -- mode -----
+                mode_normal        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#101C2C,fg=#FEA871,bold]"
+                mode_locked        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#101C2C,fg=#FEA871,bold]"
+                mode_pane          "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Pane#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_renamepane    "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Rename Pane#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_resize        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Resize#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_move          "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Move#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_tab           "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Tab#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_scroll        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Scroll#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_search        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Search#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_entersearch  "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Enter Search#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_renametab    "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Rename Tab#[bg=#101C2C,fg=#FEA871,bold]"
+                mode_session       "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Session#[bg=#101C2C,fg=#FEA871,bold]"
 
-                tab_normal              "#[fg=#6C7086]{name}"
-                tab_normal_fullscreen   "#[fg=#6C7086]{name}"
-                tab_normal_sync         "#[fg=#6C7086]{name}"
-                tab_active              "#[fg=#FEA871,bold]{name}#[fg=yellow,bold]{floating_indicator}"
-                tab_active_fullscreen   "#[fg=yellow,bold]{name}#[fg=yellow,bold]{fullscreen_indicator}"
-                tab_active_sync         "#[fg=green,bold]{name}#[fg=yellow,bold]{sync_indicator}"
-                tab_separator           "#[fg=cyan,bold] ⋮ "
-                tab_sync_indicator       " "
-                tab_fullscreen_indicator " "
-                tab_floating_indicator   ""
-
-                //datetime        "#[fg=#6C7086,bold]  {format}"
-                //datetime_format "%d-%m-%Y %H:%M"
-                //datetime_timezone "Europe/Berlin"
+                // -- tab -----
+                tab_normal              "#[bg=#101C2C,fg=#363a4f]#[bg=#363a4f,fg=#eed49f,bold]{name}{floating_indicator}#[bg=#101C2C,fg=#363a4f,bold]"
+                tab_normal_fullscreen   "#[bg=#101C2C,fg=#363a4f]#[bg=#363a4f,fg=#eed49f,bold]{name}{fullscreen_indicator}#[bg=#101C2C,fg=#363a4f,bold]"
+                tab_normal_sync         "#[bg=#101C2C,fg=#363a4f]#[bg=#363a4f,fg=#eed49f,bold]{name}{sync_indicator}#[bg=#101C2C,fg=#363a4f,bold]"
+                tab_active              "#[bg=#101C2C,fg=#eed49f]#[bg=#eed49f,fg=#363a4f,bold]{name}{floating_indicator}#[bg=#101C2C,fg=#eed49f,bold]"
+                tab_active_fullscreen   "#[bg=#101C2C,fg=#eed49f]#[bg=#eed49f,fg=#363a4f,bold]{name}{fullscreen_indicator}#[bg=#101C2C,fg=#eed49f,bold]"
+                tab_active_sync         "#[bg=#101C2C,fg=#eed49f]#[bg=#eed49f,fg=#363a4f,bold]{name}{sync_indicator}#[bg=#101C2C,fg=#eed49f,bold]"
+                tab_separator           "#[bg=#101C2C] "
+                tab_sync_indicator       " "
+                tab_fullscreen_indicator " 󰊓"
+                tab_floating_indicator   " 󰹙"
+                tab_truncate_start_format "  +{count}  "
+                tab_truncate_end_format   "   +{count} "
 
                 command_memo_command    "bash -c \"echo $(top -l 1 | grep PhysMem | awk '{print $2}')\""
-                command_memo_format     "#[fg=#6C7086]  {stdout}"
+                command_memo_format     "#[bg=#101C2C,fg=#494d64] {stdout}"
                 command_memo_interval   "5"
                 command_memo_rendermode "static"
 
                 command_cpu_command    "bash -c \"echo $(top -l 1 -s 0 | grep 'CPU usage' | awk '{print $3}' | sed 's/%//')\""
-                command_cpu_format     "#[fg=#6C7086]  {stdout}%"
+                command_cpu_format     "#[bg=#101C2C,fg=#494d64] {stdout}%"
                 command_cpu_interval   "5"
                 command_cpu_rendermode "static"
+
+                hide_frame_for_single_pane "false"
+                border_enabled  "false"
             }
         }
     }
@@ -54,11 +64,6 @@ layout {
     // -------------------------------------------------------------------------------------
 
     tab name="Main" split_direction="vertical" borderless=true {
-        pane focus=true name="Pane 1" borderless=true
+        pane focus=true name=" " borderless=true
     }
-
-    // tab name=" pinktum-academy" split_direction="vertical" {
-        // pane name="Backend" size="60%" cwd="~/Developer/pinktum/academy/backend"
-        // pane name="Frontend" size="40%" cwd="~/Developer/pinktum/academy/frontend"
-    // }
 }

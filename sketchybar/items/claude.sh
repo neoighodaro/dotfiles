@@ -7,8 +7,8 @@ UPDATE_FREQ=5
 # Appearance
 # ------------------------------------------------------------------------------
 claude=(
-  icon=󱙺
-  icon.font="$NERD_FONT:Bold:16"
+  icon=":claude:"
+  icon.font="sketchybar-app-font:Regular:16"
   icon.color=0xffFEA871
   label.drawing=off
   background.color=0x00000000

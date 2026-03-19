@@ -40,3 +40,9 @@ git:
 os:
   editPreset: "vscode"
   open: "open {{filename}}"
+customCommands:
+  - key: "X"
+    context: "files"
+    description: "Generate commit message with Claude"
+    command: "git diff --staged | claude -p 'Generate a concise git commit message for these staged changes. Output ONLY the raw commit message with no markdown, no code blocks, no backticks, no explanations. Use conventional commit format.' --model haiku --output-format text > /tmp/commit_msg && GIT_EDITOR=vim git commit -e -F /tmp/commit_msg"
+    output: terminal

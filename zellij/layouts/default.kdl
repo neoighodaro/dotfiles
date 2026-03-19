@@ -37,9 +37,9 @@ layout {
                 tab_active_fullscreen   "#[bg=#101C2C,fg=#eed49f]#[bg=#eed49f,fg=#363a4f,bold]{name}{fullscreen_indicator}#[bg=#101C2C,fg=#eed49f,bold]"
                 tab_active_sync         "#[bg=#101C2C,fg=#eed49f]#[bg=#eed49f,fg=#363a4f,bold]{name}{sync_indicator}#[bg=#101C2C,fg=#eed49f,bold]"
                 tab_separator           "#[bg=#101C2C] "
-                tab_sync_indicator       " "
-                tab_fullscreen_indicator " 󰊓"
-                tab_floating_indicator   " 󰹙"
+                tab_sync_indicator       "  "
+                tab_fullscreen_indicator " 󰊓 "
+                tab_floating_indicator   " 󰹙 "
                 tab_truncate_start_format "  +{count}  "
                 tab_truncate_end_format   "   +{count} "
 

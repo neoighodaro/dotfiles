@@ -45,14 +45,14 @@ layout {
                 tab_truncate_start_format "  +{count}  "
                 tab_truncate_end_format   "   +{count} "
 
-                command_memo_command    "bash -c \"echo $(top -l 1 | grep PhysMem | awk '{print $2}')\""
+                command_memo_command    "bash /Users/neo/Developer/dotfiles/zellij/scripts/mem.sh"
                 command_memo_format     "#[fg=#494d64] {stdout}"
-                command_memo_interval   "5"
+                command_memo_interval   "30"
                 command_memo_rendermode "static"
 
-                command_cpu_command    "bash -c \"echo $(top -l 1 -s 0 | grep 'CPU usage' | awk '{print $3}' | sed 's/%//')\""
+                command_cpu_command    "bash /Users/neo/Developer/dotfiles/zellij/scripts/cpu.sh"
                 command_cpu_format     "#[fg=#494d64] {stdout}%"
-                command_cpu_interval   "5"
+                command_cpu_interval   "30"
                 command_cpu_rendermode "static"
 
                 hide_frame_for_single_pane "false"

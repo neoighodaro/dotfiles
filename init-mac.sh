@@ -477,6 +477,9 @@ configure_installed_apps_and_packages() {
     fi
 
     # Sketchybar...
+    # Update icon map from latest sketchybar-app-font release
+    "$DOTFILES_DIR/scripts/update-sketchybar-icons.sh"
+
     SKETCHYBARSTATUS=$(brew services list | awk '/sketchybar/ { print $2 }')
     if [[ "$SKETCHYBARSTATUS" != "started" ]]; then
         brew services start sketchybar

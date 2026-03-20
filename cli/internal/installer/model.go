@@ -92,7 +92,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			case "q", "esc", "ctrl+c":
 				return m, tea.Quit
 			}
-			return m, nil
+			// Fall through to viewport scrolling
 		}
 		switch msg.String() {
 		case "q", "ctrl+c":

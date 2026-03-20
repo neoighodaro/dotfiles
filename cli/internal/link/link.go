@@ -59,21 +59,35 @@ func Create(source, target string, dryRun bool) Result {
 		return res
 	}
 
-	// Back up existing file if it's not already a symlink to our source
+	// Handle existing target
 	if info, err := os.Lstat(target); err == nil {
 		if info.Mode()&os.ModeSymlink != 0 {
+			// It's a symlink — check if it already points to our source
 			existing, _ := os.Readlink(target)
 			if existing == source {
 				res.Skipped = true
 				return res
 			}
+			// Different symlink — just remove it, no backup needed
+			if err := os.Remove(target); err != nil {
+				res.Err = fmt.Errorf("failed to remove old symlink %s: %w", target, err)
+				return res
+			}
+		} else {
+			// Real file/directory — back it up
+			backup := target + ".backup"
+			if _, err := os.Lstat(backup); err == nil {
+				if err := os.RemoveAll(backup); err != nil {
+					res.Err = fmt.Errorf("failed to remove old backup %s: %w", backup, err)
+					return res
+				}
+			}
+			if err := os.Rename(target, backup); err != nil {
+				res.Err = fmt.Errorf("failed to backup %s: %w", target, err)
+				return res
+			}
+			res.BackedUp = true
 		}
-		backup := target + ".backup"
-		if err := os.Rename(target, backup); err != nil {
-			res.Err = fmt.Errorf("failed to backup %s: %w", target, err)
-			return res
-		}
-		res.BackedUp = true
 	}
 
 	// Ensure parent directory exists

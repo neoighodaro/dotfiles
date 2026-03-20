@@ -13,14 +13,6 @@ func Plan() []Section {
 
 // Placeholder sections — will be wired up one at a time.
 
-func packageSteps() []Step {
-	return []Step{
-		{Name: "install-brew", Desc: "Homebrew formulae"},
-		{Name: "install-casks", Desc: "Homebrew casks"},
-		{Name: "install-mas", Desc: "AppStore apps"},
-	}
-}
-
 func systemSteps() []Step {
 	return []Step{
 		{Name: "ssh-keys", Desc: "SSH key setup"},

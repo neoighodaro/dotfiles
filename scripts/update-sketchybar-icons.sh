@@ -8,7 +8,7 @@ set -euo pipefail
 
 REPO="kvndrsslr/sketchybar-app-font"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/Developer/dotfiles}"
-TARGET="$DOTFILES_DIR/sketchybar/plugins/icon_map_fn.sh"
+TARGET="$DOTFILES_DIR/configs/sketchybar/plugins/icon_map_fn.sh"
 
 echo "Fetching latest icon_map.sh from $REPO..."
 

@@ -32,7 +32,7 @@ func symlinkSteps() []Step {
 		{Name: "link-vscode", Desc: "\U000f0a1e VS Code", Run: stepLinkVSCode},
 		{Name: "link-wezterm", Desc: "\uf489 Wezterm", Run: stepLinkWezterm},
 		{Name: "link-zellij", Desc: "\uf0db Zellij", Run: stepLinkZellij},
-		{Name: "link-zsh", Desc: "\ue795 ZSH", Run: stepLinkZsh},
+		{Name: "link-zsh", Desc: "\uf489 ZSH", Run: stepLinkZsh},
 		{Name: "link-misc", Desc: "\uf141 Miscellaneous", Run: stepLinkMisc},
 	}
 }

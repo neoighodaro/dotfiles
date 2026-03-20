@@ -12,17 +12,17 @@ func preflightSteps() []Step {
 	return []Step{
 		{
 			Name: "detect-platform",
-			Desc: "Detecting platform",
+			Desc: "\U000f0349 Detecting platform",
 			Run:  stepDetectPlatform,
 		},
 		{
 			Name: "check-deps",
-			Desc: "Checking dependencies",
+			Desc: "\U000f0349 Checking dependencies",
 			Run:  stepCheckDeps,
 		},
 		{
 			Name: "load-config",
-			Desc: "Loading configuration",
+			Desc: "\U000f0349 Loading configuration",
 			Run:  stepLoadConfig,
 		},
 	}

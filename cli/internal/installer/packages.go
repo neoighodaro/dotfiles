@@ -117,9 +117,9 @@ var masApps = []masApp{
 
 func packageSteps() []Step {
 	return []Step{
-		{Name: "install-brew", Desc: "Homebrew formulae", Run: stepInstallBrew},
-		{Name: "install-casks", Desc: "Homebrew casks", Run: stepInstallCasks},
-		{Name: "install-mas", Desc: "AppStore apps", Run: stepInstallMas},
+		{Name: "install-brew", Desc: "\uf487 Homebrew formulae", Run: stepInstallBrew},
+		{Name: "install-casks", Desc: "\uf487 Homebrew casks", Run: stepInstallCasks},
+		{Name: "install-mas", Desc: "\uf179 AppStore apps", Run: stepInstallMas},
 	}
 }
 

@@ -77,7 +77,16 @@
   "enabledPlugins": {
     "commit-commands@claude-code-plugins": true,
     "claude-dashboard@claude-dashboard": true,
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "worktrunk@worktrunk": true
+  },
+  "extraKnownMarketplaces": {
+    "worktrunk": {
+      "source": {
+        "source": "github",
+        "repo": "max-sixty/worktrunk"
+      }
+    }
   },
   "effortLevel": "medium",
   "voiceEnabled": false,

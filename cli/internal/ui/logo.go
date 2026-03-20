@@ -27,7 +27,7 @@ func RenderLogo() string {
 		if i < len(logoColors) {
 			color = logoColors[i]
 		}
-		b.WriteString(lipgloss.NewStyle().Foreground(color).Bold(true).Render(line))
+		b.WriteString(lipgloss.NewStyle().Foreground(color).Bold(true).PaddingLeft(2).Render(line))
 		b.WriteString("\n")
 	}
 	return b.String()

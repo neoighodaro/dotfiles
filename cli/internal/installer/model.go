@@ -36,6 +36,7 @@ type Model struct {
 	ready      bool
 	userScroll bool
 	paused     bool // waiting for user to continue/exit after a failure
+	expanded   bool // show all logs when true
 	startTime  time.Time
 	elapsed    time.Duration
 	demo       bool
@@ -96,6 +97,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "q", "ctrl+c":
 			return m, tea.Quit
+		case "e":
+			m.expanded = !m.expanded
+			m.viewport.SetContent(m.renderBody())
+			if m.expanded {
+				m.viewport.SetYOffset(0)
+			}
+			return m, nil
 		case "enter":
 			if m.done {
 				return m, tea.Quit
@@ -126,7 +134,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.spinner, cmd = m.spinner.Update(msg)
 		m.elapsed = time.Since(m.startTime)
 		m.viewport.SetContent(m.renderBody())
-		if !m.userScroll {
+		if !m.userScroll && !m.done {
 			m.viewport.GotoBottom()
 		}
 		return m, cmd
@@ -350,34 +358,44 @@ func (m Model) renderBody() string {
 		b.WriteString(style.Render(fmt.Sprintf("%s %s", prefix, section.Name)))
 		b.WriteString("\n")
 
+		// Future sections: hide steps entirely
 		if si > m.curSection+1 && !m.done {
 			continue
 		}
 
+		isCurrentSection := si == m.curSection
+
 		for _, step := range section.Steps {
 			b.WriteString(m.renderStep(step))
 			b.WriteString("\n")
-			for _, log := range step.Log {
-				b.WriteString(ui.LogStyle.Render(log))
-				b.WriteString("\n")
+
+			// Show logs for current section or when expanded
+			showLogs := m.expanded || (isCurrentSection && !m.done)
+
+			if showLogs {
+				for _, log := range step.Log {
+					b.WriteString(ui.LogStyle.Render(log))
+					b.WriteString("\n")
+				}
 			}
 		}
 		b.WriteString("\n")
 	}
 
 	if m.done {
+		divWidth := m.width
+		if divWidth == 0 {
+			divWidth = 60
+		}
 		b.WriteString(ui.DividerStyle.Render(strings.Repeat("─", divWidth)))
 		b.WriteString("\n\n")
-		total := m.elapsed.Truncate(time.Second).String()
-		b.WriteString(ui.AccentStyle.Render(fmt.Sprintf("  ✦ Done in %s", total)))
-		b.WriteString("\n\n")
-		b.WriteString(lipgloss.NewStyle().Foreground(ui.Dim).PaddingLeft(2).Render("press q or enter to exit"))
+		b.WriteString(ui.AccentStyle.Render("  ✦ Done"))
 		b.WriteString("\n")
 	} else if m.paused {
 		b.WriteString(lipgloss.NewStyle().Foreground(ui.Yellow).PaddingLeft(2).Bold(true).Render("Step failed — press c to continue or q to exit"))
 		b.WriteString("\n")
 	} else {
-		b.WriteString(lipgloss.NewStyle().Foreground(ui.Dim).PaddingLeft(2).Render("press q to abort"))
+		b.WriteString(lipgloss.NewStyle().Foreground(ui.Dim).PaddingLeft(2).Render("press e to expand/collapse · q to abort"))
 		b.WriteString("\n")
 	}
 

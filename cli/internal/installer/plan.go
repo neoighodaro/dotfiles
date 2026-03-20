@@ -17,7 +17,7 @@ func packageSteps() []Step {
 	return []Step{
 		{Name: "install-brew", Desc: "Homebrew formulae"},
 		{Name: "install-casks", Desc: "Homebrew casks"},
-		{Name: "install-mas", Desc: "Mac App Store apps"},
+		{Name: "install-mas", Desc: "AppStore apps"},
 	}
 }
 

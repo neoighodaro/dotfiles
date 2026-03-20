@@ -16,14 +16,14 @@ type linkDef struct {
 
 func symlinkSteps() []Step {
 	return []Step{
-		{Name: "link-zsh", Desc: "ZSH configuration", Run: stepLinkZsh},
-		{Name: "link-git", Desc: "Git configuration", Run: stepLinkGit},
+		{Name: "link-zsh", Desc: "ZSH", Run: stepLinkZsh},
+		{Name: "link-git", Desc: "Git", Run: stepLinkGit},
 		{Name: "link-starship", Desc: "Starship", Run: stepLinkStarship},
 		{Name: "link-ghostty", Desc: "Ghostty", Run: stepLinkGhostty},
 		{Name: "link-wezterm", Desc: "Wezterm", Run: stepLinkWezterm},
 		{Name: "link-zellij", Desc: "Zellij", Run: stepLinkZellij},
 		{Name: "link-lazygit", Desc: "Lazygit", Run: stepLinkLazygit},
-		{Name: "link-aerospace", Desc: "Aerospace WM", Run: stepLinkAerospace},
+		{Name: "link-aerospace", Desc: "Aerospace", Run: stepLinkAerospace},
 		{Name: "link-karabiner", Desc: "Karabiner-Elements", Run: stepLinkKarabiner},
 		{Name: "link-sketchybar", Desc: "Sketchybar", Run: stepLinkSketchybar},
 		{Name: "link-claude", Desc: "Claude Code", Run: stepLinkClaude},

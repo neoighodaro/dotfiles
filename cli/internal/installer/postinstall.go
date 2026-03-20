@@ -103,6 +103,17 @@ func stepLinkScripts(ctx *Context) StepResult {
 		}
 	}
 
+	// Link the strap CLI binary itself
+	strapSource := filepath.Join(ctx.DotfilesDir, "cli", "strap")
+	strapTarget := filepath.Join(binDir, "strap")
+	if _, err := os.Stat(strapSource); err == nil {
+		res := link.Create(strapSource, strapTarget, ctx.DryRun)
+		logs = append(logs, res.String())
+		if res.Err != nil {
+			hasErr = true
+		}
+	}
+
 	if hasErr {
 		return StepResult{Logs: logs, Err: errorString("some script links failed")}
 	}

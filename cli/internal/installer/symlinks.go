@@ -107,6 +107,14 @@ func stepLinkZsh(ctx *Context) StepResult {
 }
 
 func stepLinkGit(ctx *Context) StepResult {
+	// Create empty .gitignore.work if it doesn't exist
+	workIgnore := filepath.Join(ctx.DotfilesDir, "configs", "git", "work.cfg")
+	if _, err := os.Stat(workIgnore); os.IsNotExist(err) {
+		if !ctx.DryRun {
+			_ = os.WriteFile(workIgnore, []byte{}, 0644)
+		}
+	}
+
 	links := []linkOpt{
 		required("git/base.cfg", ".gitconfig"),
 		required("git/global-gitignore", ".global-gitignore"),

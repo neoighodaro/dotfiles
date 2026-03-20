@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	"github.com/neoighodaro/dotfiles/cli/internal/platform"
@@ -120,6 +121,8 @@ func packageSteps() []Step {
 		{Name: "install-brew", Desc: "\uf487 Homebrew formulae", Run: stepInstallBrew},
 		{Name: "install-casks", Desc: "\uf487 Homebrew casks", Run: stepInstallCasks},
 		{Name: "install-mas", Desc: "\uf179 AppStore apps", Run: stepInstallMas},
+		{Name: "install-nvm", Desc: "\U000f0399 NVM", Run: stepInstallNVM},
+		{Name: "install-linux-extras", Desc: "\uf17c Linux extras", Run: stepLinuxExtras},
 	}
 }
 
@@ -347,6 +350,172 @@ func installBrewCasks(ctx *Context) StepResult {
 	return StepResult{Logs: logs}
 }
 
+
+// ── NVM ──
+
+func stepInstallNVM(ctx *Context) StepResult {
+	nvmDir := filepath.Join(ctx.HomeDir, ".nvm")
+	nvmScript := filepath.Join(nvmDir, "nvm.sh")
+
+	if _, err := os.Stat(nvmScript); err == nil {
+		return StepResult{Logs: []string{"NVM already installed"}}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{"would install NVM"}}
+	}
+
+	// Ensure ~/.nvm exists before running the installer
+	if err := os.MkdirAll(nvmDir, 0755); err != nil {
+		return StepResult{Logs: []string{fmt.Sprintf("failed to create ~/.nvm: %s", err)}, Err: err}
+	}
+
+	// Install NVM via the official install script
+	cmd := exec.Command("bash", "-c", "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash")
+	cmd.Env = append(os.Environ(), "NVM_DIR="+nvmDir)
+	if out, err := cmd.CombinedOutput(); err != nil {
+		return StepResult{
+			Logs: []string{fmt.Sprintf("NVM install failed: %s", strings.TrimSpace(string(out)))},
+			Err:  err,
+		}
+	}
+
+	return StepResult{Logs: []string{"NVM installed"}}
+}
+
+// ── Linux extras (FZF, Starship, Docker) ──
+
+func stepLinuxExtras(ctx *Context) StepResult {
+	if ctx.Platform != platform.Linux {
+		return StepResult{Skip: true, Logs: []string{"Linux only \u2014 skipping"}}
+	}
+
+	var logs []string
+	var hasErr bool
+
+	// Zsh via apt (needed before anything else)
+	if _, err := exec.LookPath("zsh"); err == nil {
+		logs = append(logs, "zsh (already installed)")
+	} else if ctx.DryRun {
+		logs = append(logs, "zsh (would install via apt)")
+	} else {
+		if err := run("sudo", "apt-get", "install", "-y", "zsh"); err != nil {
+			logs = append(logs, fmt.Sprintf("zsh install failed: %s", err))
+			hasErr = true
+		} else {
+			logs = append(logs, "zsh (installed)")
+		}
+	}
+
+	// FZF via git clone
+	fzfDir := filepath.Join(ctx.HomeDir, ".fzf")
+	if _, err := exec.LookPath("fzf"); err == nil {
+		logs = append(logs, "fzf (already installed)")
+	} else if ctx.DryRun {
+		logs = append(logs, "fzf (would install via git)")
+	} else {
+		if _, err := os.Stat(fzfDir); os.IsNotExist(err) {
+			if err := run("git", "clone", "--depth", "1", "https://github.com/junegunn/fzf.git", fzfDir); err != nil {
+				logs = append(logs, fmt.Sprintf("fzf clone failed: %s", err))
+				hasErr = true
+			}
+		}
+		installScript := filepath.Join(fzfDir, "install")
+		if err := run(installScript, "--no-completion", "--no-key-bindings", "--no-update-rc"); err != nil {
+			logs = append(logs, fmt.Sprintf("fzf install failed: %s", err))
+			hasErr = true
+		} else {
+			logs = append(logs, "fzf (installed)")
+		}
+	}
+
+	// Starship via curl
+	binDir := filepath.Join(ctx.HomeDir, "bin")
+	if _, err := exec.LookPath("starship"); err == nil {
+		logs = append(logs, "starship (already installed)")
+	} else if ctx.DryRun {
+		logs = append(logs, "starship (would install via curl)")
+	} else {
+		if err := run("bash", "-c", fmt.Sprintf("curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir=%s", binDir)); err != nil {
+			logs = append(logs, fmt.Sprintf("starship install failed: %s", err))
+			hasErr = true
+		} else {
+			logs = append(logs, "starship (installed)")
+		}
+	}
+
+	// Zellij from GitHub releases
+	if _, err := exec.LookPath("zellij"); err == nil {
+		logs = append(logs, "zellij (already installed)")
+	} else if ctx.DryRun {
+		logs = append(logs, "zellij (would install from GitHub)")
+	} else {
+		arch, _ := exec.Command("uname", "-m").Output()
+		archStr := strings.TrimSpace(string(arch))
+		filename := fmt.Sprintf("zellij-%s-unknown-linux-musl.tar.gz", archStr)
+		url := "https://github.com/zellij-org/zellij/releases/latest/download/" + filename
+		if err := run("bash", "-c", fmt.Sprintf(
+			"cd /tmp && curl -LO %q && tar -xf %q && sudo mv ./zellij /usr/local/bin/zellij && rm %q",
+			url, filename, filename)); err != nil {
+			logs = append(logs, fmt.Sprintf("zellij install failed: %s", err))
+			hasErr = true
+		} else {
+			logs = append(logs, "zellij (installed from GitHub)")
+		}
+	}
+
+	// Lazygit from GitHub releases
+	if _, err := exec.LookPath("lazygit"); err == nil {
+		logs = append(logs, "lazygit (already installed)")
+	} else if ctx.DryRun {
+		logs = append(logs, "lazygit (would install from GitHub)")
+	} else {
+		// Get latest version
+		verOut, err := exec.Command("bash", "-c",
+			`curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*'`).Output()
+		if err != nil || strings.TrimSpace(string(verOut)) == "" {
+			logs = append(logs, "lazygit (failed to get latest version)")
+			hasErr = true
+		} else {
+			version := strings.TrimSpace(string(verOut))
+			arch, _ := exec.Command("uname", "-m").Output()
+			archStr := strings.TrimSpace(string(arch))
+			if archStr == "aarch64" {
+				archStr = "arm64"
+			}
+			osStr := "Linux"
+			filename := fmt.Sprintf("lazygit_%s_%s_%s.tar.gz", version, osStr, archStr)
+			url := fmt.Sprintf("https://github.com/jesseduffield/lazygit/releases/download/v%s/%s", version, filename)
+			if err := run("bash", "-c", fmt.Sprintf(
+				"cd /tmp && curl -Lo lazygit.tar.gz %q && tar xf lazygit.tar.gz lazygit && sudo install lazygit -D -t /usr/local/bin/ && rm lazygit.tar.gz lazygit",
+				url)); err != nil {
+				logs = append(logs, fmt.Sprintf("lazygit install failed: %s", err))
+				hasErr = true
+			} else {
+				logs = append(logs, "lazygit (installed from GitHub)")
+			}
+		}
+	}
+
+	// Docker
+	if _, err := exec.LookPath("docker"); err == nil {
+		logs = append(logs, "docker (already installed)")
+	} else if ctx.DryRun {
+		logs = append(logs, "docker (would install)")
+	} else {
+		if err := run("bash", "-c", "curl -fsSL https://get.docker.com | sudo sh"); err != nil {
+			logs = append(logs, fmt.Sprintf("docker install failed: %s", err))
+			hasErr = true
+		} else {
+			logs = append(logs, "docker (installed)")
+		}
+	}
+
+	if hasErr {
+		return StepResult{Logs: logs, Err: errorString("some Linux extras failed to install")}
+	}
+	return StepResult{Logs: logs}
+}
 
 // ── Helpers ──
 

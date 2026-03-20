@@ -16,6 +16,7 @@ func systemSteps() []Step {
 		{Name: "gpg-keys", Desc: "\U000f0306 GPG keys", Run: stepGPGKeys},
 		{Name: "system-defaults", Desc: "\U000f0493 System preferences", Run: stepSystemDefaults},
 		{Name: "shell-default", Desc: "\uf489 Default shell", Run: stepDefaultShell},
+		{Name: "linux-swap", Desc: "\uf17c Swap file", Run: stepLinuxSwap},
 	}
 }
 
@@ -23,9 +24,21 @@ func systemSteps() []Step {
 
 func stepSSHKeys(ctx *Context) StepResult {
 	keyPath := filepath.Join(ctx.HomeDir, ".ssh", "id_ed25519")
+	var logs []string
 
 	if _, err := os.Stat(keyPath); err == nil {
-		return StepResult{Logs: []string{"SSH key already exists"}}
+		logs = append(logs, "SSH key already exists")
+
+		// On macOS, ensure key is in Apple Keychain
+		if ctx.Platform == platform.MacOS && !ctx.DryRun {
+			if err := run("ssh-add", "--apple-use-keychain", keyPath); err != nil {
+				logs = append(logs, fmt.Sprintf("keychain add failed: %s", err))
+			} else {
+				logs = append(logs, "added to Apple Keychain")
+			}
+		}
+
+		return StepResult{Logs: logs}
 	}
 
 	if ctx.DryRun {
@@ -42,15 +55,21 @@ func stepSSHKeys(ctx *Context) StepResult {
 	if err := run("ssh-keygen", "-t", "ed25519", "-f", keyPath, "-N", ""); err != nil {
 		return StepResult{Logs: []string{fmt.Sprintf("key generation failed: %s", err)}, Err: err}
 	}
-
-	var logs []string
 	logs = append(logs, "generated "+keyPath)
 
 	// Add to ssh-agent
-	if err := run("ssh-add", keyPath); err != nil {
-		logs = append(logs, fmt.Sprintf("ssh-add failed: %s", err))
+	if ctx.Platform == platform.MacOS {
+		if err := run("ssh-add", "--apple-use-keychain", keyPath); err != nil {
+			logs = append(logs, fmt.Sprintf("keychain add failed: %s", err))
+		} else {
+			logs = append(logs, "added to Apple Keychain")
+		}
 	} else {
-		logs = append(logs, "added to ssh-agent")
+		if err := run("ssh-add", keyPath); err != nil {
+			logs = append(logs, fmt.Sprintf("ssh-add failed: %s", err))
+		} else {
+			logs = append(logs, "added to ssh-agent")
+		}
 	}
 
 	return StepResult{Logs: logs}
@@ -129,6 +148,35 @@ func stepGPGKeys(ctx *Context) StepResult {
 	// Disable GPG keychain
 	_ = run("defaults", "write", "org.gpgtools.common", "DisableKeychain", "-bool", "yes")
 	logs = append(logs, "GPG keychain disabled")
+
+	// Generate GPG key if none exists
+	out, _ := exec.Command("gpg", "--list-keys").CombinedOutput()
+	if strings.TrimSpace(string(out)) == "" || strings.Contains(string(out), "trustdb created") {
+		if err := run("gpg", "--batch", "--generate-key", "/dev/stdin"); err != nil {
+			// Fall back: generate non-interactively
+			batchConfig := strings.Join([]string{
+				"%echo Generating GPG key",
+				"Key-Type: RSA",
+				"Key-Length: 4096",
+				"Subkey-Type: RSA",
+				"Subkey-Length: 4096",
+				"Name-Real: Neo",
+				"Name-Email: public@neoi.sh",
+				"Expire-Date: 0",
+				"%no-protection",
+				"%commit",
+			}, "\n")
+			cmd := exec.Command("gpg", "--batch", "--generate-key")
+			cmd.Stdin = strings.NewReader(batchConfig)
+			if cmdOut, err := cmd.CombinedOutput(); err != nil {
+				logs = append(logs, fmt.Sprintf("GPG key generation failed: %s", strings.TrimSpace(string(cmdOut))))
+			} else {
+				logs = append(logs, "GPG key generated")
+			}
+		}
+	} else {
+		logs = append(logs, "GPG key already exists")
+	}
 
 	return StepResult{Logs: logs}
 }
@@ -238,12 +286,51 @@ func applyMacDefaults(ctx *Context) StepResult {
 		logs = append(logs, fmt.Sprintf("%d failed", failed))
 	}
 
+	// Disable Spotlight shortcut (Cmd+Space) via symbolic hotkeys
+	_ = run("defaults", "write", "com.apple.symbolichotkeys.plist", "AppleSymbolicHotKeys", "-dict-add", "64",
+		"<dict><key>enabled</key><false/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>1048576</integer></array></dict></dict>")
+	_ = run("/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings", "-u")
+	logs = append(logs, "Spotlight shortcut disabled")
+
+	// Disable True Tone
+	whoami, _ := exec.Command("whoami").Output()
+	guidOut, _ := exec.Command("dscl", ".", "-read", "/Users/"+strings.TrimSpace(string(whoami))+"/", "GeneratedUID").Output()
+	if parts := strings.SplitN(string(guidOut), ": ", 2); len(parts) == 2 {
+		guid := strings.TrimSpace(parts[1])
+		key := fmt.Sprintf("CBUser-%s:CBColorAdaptationEnabled", guid)
+		_ = run("defaults", "write", "com.apple.CoreBrightness", key, "-bool", "false")
+		logs = append(logs, "True Tone disabled")
+	}
+
+	// Snap-to-grid for desktop icons
+	finderPlist := filepath.Join(ctx.HomeDir, "Library", "Preferences", "com.apple.finder.plist")
+	_ = run("/usr/libexec/PlistBuddy", "-c", "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid", finderPlist)
+	logs = append(logs, "desktop snap-to-grid enabled")
+
 	// Unhide ~/Library
 	_ = run("chflags", "nohidden", filepath.Join(ctx.HomeDir, "Library"))
 	logs = append(logs, "~/Library unhidden")
 
-	// Disable Spotlight shortcut (Cmd+Space) to free it for other tools
-	_ = run("/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings", "-u")
+	// Add Applications folder to dock
+	dockPlist := filepath.Join(ctx.HomeDir, "Library", "Preferences", "com.apple.dock.plist")
+	pb := "/usr/libexec/PlistBuddy"
+	// Ensure persistent-others array exists
+	_ = run(pb, "-c", "Print persistent-others", dockPlist)
+	// Check if Applications is already in dock
+	checkOut, _ := exec.Command(pb, "-c", "Print persistent-others", dockPlist).Output()
+	if !strings.Contains(string(checkOut), "file:///Applications/") {
+		_ = run(pb, "-c", "Add :persistent-others:0 dict", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data dict", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:arrangement integer 1", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:displayas integer 1", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:file-data dict", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:file-data:_CFURLString string file:///Applications/", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:file-data:_CFURLStringType integer 15", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:file-type integer 2", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-data:showas integer 2", dockPlist)
+		_ = run(pb, "-c", "Add :persistent-others:0:tile-type string directory-tile", dockPlist)
+		logs = append(logs, "Applications folder added to dock")
+	}
 
 	// Kill affected apps to apply changes
 	for _, app := range []string{"Finder", "Dock", "SystemUIServer", "WindowManager", "cfprefsd"} {
@@ -251,6 +338,65 @@ func applyMacDefaults(ctx *Context) StepResult {
 	}
 	logs = append(logs, "restarted Finder, Dock, SystemUIServer")
 
+	return StepResult{Logs: logs}
+}
+
+// ── Linux swap ──
+
+func stepLinuxSwap(ctx *Context) StepResult {
+	if ctx.Platform != platform.Linux {
+		return StepResult{Skip: true, Logs: []string{"Linux only \u2014 skipping"}}
+	}
+
+	// Check if swap is already allocated
+	out, _ := exec.Command("bash", "-c", "free | awk '/^Swap:/ {print $2}'").Output()
+	swapSize := strings.TrimSpace(string(out))
+	if swapSize != "" && swapSize != "0" {
+		return StepResult{Logs: []string{"swap already allocated"}}
+	}
+
+	// Calculate swap size based on RAM
+	ramOut, _ := exec.Command("bash", "-c", "grep MemTotal /proc/meminfo | awk '{print $2}'").Output()
+	var ramKB int
+	fmt.Sscanf(strings.TrimSpace(string(ramOut)), "%d", &ramKB)
+	ramGB := ramKB / 1024 / 1024
+
+	var swapGB int
+	if ramGB >= 2 && ramGB < 32 {
+		swapGB = ramGB / 2
+	} else if ramGB >= 32 {
+		swapGB = ramGB / 4
+	}
+
+	if swapGB == 0 {
+		return StepResult{Skip: true, Logs: []string{"not enough RAM for swap"}}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{fmt.Sprintf("would create %dGB swap file", swapGB)}}
+	}
+
+	var logs []string
+	cmds := [][]string{
+		{"sudo", "fallocate", "-l", fmt.Sprintf("%dG", swapGB), "/swapfile"},
+		{"sudo", "chmod", "600", "/swapfile"},
+		{"sudo", "mkswap", "/swapfile"},
+		{"sudo", "swapon", "/swapfile"},
+	}
+
+	for _, cmd := range cmds {
+		if err := run(cmd[0], cmd[1:]...); err != nil {
+			return StepResult{Logs: []string{fmt.Sprintf("swap setup failed: %s", err)}, Err: err}
+		}
+	}
+
+	// Add to fstab if not already there
+	fstab, _ := os.ReadFile("/etc/fstab")
+	if !strings.Contains(string(fstab), "/swapfile") {
+		_ = run("bash", "-c", `echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab`)
+	}
+
+	logs = append(logs, fmt.Sprintf("%dGB swap file created", swapGB))
 	return StepResult{Logs: logs}
 }
 

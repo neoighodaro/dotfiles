@@ -24,3 +24,11 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && eza -l --icons --git -
 
 # Brew Cask Uninstall
 buc() { brew uninstall "$@" --cask --zap; }
+
+# Nushell-powered ls
+if type nu &>/dev/null; then
+  l()  { nu -c "ls $*" }
+  ls() { nu -c "ls $*" }
+  ll() { nu -c "ls -l $*" }
+  la() { nu -c "ls -la $*" }
+fi

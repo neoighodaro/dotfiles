@@ -41,15 +41,6 @@ fi
 
 # nushell-powered ls
 # ------------------------------------------------------------------------------
-# nushell-powered ls
-# ------------------------------------------------------------------------------
-if type nu &>/dev/null; then
-  alias l="nu -c 'ls'"
-  alias ls="nu -c 'ls'"
-  alias ll="nu -c 'ls -l'"
-  alias la="nu -c 'ls -la'"
-fi
-
 # PHP & Laravel specific
 # ------------------------------------------------------------------------------
 alias a="php artisan"

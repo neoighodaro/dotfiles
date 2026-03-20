@@ -13,10 +13,3 @@ func Plan() []Section {
 }
 
 // Placeholder sections — will be wired up one at a time.
-
-func finalizeSteps() []Step {
-	return []Step{
-		{Name: "restart-apps", Desc: "Restart affected apps"},
-		{Name: "summary", Desc: "Installation summary"},
-	}
-}

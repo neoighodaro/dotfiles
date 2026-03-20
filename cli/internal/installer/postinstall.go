@@ -18,6 +18,10 @@ func postInstallSteps() []Step {
 		{Name: "cursor-extensions", Desc: "\U000f0a1e Cursor extensions", Run: stepCursorExtensions},
 		{Name: "sketchybar-setup", Desc: "\uee19 Sketchybar", Run: stepSketchybarSetup},
 		{Name: "set-wallpaper", Desc: "\U000f00be Wallpaper", Run: stepSetWallpaper},
+		{Name: "zellij-plugins", Desc: "\uf0db Zellij plugins", Run: stepZellijPlugins},
+		{Name: "default-browser", Desc: "\U000f0288 Default browser", Run: stepDefaultBrowser},
+		{Name: "folder-icons", Desc: "\U000f024b Folder icons", Run: stepFolderIcons},
+		{Name: "install-vivid", Desc: "\U000f00be Vivid", Run: stepInstallVivid},
 	}
 }
 
@@ -287,4 +291,150 @@ func stepSetWallpaper(ctx *Context) StepResult {
 	}
 
 	return StepResult{Logs: logs}
+}
+
+// ── Zellij plugins ──
+
+func stepZellijPlugins(ctx *Context) StepResult {
+	pluginDir := filepath.Join(ctx.HomeDir, ".config", "zellij", "plugins")
+	wasmPath := filepath.Join(pluginDir, "zjstatus.wasm")
+
+	if _, err := os.Stat(wasmPath); err == nil {
+		return StepResult{Logs: []string{"zjstatus.wasm already installed"}}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{"would download zjstatus.wasm"}}
+	}
+
+	if err := os.MkdirAll(pluginDir, 0755); err != nil {
+		return StepResult{Logs: []string{fmt.Sprintf("failed to create plugin dir: %s", err)}, Err: err}
+	}
+
+	if err := run("curl", "-L", "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm", "-o", wasmPath); err != nil {
+		return StepResult{Logs: []string{fmt.Sprintf("download failed: %s", err)}, Err: err}
+	}
+	_ = run("chmod", "a+x", wasmPath)
+
+	return StepResult{Logs: []string{"zjstatus.wasm installed"}}
+}
+
+// ── Default browser ──
+
+func stepDefaultBrowser(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
+	}
+
+	// Check if Zen is already the default browser
+	out, _ := exec.Command("bash", "-c", `defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers 2>/dev/null | grep -A2 "https" | grep "LSHandlerRoleAll" || true`).Output()
+	if strings.Contains(strings.ToLower(string(out)), "zen") {
+		return StepResult{Logs: []string{"Zen is already the default browser"}}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{"would set Zen as default browser"}}
+	}
+
+	var logs []string
+
+	// Install defaultbrowser temporarily
+	if err := run("brew", "install", "defaultbrowser"); err != nil {
+		return StepResult{Logs: []string{fmt.Sprintf("failed to install defaultbrowser: %s", err)}, Err: err}
+	}
+
+	if err := run("defaultbrowser", "zen"); err != nil {
+		logs = append(logs, fmt.Sprintf("failed to set default browser: %s", err))
+	} else {
+		logs = append(logs, "Zen set as default browser")
+	}
+
+	// Clean up
+	_ = run("brew", "uninstall", "defaultbrowser")
+
+	return StepResult{Logs: logs}
+}
+
+// ── Folder icons ──
+
+func stepFolderIcons(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
+	}
+
+	if _, err := exec.LookPath("folderify"); err != nil {
+		return StepResult{Skip: true, Logs: []string{"folderify not installed \u2014 skipping"}}
+	}
+
+	maskPath := filepath.Join(ctx.DotfilesDir, "images", "ck-mask.png")
+	if _, err := os.Stat(maskPath); os.IsNotExist(err) {
+		return StepResult{Skip: true, Logs: []string{"images/ck-mask.png not found \u2014 skipping"}}
+	}
+
+	dirs := []string{
+		filepath.Join(ctx.HomeDir, "Developer", "ck"),
+		filepath.Join(ctx.HomeDir, "Developer", "bin"),
+	}
+
+	var logs []string
+	for _, dir := range dirs {
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			logs = append(logs, fmt.Sprintf("%s (failed to create: %s)", dir, err))
+			continue
+		}
+
+		if ctx.DryRun {
+			logs = append(logs, fmt.Sprintf("%s (would apply icon)", link.ShortPath(dir)))
+			continue
+		}
+
+		if err := run("folderify", "--color-scheme", "dark", maskPath, dir); err != nil {
+			logs = append(logs, fmt.Sprintf("%s (icon failed: %s)", link.ShortPath(dir), err))
+		} else {
+			logs = append(logs, fmt.Sprintf("%s (icon applied)", link.ShortPath(dir)))
+		}
+	}
+
+	return StepResult{Logs: logs}
+}
+
+// ── Vivid ──
+
+func stepInstallVivid(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
+	}
+
+	if isMacAppInstalled("Vivid") {
+		return StepResult{Logs: []string{"Vivid already installed"}}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{"would download and install Vivid"}}
+	}
+
+	downloadsDir := filepath.Join(ctx.HomeDir, "Downloads")
+	zipPath := filepath.Join(downloadsDir, "Vivid.zip")
+
+	// Download
+	if err := run("curl", "-L",
+		"https://lumen-digital.com/apps/vivid/download_ref?ref=https://www.getvivid.app",
+		"-o", zipPath); err != nil {
+		return StepResult{Logs: []string{fmt.Sprintf("download failed: %s", err)}, Err: err}
+	}
+
+	// Unzip
+	if err := run("unzip", "-o", zipPath, "-d", downloadsDir); err != nil {
+		_ = os.Remove(zipPath)
+		return StepResult{Logs: []string{fmt.Sprintf("unzip failed: %s", err)}, Err: err}
+	}
+
+	// Move to Applications
+	if err := run("mv", filepath.Join(downloadsDir, "Vivid.app"), "/Applications/"); err != nil {
+		_ = os.Remove(zipPath)
+		return StepResult{Logs: []string{fmt.Sprintf("move to /Applications failed: %s", err)}, Err: err}
+	}
+
+	_ = os.Remove(zipPath)
+	return StepResult{Logs: []string{"Vivid installed"}}
 }

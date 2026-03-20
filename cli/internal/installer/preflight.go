@@ -65,6 +65,17 @@ func stepCheckDeps(ctx *Context) StepResult {
 
 		_, err := exec.LookPath(d.bin)
 		if err != nil {
+			// Try to auto-install Homebrew on macOS
+			if d.name == "brew" && ctx.Platform == platform.MacOS && !ctx.DryRun {
+				logs = append(logs, "brew ‒ not found, installing Homebrew...")
+				installCmd := exec.Command("/bin/bash", "-c", "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash")
+				if out, installErr := installCmd.CombinedOutput(); installErr != nil {
+					logs = append(logs, fmt.Sprintf("brew ✗ install failed: %s", string(out)))
+				} else {
+					logs = append(logs, "brew ✓ (installed)")
+				}
+				continue
+			}
 			if d.required {
 				allOk = false
 				logs = append(logs, fmt.Sprintf("%s ✗ (not found)", d.name))

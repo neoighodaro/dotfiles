@@ -6,6 +6,7 @@ local IS_LINUX=$(uname -s | grep -i "linux" | wc -l | tr -d '[:space:]')
 # Misc
 # ------------------------------------------------------------------------------
 export PATH="$HOME/Developer/bin:$PATH"
+export ANSIBLE_CONFIG="$HOME/.config/ansible/ansible.cfg"
 
 # Bun
 # ------------------------------------------------------------------------------

@@ -32,6 +32,7 @@ func symlinkSteps() []Step {
 		{Name: "link-hazel", Desc: "Hazel", Run: stepLinkHazel},
 		{Name: "link-vscode", Desc: "VS Code", Run: stepLinkVSCode},
 		{Name: "link-cursor", Desc: "Cursor", Run: stepLinkCursor},
+		{Name: "link-ansible", Desc: "Ansible", Run: stepLinkAnsible},
 		{Name: "link-misc", Desc: "Miscellaneous", Run: stepLinkMisc},
 	}
 }
@@ -215,6 +216,12 @@ func stepLinkCursor(ctx *Context) StepResult {
 	return macOnly(ctx, []linkOpt{
 		required("vscode/keybindings.json", "Library/Application Support/Cursor/User/keybindings.json"),
 		required("vscode/settings.json", "Library/Application Support/Cursor/User/settings.json"),
+	})
+}
+
+func stepLinkAnsible(ctx *Context) StepResult {
+	return runLinks(ctx, []linkOpt{
+		required("ansible", ".config/ansible"),
 	})
 }
 

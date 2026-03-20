@@ -90,6 +90,10 @@ func stepLinkScripts(ctx *Context) StepResult {
 			continue
 		}
 		name := entry.Name()
+		// Skip hidden/system files
+		if strings.HasPrefix(name, ".") {
+			continue
+		}
 		// Strip file extension for the target name
 		nameNoExt := strings.TrimSuffix(name, filepath.Ext(name))
 

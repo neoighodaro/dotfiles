@@ -23,6 +23,15 @@
             "command": "node ~/.claude/hooks/pre-tool-use/protect-secrets.js"
           }
         ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "touch /tmp/claude-busy"
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [

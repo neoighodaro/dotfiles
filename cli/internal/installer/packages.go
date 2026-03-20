@@ -58,6 +58,7 @@ var brewFormulae = []brewPkg{
 	{name: "jq"},
 	{name: "xh"},
 	{name: "kubectx"},
+	{name: "kubelogin", tap: "int128/kubelogin"},
 	{name: "helm"},
 	{name: "ansible"},
 	{name: "ansible-lint"},

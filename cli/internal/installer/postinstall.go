@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/neoighodaro/dotfiles/cli/internal/link"
 	"github.com/neoighodaro/dotfiles/cli/internal/platform"
@@ -188,18 +189,31 @@ func stepSketchybarSetup(ctx *Context) StepResult {
 
 	var logs []string
 
-	// Update icon map from latest sketchybar-app-font release
-	updateScript := filepath.Join(ctx.DotfilesDir, "scripts", "update-sketchybar-icons.sh")
-	if _, err := os.Stat(updateScript); err == nil {
-		if ctx.DryRun {
-			logs = append(logs, "would update icon map")
-		} else {
-			cmd := exec.Command("bash", updateScript)
-			cmd.Env = append(os.Environ(), "DOTFILES_DIR="+ctx.DotfilesDir)
-			if out, err := cmd.CombinedOutput(); err != nil {
-				logs = append(logs, fmt.Sprintf("icon map update failed: %s", strings.TrimSpace(string(out))))
+	// Update icon map from latest sketchybar-app-font release (at most once per week)
+	stampFile := filepath.Join(ctx.DotfilesDir, ".sketchybar-icons-updated")
+	needsUpdate := true
+	if info, err := os.Stat(stampFile); err == nil {
+		if time.Since(info.ModTime()) < 7*24*time.Hour {
+			needsUpdate = false
+			logs = append(logs, "icon map up to date (checked within last week)")
+		}
+	}
+
+	if needsUpdate {
+		updateScript := filepath.Join(ctx.DotfilesDir, "scripts", "update-sketchybar-icons.sh")
+		if _, err := os.Stat(updateScript); err == nil {
+			if ctx.DryRun {
+				logs = append(logs, "would update icon map")
 			} else {
-				logs = append(logs, "icon map updated")
+				cmd := exec.Command("bash", updateScript)
+				cmd.Env = append(os.Environ(), "DOTFILES_DIR="+ctx.DotfilesDir)
+				if out, err := cmd.CombinedOutput(); err != nil {
+					logs = append(logs, fmt.Sprintf("icon map update failed: %s", strings.TrimSpace(string(out))))
+				} else {
+					logs = append(logs, "icon map updated")
+					// Write timestamp file
+					_ = os.WriteFile(stampFile, []byte(time.Now().Format(time.RFC3339)), 0644)
+				}
 			}
 		}
 	}
@@ -326,10 +340,22 @@ func stepDefaultBrowser(ctx *Context) StepResult {
 		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
 	}
 
-	// Check if Zen is already the default browser
-	out, _ := exec.Command("bash", "-c", `defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers 2>/dev/null | grep -A2 "https" | grep "LSHandlerRoleAll" || true`).Output()
-	if strings.Contains(strings.ToLower(string(out)), "zen") {
-		return StepResult{Logs: []string{"Zen is already the default browser"}}
+	// Check current default browser via the HTTP handler in Launch Services
+	// plutil outputs the plist as readable text; we look for the https handler
+	out, _ := exec.Command("bash", "-c",
+		`defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist LSHandlers 2>/dev/null`).Output()
+	outStr := strings.ToLower(string(out))
+
+	// Look for the https scheme handler — Zen's bundle ID contains "zen"
+	// Split by entries and find the one with URLScheme = https
+	if strings.Contains(outStr, "urlscheme = https") {
+		// Find the block containing https and check if zen is the handler
+		parts := strings.Split(outStr, "{")
+		for _, part := range parts {
+			if strings.Contains(part, "urlscheme = https") && strings.Contains(part, "zen") {
+				return StepResult{Logs: []string{"Zen is already the default browser"}}
+			}
+		}
 	}
 
 	if ctx.DryRun {
@@ -338,9 +364,17 @@ func stepDefaultBrowser(ctx *Context) StepResult {
 
 	var logs []string
 
-	// Install defaultbrowser temporarily
-	if err := run("brew", "install", "defaultbrowser"); err != nil {
-		return StepResult{Logs: []string{fmt.Sprintf("failed to install defaultbrowser: %s", err)}, Err: err}
+	// Check if Zen is even installed
+	if !isMacAppInstalled("Zen") {
+		return StepResult{Skip: true, Logs: []string{"Zen not installed \u2014 skipping"}}
+	}
+
+	// Install defaultbrowser temporarily if not present
+	hadDefaultBrowser := exec.Command("brew", "list", "--formula", "defaultbrowser").Run() == nil
+	if !hadDefaultBrowser {
+		if err := run("brew", "install", "defaultbrowser"); err != nil {
+			return StepResult{Logs: []string{fmt.Sprintf("failed to install defaultbrowser: %s", err)}, Err: err}
+		}
 	}
 
 	if err := run("defaultbrowser", "zen"); err != nil {
@@ -349,8 +383,10 @@ func stepDefaultBrowser(ctx *Context) StepResult {
 		logs = append(logs, "Zen set as default browser")
 	}
 
-	// Clean up
-	_ = run("brew", "uninstall", "defaultbrowser")
+	// Clean up if we installed it
+	if !hadDefaultBrowser {
+		_ = run("brew", "uninstall", "defaultbrowser")
+	}
 
 	return StepResult{Logs: logs}
 }
@@ -380,6 +416,13 @@ func stepFolderIcons(ctx *Context) StepResult {
 	for _, dir := range dirs {
 		if err := os.MkdirAll(dir, 0755); err != nil {
 			logs = append(logs, fmt.Sprintf("%s (failed to create: %s)", dir, err))
+			continue
+		}
+
+		// Check if folder already has a custom icon (Icon\r file)
+		iconFile := filepath.Join(dir, "Icon\r")
+		if _, err := os.Stat(iconFile); err == nil {
+			logs = append(logs, fmt.Sprintf("%s (icon already set)", link.ShortPath(dir)))
 			continue
 		}
 

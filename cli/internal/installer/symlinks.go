@@ -31,6 +31,7 @@ func symlinkSteps() []Step {
 		{Name: "link-starship", Desc: "\uf489 Starship", Run: stepLinkStarship},
 		{Name: "link-vscode", Desc: "\U000f0a1e VS Code", Run: stepLinkVSCode},
 		{Name: "link-wezterm", Desc: "\uf489 Wezterm", Run: stepLinkWezterm},
+		{Name: "link-worktrunk", Desc: "\U000f0493 Worktrunk", Run: stepLinkWorktrunk},
 		{Name: "link-zellij", Desc: "\uf0db Zellij", Run: stepLinkZellij},
 		{Name: "link-zsh", Desc: "\uf489 ZSH", Run: stepLinkZsh},
 		{Name: "link-misc", Desc: "\uf141 Miscellaneous", Run: stepLinkMisc},
@@ -149,6 +150,12 @@ func stepLinkGhostty(ctx *Context) StepResult {
 func stepLinkWezterm(ctx *Context) StepResult {
 	return macOnly(ctx, []linkOpt{
 		required("wezterm", ".config/wezterm"),
+	})
+}
+
+func stepLinkWorktrunk(ctx *Context) StepResult {
+	return runLinks(ctx, []linkOpt{
+		required("worktrunk", ".config/worktrunk"),
 	})
 }
 

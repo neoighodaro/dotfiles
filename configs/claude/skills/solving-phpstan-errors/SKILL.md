@@ -19,25 +19,23 @@ Use when:
 
 ## Quick Reference
 
-| Error Type | First Choice | Last Resort |
-|------------|--------------|-------------|
-| Template type resolution | Extract to typed variable | `@var` inline |
-| Nullable access | Null check or `?->` | `@phpstan-ignore` |
-| Collection types | Type before `collect()` | Generic collection type |
-| Complex arrays | Data object/DTO | Array shape annotation |
+| Error Type               | First Choice              | Last Resort             |
+|--------------------------|---------------------------|-------------------------|
+| Template type resolution | Extract to typed variable | `@var` inline           |
+| Nullable access          | Null check or `?->`       | `@phpstan-ignore`       |
+| Collection types         | Type before `collect()`   | Generic collection type |
+| Complex arrays           | Data object/DTO           | Array shape annotation  |
 
 ## Implementation
 
 ### Step 1: Analyze Scope
 
 ```bash
-# Check error count
-yulo analyze
-
-# If >30 errors, create execution plan
+# Check error count using phpstan (the command might be specific to the project, if none, use default phpstan command)
+# If >20 errors, create execution plan
 ```
 
-**Decision point:** >30 errors = create written plan with TodoWrite
+**Decision point:** >20 errors = create written plan with TodoWrite
 
 ### Step 2: Fix One Error at a Time
 
@@ -199,7 +197,7 @@ These usually indicate architectural issues worth discussing.
 ## Verification Protocol
 
 After EACH fix:
-1. Run `yulo analyze`
+1. Run the phpstan command to check for errors (it might be specific to the project which command to run)
 2. Check if target error disappeared
 3. Check if error count changed (one fix might resolve multiple)
 4. Document unexpected changes
@@ -211,13 +209,13 @@ After EACH fix:
 
 ## Common Mistakes
 
-| Mistake | Why Bad | Fix |
-|---------|---------|-----|
-| Fix all errors before testing | One fix might resolve many | Test after each fix |
-| Use `@phpstan-ignore` first | Hides real issues | Try proper types first |
-| Generic `@var mixed` annotations | Defeats type safety | Be specific with array shapes |
-| Skip error count verification | Miss cascading fixes | Always check total count |
-| Inline all type hints | Hard to read, maintain | Create DTOs for complex types |
+| Mistake                          | Why Bad                    | Fix                           |
+|----------------------------------|----------------------------|-------------------------------|
+| Fix all errors before testing    | One fix might resolve many | Test after each fix           |
+| Use `@phpstan-ignore` first      | Hides real issues          | Try proper types first        |
+| Generic `@var mixed` annotations | Defeats type safety        | Be specific with array shapes |
+| Skip error count verification    | Miss cascading fixes       | Always check total count      |
+| Inline all type hints            | Hard to read, maintain     | Create DTOs for complex types |
 
 ## Real-World Impact
 

@@ -26,6 +26,28 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && eza -l --icons --git -
 buc() { brew uninstall "$@" --cask --zap; }
 
 # Nushell-powered ls
+# Claude Code
+cc() { claude "$@" }
+ccx() { claude --permission-mode=bypassPermissions "$@" }
+
+# Claude Code (floating zellij window)
+fcc() {
+  if [[ -n "$ZELLIJ" ]]; then
+    zellij run -f -- claude "$@"
+  else
+    claude "$@"
+  fi
+}
+
+fccx() {
+  if [[ -n "$ZELLIJ" ]]; then
+    zellij run -f -- claude --permission-mode=bypassPermissions "$@"
+  else
+    claude --permission-mode=bypassPermissions "$@"
+  fi
+}
+
+# Nushell-powered ls
 if type nu &>/dev/null; then
   l()  { nu -c "ls $*" }
   ls() { nu -c "ls $*" }

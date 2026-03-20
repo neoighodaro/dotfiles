@@ -23,8 +23,7 @@ alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && 
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 alias ap="ansible-playbook"
-alias cc="claude"
-alias ccx="claude --permission-mode=bypassPermissions"
+
 
 # eza (better `ls`)
 # ------------------------------------------------------------------------------

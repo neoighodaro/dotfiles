@@ -13,32 +13,35 @@ import (
 	"github.com/neoighodaro/dotfiles/cli/internal/ui"
 )
 
-// tickMsg advances the demo to the next step.
-type tickMsg struct{}
-
-// doneMsg signals the installer has finished.
-type doneMsg struct{}
+// Messages
+type (
+	tickMsg     struct{}          // demo mode: auto-advance
+	doneMsg     struct{}          // all steps finished
+	stepDoneMsg struct{ result StepResult } // a real step completed
+)
 
 // Model is the Bubble Tea model for the installer TUI.
 type Model struct {
-	sections    []Section
-	curSection  int
-	curStep     int
-	spinner     spinner.Model
-	viewport    viewport.Model
-	dryRun      bool
-	platform    platform.OS
-	width       int
-	height      int
-	done        bool
-	ready       bool
-	userScroll  bool // true when user has scrolled away from bottom
-	startTime   time.Time
-	elapsed     time.Duration
-	demo        bool // when true, auto-advances steps for preview
+	sections   []Section
+	curSection int
+	curStep    int
+	spinner    spinner.Model
+	viewport   viewport.Model
+	ctx        *Context
+	dryRun     bool
+	platform   platform.OS
+	width      int
+	height     int
+	done       bool
+	ready      bool
+	userScroll bool
+	paused     bool // waiting for user to continue/exit after a failure
+	startTime  time.Time
+	elapsed    time.Duration
+	demo       bool
 }
 
-const headerHeight = 7 // logo (4 lines) + info bar (1) + divider (1) + blank (1)
+const headerHeight = 7
 
 // New creates a new installer model.
 func New(dryRun bool, demo bool) Model {
@@ -52,6 +55,7 @@ func New(dryRun bool, demo bool) Model {
 	return Model{
 		sections:  Plan(),
 		spinner:   s,
+		ctx:       NewContext(dryRun),
 		dryRun:    dryRun,
 		platform:  platform.Detect(),
 		startTime: time.Now(),
@@ -61,19 +65,34 @@ func New(dryRun bool, demo bool) Model {
 
 func (m Model) Init() tea.Cmd {
 	cmds := []tea.Cmd{m.spinner.Tick}
-	if m.demo {
-		cmds = append(cmds, m.scheduleNext())
-	}
+
 	// Mark the first step as running
 	if len(m.sections) > 0 && len(m.sections[0].Steps) > 0 {
 		m.sections[0].Steps[0].Status = StatusRunning
 	}
+
+	if m.demo {
+		cmds = append(cmds, m.scheduleDemoTick())
+	} else {
+		cmds = append(cmds, m.runCurrentStep())
+	}
+
 	return tea.Batch(cmds...)
 }
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
+		if m.paused {
+			switch msg.String() {
+			case "c", "enter":
+				m.paused = false
+				return m.advance()
+			case "q", "esc", "ctrl+c":
+				return m, tea.Quit
+			}
+			return m, nil
+		}
 		switch msg.String() {
 		case "q", "ctrl+c":
 			return m, tea.Quit
@@ -82,7 +101,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, tea.Quit
 			}
 		}
-		// Forward all other keys (arrows, j/k, pgup/pgdn) to viewport
 		var cmd tea.Cmd
 		m.viewport, cmd = m.viewport.Update(msg)
 		m.userScroll = m.viewport.YOffset < m.viewport.TotalLineCount()-m.viewport.Height
@@ -107,7 +125,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		var cmd tea.Cmd
 		m.spinner, cmd = m.spinner.Update(msg)
 		m.elapsed = time.Since(m.startTime)
-		// Update viewport content on every tick to keep it current
 		m.viewport.SetContent(m.renderBody())
 		if !m.userScroll {
 			m.viewport.GotoBottom()
@@ -115,7 +132,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, cmd
 
 	case tickMsg:
-		return m.advanceStep()
+		// Demo mode: auto-advance
+		return m.completeDemoStep()
+
+	case stepDoneMsg:
+		// Real mode: step finished
+		return m.completeRealStep(msg.result)
 
 	case doneMsg:
 		m.done = true
@@ -123,39 +145,166 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if !m.userScroll {
 			m.viewport.GotoBottom()
 		}
-		return m, nil // don't quit — wait for user input
+		return m, nil
 	}
 
-	// Forward mouse/other events to viewport
 	var cmd tea.Cmd
 	m.viewport, cmd = m.viewport.Update(msg)
 	m.userScroll = m.viewport.YOffset < m.viewport.TotalLineCount()-m.viewport.Height
 	return m, cmd
 }
 
+// ── Real step execution ──
+
+func (m Model) runCurrentStep() tea.Cmd {
+	step := m.sections[m.curSection].Steps[m.curStep]
+	if step.Run == nil {
+		// No RunFunc — skip the step
+		return func() tea.Msg {
+			return stepDoneMsg{result: StepResult{Skip: true, Logs: []string{"not implemented yet"}}}
+		}
+	}
+	ctx := m.ctx
+	return func() tea.Msg {
+		result := step.Run(ctx)
+		return stepDoneMsg{result: result}
+	}
+}
+
+func (m Model) completeRealStep(result StepResult) (tea.Model, tea.Cmd) {
+	step := &m.sections[m.curSection].Steps[m.curStep]
+
+	step.Log = append(step.Log, result.Logs...)
+
+	switch {
+	case result.Err != nil:
+		step.Status = StatusFailed
+		step.Log = append(step.Log, result.Err.Error())
+		// Pause and let the user decide
+		m.paused = true
+		m.viewport.SetContent(m.renderBody())
+		if !m.userScroll {
+			m.viewport.GotoBottom()
+		}
+		return m, nil
+	case result.Skip:
+		step.Status = StatusSkipped
+	default:
+		step.Status = StatusDone
+	}
+
+	return m.advance()
+}
+
+// ── Demo step execution ──
+
+func (m Model) scheduleDemoTick() tea.Cmd {
+	delays := map[string]time.Duration{
+		"detect-platform": 300 * time.Millisecond,
+		"check-deps":      500 * time.Millisecond,
+		"load-config":     200 * time.Millisecond,
+		"install-brew":    1200 * time.Millisecond,
+		"install-casks":   900 * time.Millisecond,
+		"install-mas":     700 * time.Millisecond,
+		"macos-defaults":  600 * time.Millisecond,
+		"restart-apps":    400 * time.Millisecond,
+	}
+	step := m.sections[m.curSection].Steps[m.curStep]
+	delay, ok := delays[step.Name]
+	if !ok {
+		delay = 350 * time.Millisecond
+	}
+	return tea.Tick(delay, func(time.Time) tea.Msg { return tickMsg{} })
+}
+
+func (m Model) completeDemoStep() (tea.Model, tea.Cmd) {
+	step := &m.sections[m.curSection].Steps[m.curStep]
+
+	var failed bool
+
+	// If the step has a real RunFunc, use it even in demo mode
+	if step.Run != nil {
+		result := step.Run(m.ctx)
+		step.Log = append(step.Log, result.Logs...)
+		switch {
+		case result.Err != nil:
+			step.Status = StatusFailed
+			step.Log = append(step.Log, result.Err.Error())
+			failed = true
+		case result.Skip:
+			step.Status = StatusSkipped
+		default:
+			step.Status = StatusDone
+		}
+	} else {
+		result := m.demoResult(step.Name)
+		step.Log = append(step.Log, result.Logs...)
+		if result.Skip {
+			step.Status = StatusSkipped
+		} else {
+			step.Status = StatusDone
+		}
+	}
+
+	if failed {
+		m.paused = true
+		m.viewport.SetContent(m.renderBody())
+		if !m.userScroll {
+			m.viewport.GotoBottom()
+		}
+		return m, nil
+	}
+
+	return m.advance()
+}
+
+// ── Shared advance logic ──
+
+func (m Model) advance() (tea.Model, tea.Cmd) {
+	m.curStep++
+	if m.curStep >= len(m.sections[m.curSection].Steps) {
+		m.curSection++
+		m.curStep = 0
+	}
+
+	if m.curSection >= len(m.sections) {
+		m.done = true
+		m.viewport.SetContent(m.renderBody())
+		if !m.userScroll {
+			m.viewport.GotoBottom()
+		}
+		return m, func() tea.Msg { return doneMsg{} }
+	}
+
+	m.sections[m.curSection].Steps[m.curStep].Status = StatusRunning
+	m.viewport.SetContent(m.renderBody())
+	if !m.userScroll {
+		m.viewport.GotoBottom()
+	}
+
+	if m.demo {
+		return m, m.scheduleDemoTick()
+	}
+	return m, m.runCurrentStep()
+}
+
+// ── View ──
+
 func (m Model) View() string {
 	if !m.ready {
 		return ""
 	}
-
 	var b strings.Builder
-
-	// ── Fixed header: logo + info bar + divider ──
 	b.WriteString(m.renderHeader())
-
-	// ── Scrollable body ──
 	b.WriteString(m.viewport.View())
-
 	return b.String()
 }
 
 func (m Model) renderHeader() string {
 	var b strings.Builder
 
-	// Logo
 	b.WriteString(ui.RenderLogo())
 
-	// Info bar
 	mode := ui.AccentStyle.Render("install")
 	if m.dryRun {
 		mode = ui.DryRunBadge.Render("DRY RUN")
@@ -171,7 +320,6 @@ func (m Model) renderHeader() string {
 	b.WriteString(info)
 	b.WriteString("\n")
 
-	// Divider
 	divWidth := m.width
 	if divWidth == 0 {
 		divWidth = 60
@@ -192,7 +340,6 @@ func (m Model) renderBody() string {
 	}
 
 	for si, section := range m.sections {
-		// Section header
 		prefix := "○"
 		style := ui.SectionStyle
 		if m.isSectionDone(si) {
@@ -203,17 +350,13 @@ func (m Model) renderBody() string {
 		b.WriteString(style.Render(fmt.Sprintf("%s %s", prefix, section.Name)))
 		b.WriteString("\n")
 
-		// Only show steps for current and completed sections, or the next section
 		if si > m.curSection+1 && !m.done {
 			continue
 		}
 
 		for _, step := range section.Steps {
-			line := m.renderStep(step)
-			b.WriteString(line)
+			b.WriteString(m.renderStep(step))
 			b.WriteString("\n")
-
-			// Show log lines for active/just-completed steps
 			for _, log := range step.Log {
 				b.WriteString(ui.LogStyle.Render(log))
 				b.WriteString("\n")
@@ -222,7 +365,6 @@ func (m Model) renderBody() string {
 		b.WriteString("\n")
 	}
 
-	// Footer
 	if m.done {
 		b.WriteString(ui.DividerStyle.Render(strings.Repeat("─", divWidth)))
 		b.WriteString("\n\n")
@@ -230,6 +372,9 @@ func (m Model) renderBody() string {
 		b.WriteString(ui.AccentStyle.Render(fmt.Sprintf("  ✦ Done in %s", total)))
 		b.WriteString("\n\n")
 		b.WriteString(lipgloss.NewStyle().Foreground(ui.Dim).PaddingLeft(2).Render("press q or enter to exit"))
+		b.WriteString("\n")
+	} else if m.paused {
+		b.WriteString(lipgloss.NewStyle().Foreground(ui.Yellow).PaddingLeft(2).Bold(true).Render("Step failed — press c to continue or q to exit"))
 		b.WriteString("\n")
 	} else {
 		b.WriteString(lipgloss.NewStyle().Foreground(ui.Dim).PaddingLeft(2).Render("press q to abort"))
@@ -263,101 +408,37 @@ func (m Model) isSectionDone(si int) bool {
 	return true
 }
 
-// advanceStep marks the current step done and moves to the next.
-func (m Model) advanceStep() (tea.Model, tea.Cmd) {
-	// Mark current step as done (with occasional skips for realism)
-	step := &m.sections[m.curSection].Steps[m.curStep]
-	if m.demo && step.Name == "link-aerospace" {
-		step.Status = StatusSkipped
-		step.Log = append(step.Log, "not on macOS — skipping")
-	} else {
-		step.Status = StatusDone
-		// Add a demo log line for some steps
-		if m.demo {
-			step.Log = append(step.Log, m.demoLog(step.Name)...)
-		}
-	}
-
-	// Advance to next step
-	m.curStep++
-	if m.curStep >= len(m.sections[m.curSection].Steps) {
-		m.curSection++
-		m.curStep = 0
-	}
-
-	// Check if we're done
-	if m.curSection >= len(m.sections) {
-		m.done = true
-		m.viewport.SetContent(m.renderBody())
-		if !m.userScroll {
-			m.viewport.GotoBottom()
-		}
-		return m, func() tea.Msg { return doneMsg{} }
-	}
-
-	// Mark next step as running
-	m.sections[m.curSection].Steps[m.curStep].Status = StatusRunning
-
-	// Update viewport
-	m.viewport.SetContent(m.renderBody())
-	m.viewport.GotoBottom()
-
-	return m, m.scheduleNext()
-}
-
-func (m Model) scheduleNext() tea.Cmd {
-	// Vary timing for a natural feel
-	delays := map[string]time.Duration{
-		"detect-platform": 300 * time.Millisecond,
-		"check-deps":      500 * time.Millisecond,
-		"load-config":     200 * time.Millisecond,
-		"install-brew":    1200 * time.Millisecond,
-		"install-casks":   900 * time.Millisecond,
-		"install-mas":     700 * time.Millisecond,
-		"macos-defaults":  600 * time.Millisecond,
-		"restart-apps":    400 * time.Millisecond,
-	}
-
-	step := m.sections[m.curSection].Steps[m.curStep]
-	delay, ok := delays[step.Name]
-	if !ok {
-		delay = 350 * time.Millisecond
-	}
-
-	return tea.Tick(delay, func(time.Time) tea.Msg {
-		return tickMsg{}
-	})
-}
-
-func (m Model) demoLog(name string) []string {
+func (m Model) demoResult(name string) StepResult {
 	switch name {
 	case "detect-platform":
-		return []string{fmt.Sprintf("detected %s", m.platform)}
+		return StepResult{Logs: []string{fmt.Sprintf("detected %s", m.platform)}}
 	case "check-deps":
-		return []string{"git ✓  brew ✓  zsh ✓"}
+		return StepResult{Logs: []string{"git ✓  brew ✓  zsh ✓"}}
 	case "load-config":
-		return []string{"loaded 24 symlinks, 45 packages, 12 casks"}
+		return StepResult{Logs: []string{"found 18 config modules"}}
 	case "link-zsh":
-		return []string{"~/.zshrc → configs/zsh/zshrc.sh"}
+		return StepResult{Logs: []string{"~/.zshrc → configs/zsh/zshrc.sh"}}
 	case "link-git":
-		return []string{"~/.gitconfig → configs/git/base.cfg"}
+		return StepResult{Logs: []string{"~/.gitconfig → configs/git/base.cfg"}}
+	case "link-aerospace":
+		return StepResult{Skip: true, Logs: []string{"not on macOS — skipping"}}
 	case "install-brew":
-		return []string{"45 formulae up to date"}
+		return StepResult{Logs: []string{"45 formulae up to date"}}
 	case "install-casks":
-		return []string{"12 casks up to date"}
+		return StepResult{Logs: []string{"12 casks up to date"}}
 	case "install-mas":
-		return []string{"3 apps up to date"}
+		return StepResult{Logs: []string{"3 apps up to date"}}
 	case "ssh-keys":
-		return []string{"key exists — skipping generation"}
+		return StepResult{Skip: true, Logs: []string{"key exists — skipping generation"}}
 	case "gpg-keys":
-		return []string{"key exists — skipping generation"}
+		return StepResult{Skip: true, Logs: []string{"key exists — skipping generation"}}
 	case "macos-defaults":
-		return []string{"applied 42 preferences"}
+		return StepResult{Logs: []string{"applied 42 preferences"}}
 	case "restart-apps":
-		return []string{"Finder, Dock, SystemUIServer"}
+		return StepResult{Logs: []string{"Finder, Dock, SystemUIServer"}}
 	case "summary":
-		return []string{"0 changed · 0 failed · 2 skipped"}
+		return StepResult{Logs: []string{"0 changed · 0 failed · 2 skipped"}}
 	default:
-		return nil
+		return StepResult{}
 	}
 }

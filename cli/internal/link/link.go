@@ -4,19 +4,59 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-
-	"github.com/neoighodaro/dotfiles/cli/internal/ui"
 )
 
+// Result holds the outcome of a single link operation.
+type Result struct {
+	Target  string
+	Source  string
+	Skipped bool // already linked
+	BackedUp bool
+	Created bool
+	Err     error
+}
+
+// ShortPath returns a path relative to $HOME using ~ notation.
+func ShortPath(p string) string {
+	home, _ := os.UserHomeDir()
+	if rel, err := filepath.Rel(home, p); err == nil {
+		return "~/" + rel
+	}
+	return p
+}
+
+func (r Result) String() string {
+	target := ShortPath(r.Target)
+	source := ShortPath(r.Source)
+	if r.Err != nil {
+		return fmt.Sprintf("%s ✗ %s", target, r.Err)
+	}
+	if r.Skipped {
+		return fmt.Sprintf("%s (already linked)", target)
+	}
+	if r.BackedUp {
+		return fmt.Sprintf("%s → %s (backed up original)", target, source)
+	}
+	return fmt.Sprintf("%s → %s", target, source)
+}
+
 // Create creates a symlink from source to target, backing up any existing file.
-// If dryRun is true, it only prints what would happen.
-func Create(source, target string, dryRun bool) error {
+// If dryRun is true, it only records what would happen.
+func Create(source, target string, dryRun bool) Result {
 	source, _ = filepath.Abs(source)
 	target, _ = filepath.Abs(target)
 
+	res := Result{Target: target, Source: source}
+
+	// Check if source exists
+	if _, err := os.Stat(source); os.IsNotExist(err) {
+		res.Err = fmt.Errorf("source does not exist: %s", source)
+		return res
+	}
+
 	if dryRun {
-		ui.DryRun(fmt.Sprintf("link %s → %s", target, source))
-		return nil
+		res.Created = true
+		return res
 	}
 
 	// Back up existing file if it's not already a symlink to our source
@@ -24,26 +64,29 @@ func Create(source, target string, dryRun bool) error {
 		if info.Mode()&os.ModeSymlink != 0 {
 			existing, _ := os.Readlink(target)
 			if existing == source {
-				ui.Info(fmt.Sprintf("already linked: %s", target))
-				return nil
+				res.Skipped = true
+				return res
 			}
 		}
 		backup := target + ".backup"
-		ui.Warn(fmt.Sprintf("backing up %s → %s", target, backup))
 		if err := os.Rename(target, backup); err != nil {
-			return fmt.Errorf("failed to backup %s: %w", target, err)
+			res.Err = fmt.Errorf("failed to backup %s: %w", target, err)
+			return res
 		}
+		res.BackedUp = true
 	}
 
 	// Ensure parent directory exists
 	if err := os.MkdirAll(filepath.Dir(target), 0755); err != nil {
-		return fmt.Errorf("failed to create parent dir for %s: %w", target, err)
+		res.Err = fmt.Errorf("failed to create parent dir: %w", err)
+		return res
 	}
 
 	if err := os.Symlink(source, target); err != nil {
-		return fmt.Errorf("failed to create symlink %s → %s: %w", target, source, err)
+		res.Err = fmt.Errorf("failed to symlink: %w", err)
+		return res
 	}
 
-	ui.Success(fmt.Sprintf("linked %s → %s", target, source))
-	return nil
+	res.Created = true
+	return res
 }

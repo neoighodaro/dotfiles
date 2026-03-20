@@ -62,7 +62,28 @@ plugins {
     strider { path "strider"; }
     compact-bar { path "compact-bar"; }
     zjstatus location="file:/Users/neo/.config/zellij/plugins/zjstatus.wasm"
-    zjstatus-hints location="https://github.com/b0o/zjstatus-hints/releases/latest/download/zjstatus-hints.wasm"
+    zjstatus-hints location="file:/Users/neo/.config/zellij/plugins/zjstatus-hints.wasm" {
+        // See: https://github.com/b0o/zjstatus-hints/pull/30#issuecomment-3995367563
+        modifier_style "symbol"
+        overflow_str "…"
+        max_keys "1"
+        separator " "
+        italic true
+        transparent_bg true
+
+        // hint_format "{action}[{key}]"
+        hint_format "{key}:{action}"
+        key_alias_enter "⏎"
+        key_alias_space "␣"
+        key_alias_esc   "⎋"
+        key_alias_tab   "⇥"
+
+        // Global — applies to all hints
+        key_fg   "#494d64"
+        key_bg   "#101C2C"
+        label_fg "#494d64"
+        label_bg "#101C2C"
+    }
 }
 
 load_plugins {

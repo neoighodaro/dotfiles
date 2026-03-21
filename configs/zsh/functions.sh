@@ -28,7 +28,9 @@ buc() { brew uninstall "$@" --cask --zap; }
 # Nushell-powered ls
 # Claude Code
 cc() { claude "$@" }
+ccr() { claude --resume "$@" }
 ccx() { claude --permission-mode=bypassPermissions "$@" }
+ccxr() { claude --permission-mode=bypassPermissions --resume "$@" }
 
 # Claude Code (floating zellij window)
 fcc() {

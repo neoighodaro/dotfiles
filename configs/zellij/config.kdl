@@ -215,7 +215,7 @@ keybinds clear-defaults=true {
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
-        bind "Alt B" {
+        bind "Alt b" {
             // https://github.com/yaroslavborbat/zellij-bookmarks
             LaunchOrFocusPlugin "file:/Users/neo/.config/zellij/plugins/zellij-bookmarks.wasm" {
                 floating true

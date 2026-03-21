@@ -66,12 +66,12 @@ config.keys = {
     {
         key = "LeftArrow",
         mods = "OPT",
-        action = wezterm.action{SendString="\x1bb"}  -- backward-word
+        action = wezterm.action{SendString="\x1b[1;3D"}  -- backward-word (CSI Alt+Left)
     },
     {
         key = "RightArrow",
         mods = "OPT",
-        action = wezterm.action{SendString="\x1bf"}  -- forward-word
+        action = wezterm.action{SendString="\x1b[1;3C"}  -- forward-word (CSI Alt+Right)
     },
 
     -- Line navigation

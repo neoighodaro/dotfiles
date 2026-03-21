@@ -63,9 +63,9 @@ SAVEHIST=200000
 
 # Set Up Line Editor
 # ------------------------------------------------------------------------------
-## Bind arrow keys to word cursor navigation
-bindkey "\e\e[C" forward-word
-bindkey "\e\e[D" backward-word
+## Bind arrow keys to word cursor navigation (CSI sequences from WezTerm)
+bindkey "\e[1;3D" backward-word
+bindkey "\e[1;3C" forward-word
 bindkey "^[a" beginning-of-line   # For iTerm. Preferences > Keys, set "Send escape sequence" to "a" and "e" for the desired key bindings.
 bindkey "^[e" end-of-line         # For iTerm. Preferences > Keys, set "Send escape sequence" to "a" and "e" for the desired key bindings.
 

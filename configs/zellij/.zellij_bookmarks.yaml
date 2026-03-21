@@ -1,0 +1,31 @@
+vars: {}
+
+cmds:
+  # PINKTUM Academy
+  kube_rollout_dev: "kubectl rollout restart deploy/backend -n academy-dev"
+  kube_rollout_qa: "kubectl rollout restart deploy/backend -n academy-qa"
+  kube_rollout_po: "kubectl rollout restart deploy/backend -n academy-po"
+  kube_rollout_prod: "kubectl rollout restart deploy/backend -n academy-prod"
+
+bookmarks:
+  # PINKTUM Academy
+  - name: "kube-rollout-dev"
+    desc: "Rollout a Kubernetes deployment to DEV"
+    cmds: ["cmd::kube_rollout_dev"]
+    exec: false
+    labels: ["kubernetes", "rollout", "dev", "academy"]
+  - name: "kube-rollout-qa"
+    desc: "Rollout a Kubernetes deployment to QA"
+    cmds: ["cmd::kube_rollout_qa"]
+    exec: false
+    labels: ["kubernetes", "rollout", "qa", "academy"]
+  - name: "kube-rollout-po"
+    desc: "Rollout a Kubernetes deployment to PO"
+    cmds: ["cmd::kube_rollout_po"]
+    exec: false
+    labels: ["kubernetes", "rollout", "po", "academy"]
+  - name: "kube-rollout-prod"
+    desc: "Rollout a Kubernetes deployment to PROD"
+    cmds: ["cmd::kube_rollout_prod"]
+    exec: false
+    labels: ["kubernetes", "rollout", "prod", "academy"]

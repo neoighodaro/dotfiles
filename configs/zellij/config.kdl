@@ -116,7 +116,7 @@ keybinds clear-defaults=true {
         bind "x" { CloseFocus; }
         bind "n" { NewPane; }
         bind "d" { NewPane "Down"; }
-        // bind "f" { ToggleFloatingPanes; }
+        bind "f" { ToggleFloatingPanes; }
         bind "h" "Left" { MoveFocus "Left"; }
         bind "l" "Right" { MoveFocus "Right"; }
         bind "j" "Down" { MoveFocus "Down"; }
@@ -215,6 +215,13 @@ keybinds clear-defaults=true {
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
+        bind "Alt B" {
+            // https://github.com/yaroslavborbat/zellij-bookmarks
+            LaunchOrFocusPlugin "file:/Users/neo/.config/zellij/plugins/zellij-bookmarks.wasm" {
+                floating true
+                cwd "/Users/neo/.config/zellij/"
+            };
+        }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }

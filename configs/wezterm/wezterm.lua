@@ -105,7 +105,7 @@ config.keys = {
         action = wezterm.action.QuickSelect
     },
 
-    -- Open config in VS Code
+    -- Open config in Editor
     {
         key = ',',
         mods = 'SUPER',

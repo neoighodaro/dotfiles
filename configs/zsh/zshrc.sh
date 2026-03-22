@@ -30,6 +30,8 @@ fi
 if [[ $OS == "linux" ]]; then
     if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
 fi
+autoload -Uz compinit && compinit
+if type ck &>/dev/null; then source <(ck completion zsh); fi
 
 # General Options
 # ------------------------------------------------------------------------------

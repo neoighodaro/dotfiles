@@ -25,3 +25,45 @@ bookmarks:
     cmds: ["kubectl rollout restart deploy/backend -n academy-prod"]
     labels: ["kubernetes", "rollout", "prod", "academy"]
     paths: ["/Users/neo/Developer/pinktum"]
+
+  # CKX Local (Ansible)
+  - name: "Nodes Reboot"
+    cmds: ["ansible-playbook -i hosts nodes-reboot.yml"]
+    labels: ["ansible", "ckx", "nodes"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Nodes Shutdown"
+    cmds: ["ansible-playbook -i hosts nodes-shutdown.yml"]
+    labels: ["ansible", "ckx", "nodes"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Nodes Update"
+    cmds: ["ansible-playbook -i hosts nodes-update.yml"]
+    labels: ["ansible", "ckx", "nodes"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Backups Trigger"
+    cmds: ["ansible-playbook -i hosts backups-trigger.yml"]
+    labels: ["ansible", "ckx", "backups"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Update Node Routes"
+    cmds: ["ansible-playbook -i hosts update-node-routes.yml"]
+    labels: ["ansible", "ckx", "nodes", "routes"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Coolify Update"
+    cmds: ["ansible-playbook -i hosts coolify-update.yml"]
+    labels: ["ansible", "ckx", "coolify"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Coolify Restore"
+    cmds: ["ansible-playbook -i hosts coolify-restore.yml"]
+    labels: ["ansible", "ckx", "coolify"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Home Assistant Update"
+    cmds: ["ansible-playbook -i hosts home-assistant-update.yml"]
+    labels: ["ansible", "ckx", "home-assistant"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Pi-hole Update"
+    cmds: ["ansible-playbook -i hosts pihole-update.yml"]
+    labels: ["ansible", "ckx", "pihole"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]
+  - name: "Portainer Update"
+    cmds: ["ansible-playbook -i hosts portainer-update.yml"]
+    labels: ["ansible", "ckx", "portainer"]
+    paths: ["/Users/neo/Developer/ck/infrastructure/ansible/ckx-local"]

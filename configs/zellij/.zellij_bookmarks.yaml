@@ -1,31 +1,27 @@
 vars: {}
-
-cmds:
-  # PINKTUM Academy
-  kube_rollout_dev: "kubectl rollout restart deploy/backend -n academy-dev"
-  kube_rollout_qa: "kubectl rollout restart deploy/backend -n academy-qa"
-  kube_rollout_po: "kubectl rollout restart deploy/backend -n academy-po"
-  kube_rollout_prod: "kubectl rollout restart deploy/backend -n academy-prod"
+cmds: {}
 
 bookmarks:
+  # Global
+  - name: "Reload Sketchybar"
+    cmds: ["sketchybar --reload"]
+    exec: true
+    labels: ["sketchybar"]
+
   # PINKTUM Academy
-  - name: "kube-rollout-dev"
-    desc: "Rollout a Kubernetes deployment to DEV"
-    cmds: ["cmd::kube_rollout_dev"]
-    exec: false
+  - name: "Redeploy Academy Backend (DEV)"
+    cmds: ["kubectl rollout restart deploy/backend -n academy-dev"]
     labels: ["kubernetes", "rollout", "dev", "academy"]
-  - name: "kube-rollout-qa"
-    desc: "Rollout a Kubernetes deployment to QA"
-    cmds: ["cmd::kube_rollout_qa"]
-    exec: false
+    paths: ["/Users/neo/Developer/pinktum"]
+  - name: "Redeploy Academy Backend (QA)"
+    cmds: ["kubectl rollout restart deploy/backend -n academy-qa"]
     labels: ["kubernetes", "rollout", "qa", "academy"]
-  - name: "kube-rollout-po"
-    desc: "Rollout a Kubernetes deployment to PO"
-    cmds: ["cmd::kube_rollout_po"]
-    exec: false
+    paths: ["/Users/neo/Developer/pinktum"]
+  - name: "Redeploy Academy Backend (PO)"
+    cmds: ["kubectl rollout restart deploy/backend -n academy-po"]
     labels: ["kubernetes", "rollout", "po", "academy"]
-  - name: "kube-rollout-prod"
-    desc: "Rollout a Kubernetes deployment to PROD"
-    cmds: ["cmd::kube_rollout_prod"]
-    exec: false
+    paths: ["/Users/neo/Developer/pinktum"]
+  - name: "Redeploy Academy Backend (PROD)"
+    cmds: ["kubectl rollout restart deploy/backend -n academy-prod"]
     labels: ["kubernetes", "rollout", "prod", "academy"]
+    paths: ["/Users/neo/Developer/pinktum"]

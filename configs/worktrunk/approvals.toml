@@ -1,0 +1,5 @@
+[projects."git.ckx.sh/Yulo/api"]
+approved-commands = [
+    "bash {{ worktree_path }}/.config/worktree-setup.sh",
+    "bash {{ worktree_path }}/.config/worktree-cleanup.sh",
+]

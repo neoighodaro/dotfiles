@@ -38,6 +38,7 @@ var ignoredPackages = map[string]bool{
 
 var brewFormulae = []brewPkg{
 	{name: "trash"},
+	{name: "age"},
 	{name: "gnupg"},
 	{name: "pinentry-mac"},
 	{name: "pinentry-touchid", tap: "jorgelbg/tap"},

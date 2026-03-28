@@ -67,6 +67,7 @@ var brewFormulae = []brewPkg{
 	{name: "fd"},
 	{name: "nushell"},
 	{name: "worktrunk"},
+	{name: "1password-cli"},
 }
 
 var aptPackages = []string{
@@ -111,6 +112,7 @@ var brewCasks = []caskPkg{
 	{name: "font-sf-pro"},
 	{name: "sketch", url: "https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb"},
 	{name: "wezterm"},
+	{name: "vivid-app"},
 }
 
 var masApps = []masApp{

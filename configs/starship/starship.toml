@@ -21,6 +21,7 @@ $git_branch\
 $git_status\
 [](fg:ckorange300 bg:ckbrown100)\
 $php\
+$golang\
 $custom\
 [](fg:ckbrown100 bg:termbg)\
 $character\
@@ -67,6 +68,11 @@ tag_disabled = true
 
 [php]
 symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:ckorange100 bg:ckbrown100)]($style)'
+
+[golang]
+symbol = "󰟓"
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:ckorange100 bg:ckbrown100)]($style)'
 

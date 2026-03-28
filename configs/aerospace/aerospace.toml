@@ -126,7 +126,7 @@ alt-cmd-ctrl-minus = 'resize smart -50'
 alt-cmd-ctrl-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-cmd-ctrl-shift-1 = 'workspace 1'
+alt-cmd-ctrl-shift-1 = 'workspace 󰋜'
 alt-cmd-ctrl-shift-2 = 'workspace 2'
 alt-cmd-ctrl-shift-3 = 'workspace 3'
 # alt-cmd-ctrl-shift-4 = 'workspace 4'
@@ -136,21 +136,21 @@ alt-cmd-ctrl-shift-3 = 'workspace 3'
 # alt-cmd-ctrl-shift-8 = 'workspace 8'
 # alt-cmd-ctrl-shift-9 = 'workspace 9'
 # alt-cmd-ctrl-shift-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
-alt-cmd-ctrl-shift-b = 'workspace Browser'
-alt-cmd-ctrl-shift-c = 'workspace Claude'
-alt-cmd-ctrl-shift-d = 'workspace DevTools'
+alt-cmd-ctrl-shift-b = 'workspace 󰖟'
+alt-cmd-ctrl-shift-c = 'workspace 󰚩'
+alt-cmd-ctrl-shift-d = 'workspace 󰊢'
 # alt-cmd-ctrl-shift-e = 'workspace E'
 # alt-cmd-ctrl-shift-f = 'workspace F'
 # alt-cmd-ctrl-shift-g = 'workspace G'
-alt-cmd-ctrl-shift-i = 'workspace IDE'
-alt-cmd-ctrl-shift-m = 'workspace Messaging'
+alt-cmd-ctrl-shift-i = 'workspace 󰨞'
+alt-cmd-ctrl-shift-m = 'workspace 󰍡'
 # alt-cmd-ctrl-shift-n = 'workspace N'
 # alt-cmd-ctrl-shift-o = 'workspace O'
 # alt-cmd-ctrl-shift-p = 'workspace P'
 # alt-cmd-ctrl-shift-q = 'workspace Q'
 # alt-cmd-ctrl-shift-r = 'workspace R'
 # alt-cmd-ctrl-shift-s = 'workspace S'
-alt-cmd-ctrl-shift-t = 'workspace Terminal'
+alt-cmd-ctrl-shift-t = 'workspace 󰆍'
 # alt-cmd-ctrl-shift-u = 'workspace U'
 # alt-cmd-ctrl-shift-v = 'workspace V'
 # alt-cmd-ctrl-shift-w = 'workspace W'
@@ -159,7 +159,7 @@ alt-cmd-ctrl-shift-t = 'workspace Terminal'
 # alt-cmd-ctrl-shift-z = 'workspace Z'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-cmd-ctrl-1 = 'move-node-to-workspace 1'
+alt-cmd-ctrl-1 = 'move-node-to-workspace 󰋜'
 alt-cmd-ctrl-2 = 'move-node-to-workspace 2'
 alt-cmd-ctrl-3 = 'move-node-to-workspace 3'
 # alt-cmd-ctrl-4 = 'move-node-to-workspace 4'
@@ -169,21 +169,21 @@ alt-cmd-ctrl-3 = 'move-node-to-workspace 3'
 # alt-cmd-ctrl-8 = 'move-node-to-workspace 8'
 # alt-cmd-ctrl-9 = 'move-node-to-workspace 9'
 # alt-cmd-ctrl-a = 'move-node-to-workspace A'
-alt-cmd-ctrl-b = 'move-node-to-workspace Browser'
-alt-cmd-ctrl-c = 'move-node-to-workspace Claude'
-alt-cmd-ctrl-d = 'move-node-to-workspace DevTools'
+alt-cmd-ctrl-b = 'move-node-to-workspace 󰖟'
+alt-cmd-ctrl-c = 'move-node-to-workspace 󰚩'
+alt-cmd-ctrl-d = 'move-node-to-workspace 󰊢'
 # alt-cmd-ctrl-e = 'move-node-to-workspace E'
 # alt-cmd-ctrl-f = 'move-node-to-workspace F'
 # alt-cmd-ctrl-g = 'move-node-to-workspace G'
-alt-cmd-ctrl-i = 'move-node-to-workspace IDE'
-alt-cmd-ctrl-m = 'move-node-to-workspace Messaging'
+alt-cmd-ctrl-i = 'move-node-to-workspace 󰨞'
+alt-cmd-ctrl-m = 'move-node-to-workspace 󰍡'
 # alt-cmd-ctrl-n = 'move-node-to-workspace N'
 # alt-cmd-ctrl-o = 'move-node-to-workspace O'
 # alt-cmd-ctrl-p = 'move-node-to-workspace P'
 # alt-cmd-ctrl-q = 'move-node-to-workspace Q'
 # alt-cmd-ctrl-r = 'move-node-to-workspace R'
 # alt-cmd-ctrl-s = 'move-node-to-workspace S'
-alt-cmd-ctrl-t = 'move-node-to-workspace Terminal'
+alt-cmd-ctrl-t = 'move-node-to-workspace 󰆍'
 # alt-cmd-ctrl-u = 'move-node-to-workspace U'
 # alt-cmd-ctrl-v = 'move-node-to-workspace V'
 # alt-cmd-ctrl-w = 'move-node-to-workspace W'
@@ -220,140 +220,140 @@ alt-shift-l = ['join-with right', 'mode main']
 # ------------------------------------------------------------------------------
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
-run = "move-node-to-workspace Terminal"
+run = "move-node-to-workspace 󰆍"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Terminal'
-run = "move-node-to-workspace Terminal"
+run = "move-node-to-workspace 󰆍"
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace Terminal"
+run = "move-node-to-workspace 󰆍"
 
 [[on-window-detected]]
 if.app-id = 'com.cmuxterm.app'
-run = "move-node-to-workspace Terminal"
+run = "move-node-to-workspace 󰆍"
 
 # Browsers
 # ------------------------------------------------------------------------------
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
-run = "move-node-to-workspace Browser"
+run = "move-node-to-workspace 󰖟"
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace Browser"
+run = "move-node-to-workspace 󰖟"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Safari'
-run = "move-node-to-workspace Browser"
+run = "move-node-to-workspace 󰖟"
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
-run = "move-node-to-workspace Browser"
+run = "move-node-to-workspace 󰖟"
 
 # Dev Tools
 # ------------------------------------------------------------------------------
 
 [[on-window-detected]]
 if.app-id = 'com.axosoft.gitkraken'
-run = "move-node-to-workspace DevTools"
+run = "move-node-to-workspace 󰊢"
 
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
-run = "move-node-to-workspace DevTools"
+run = "move-node-to-workspace 󰊢"
 
 # IDEs
 # ------------------------------------------------------------------------------
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'com.krill.CodeRunner'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.PhpStorm'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'com.todesktop.230313mzl4w4u92'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.WebStorm'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.intellij'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'de.beyondco.tinkerwell'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.dt.Xcode'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'be.spatie.ray'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
 if.app-id = 'dev.kiro.desktop'
-run = "move-node-to-workspace IDE"
+run = "move-node-to-workspace 󰨞"
 
 # Messages
 # ------------------------------------------------------------------------------
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
-run = "move-node-to-workspace Messaging"
+run = "move-node-to-workspace 󰍡"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
-run = "move-node-to-workspace Messaging"
+run = "move-node-to-workspace 󰍡"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
-run = "move-node-to-workspace Messaging"
+run = "move-node-to-workspace 󰍡"
 
 # Others
 # ------------------------------------------------------------------------------
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = "move-node-to-workspace 1"
+run = "move-node-to-workspace 󰋜"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = "move-node-to-workspace 1"
+run = "move-node-to-workspace 󰋜"
 
 [[on-window-detected]]
 if.app-id = 'com.tinyapp.TablePlus'
-run = "move-node-to-workspace 1"
+run = "move-node-to-workspace 󰋜"
 
 [[on-window-detected]]
 if.app-id = 'io.beekeeperstudio.desktop'
-run = "move-node-to-workspace 1"
+run = "move-node-to-workspace 󰋜"
 
 # Claude
 # ------------------------------------------------------------------------------
 
 [[on-window-detected]]
 if.app-id = 'com.claude.Claude'
-run = "move-node-to-workspace Claude"
+run = "move-node-to-workspace 󰚩"
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
-run = "move-node-to-workspace Claude"
+run = "move-node-to-workspace 󰚩"
 
 [[on-window-detected]]
 if.app-id = 'com.conductor.app'
-run = "move-node-to-workspace Claude"
+run = "move-node-to-workspace 󰚩"
 
 # Superwhisper
 # ------------------------------------------------------------------------------

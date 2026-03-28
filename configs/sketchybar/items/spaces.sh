@@ -87,3 +87,23 @@ sketchybar --add item space_creator left                  \
            --set space_creator "${space_creator[@]}"      \
                  script="$PLUGIN_DIR/space_windows.sh"    \
            --subscribe space_creator aerospace_workspace_change
+
+# Active workspace indicator
+FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
+
+active_space=(
+  icon="$FOCUSED_WORKSPACE"
+  padding_left=3
+  icon.font="$NERD_FONT:Heavy:16.0"
+  icon.color=$AEROSPACE_ACTIVE_TEXT_COLOR
+  icon.padding_left=8
+  icon.padding_right=8
+  label.drawing=off
+  background.height=26
+  background.color=$AEROSPACE_ACTIVE_BG_COLOR
+)
+
+sketchybar --add item active_space left                  \
+           --set active_space "${active_space[@]}"       \
+                 script="$PLUGIN_DIR/active_space.sh"    \
+           --subscribe active_space aerospace_workspace_change

@@ -113,6 +113,10 @@ var brewCasks = []caskPkg{
 	{name: "sketch", url: "https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb"},
 	{name: "wezterm"},
 	{name: "vivid-app"},
+	{name: "superwhisper"},
+	{name: "devcleaner"},
+	{name: "beekeeper-studio"},
+	{name: "ngrok"},
 }
 
 var masApps = []masApp{
@@ -124,6 +128,8 @@ func packageSteps() []Step {
 	return []Step{
 		{Name: "install-brew", Desc: "\uf487 Homebrew formulae", Run: stepInstallBrew},
 		{Name: "install-casks", Desc: "\uf487 Homebrew casks", Run: stepInstallCasks},
+		{Name: "upgrade-brew", Desc: "\uf487 Upgrade Homebrew formulae", Run: stepUpgradeBrew},
+		{Name: "upgrade-casks", Desc: "\uf487 Upgrade Homebrew casks", Run: stepUpgradeCasks},
 		{Name: "install-mas", Desc: "\uf179 AppStore apps", Run: stepInstallMas},
 		{Name: "install-nvm", Desc: "\U000f0399 NVM", Run: stepInstallNVM},
 		{Name: "install-linux-extras", Desc: "\uf17c Linux extras", Run: stepLinuxExtras},
@@ -354,6 +360,111 @@ func installBrewCasks(ctx *Context) StepResult {
 	return StepResult{Logs: logs}
 }
 
+// ── Brew upgrades ──
+
+func stepUpgradeBrew(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only — skipping"}}
+	}
+
+	installed := brewInstalledFormulae()
+	var toUpgrade []string
+	var logs []string
+
+	for _, pkg := range brewFormulae {
+		if ignoredPackages[pkg.name] {
+			logs = append(logs, fmt.Sprintf("%s (ignored)", pkg.name))
+			continue
+		}
+		if !installed[pkg.name] {
+			continue
+		}
+		fullName := pkg.name
+		if pkg.tap != "" {
+			fullName = pkg.tap + "/" + pkg.name
+		}
+		toUpgrade = append(toUpgrade, fullName)
+	}
+
+	if len(toUpgrade) == 0 {
+		logs = append(logs, "nothing to upgrade")
+		return StepResult{Logs: logs}
+	}
+
+	if ctx.DryRun {
+		for _, name := range toUpgrade {
+			logs = append(logs, fmt.Sprintf("%s (would upgrade)", name))
+		}
+		return StepResult{Logs: logs}
+	}
+
+	var hasErr bool
+	for _, name := range toUpgrade {
+		if err := run("brew", "upgrade", name); err != nil {
+			logs = append(logs, fmt.Sprintf("%s (failed: %s)", name, err))
+			hasErr = true
+		} else {
+			logs = append(logs, fmt.Sprintf("%s (upgraded)", name))
+		}
+	}
+
+	if hasErr {
+		return StepResult{Logs: logs, Err: errorString("some formulae failed to upgrade")}
+	}
+	return StepResult{Logs: logs}
+}
+
+func stepUpgradeCasks(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only — skipping"}}
+	}
+
+	installed := brewInstalledCasks()
+	var toUpgrade []string
+	var logs []string
+
+	for _, cask := range brewCasks {
+		if ignoredPackages[cask.name] {
+			logs = append(logs, fmt.Sprintf("%s (ignored)", cask.name))
+			continue
+		}
+		checkName := cask.name
+		if parts := strings.Split(cask.name, "/"); len(parts) > 1 {
+			checkName = parts[len(parts)-1]
+		}
+		if !installed[checkName] {
+			continue
+		}
+		toUpgrade = append(toUpgrade, cask.name)
+	}
+
+	if len(toUpgrade) == 0 {
+		logs = append(logs, "nothing to upgrade")
+		return StepResult{Logs: logs}
+	}
+
+	if ctx.DryRun {
+		for _, name := range toUpgrade {
+			logs = append(logs, fmt.Sprintf("%s (would upgrade)", name))
+		}
+		return StepResult{Logs: logs}
+	}
+
+	var hasErr bool
+	for _, name := range toUpgrade {
+		if err := run("brew", "upgrade", "--cask", name); err != nil {
+			logs = append(logs, fmt.Sprintf("%s (failed: %s)", name, err))
+			hasErr = true
+		} else {
+			logs = append(logs, fmt.Sprintf("%s (upgraded)", name))
+		}
+	}
+
+	if hasErr {
+		return StepResult{Logs: logs, Err: errorString("some casks failed to upgrade")}
+	}
+	return StepResult{Logs: logs}
+}
 
 // ── NVM ──
 

@@ -213,6 +213,8 @@ func (m Model) scheduleDemoTick() tea.Cmd {
 		"load-config":     200 * time.Millisecond,
 		"install-brew":    1200 * time.Millisecond,
 		"install-casks":   900 * time.Millisecond,
+		"upgrade-brew":    800 * time.Millisecond,
+		"upgrade-casks":   600 * time.Millisecond,
 		"install-mas":     700 * time.Millisecond,
 		"macos-defaults":  600 * time.Millisecond,
 		"restart-apps":    400 * time.Millisecond,

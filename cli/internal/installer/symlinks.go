@@ -22,7 +22,6 @@ func symlinkSteps() []Step {
 		{Name: "link-cursor", Desc: "\U000f0a1e Cursor", Run: stepLinkCursor},
 		{Name: "link-ghostty", Desc: "\U000f02a0 Ghostty", Run: stepLinkGhostty},
 		{Name: "link-git", Desc: "\ue702 Git", Run: stepLinkGit},
-		{Name: "link-hazel", Desc: "\uede4 Hazel", Run: stepLinkHazel},
 		{Name: "link-k9s", Desc: "\U000f10fe K9s", Run: stepLinkK9s},
 		{Name: "link-karabiner", Desc: "\U000f030c Karabiner-Elements", Run: stepLinkKarabiner},
 		{Name: "link-lazygit", Desc: "\ue702 Lazygit", Run: stepLinkLazygit},

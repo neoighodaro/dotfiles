@@ -355,6 +355,10 @@ run = "move-node-to-workspace 󰚩"
 if.app-id = 'com.conductor.app'
 run = "move-node-to-workspace 󰚩"
 
+[[on-window-detected]]
+if.app-id = 'com.t3tools.t3code'
+run = "move-node-to-workspace 󰚩"
+
 # Superwhisper
 # ------------------------------------------------------------------------------
 

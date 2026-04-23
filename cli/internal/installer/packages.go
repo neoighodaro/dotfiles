@@ -84,7 +84,6 @@ var aptPackages = []string{
 
 var brewCasks = []caskPkg{
 	{name: "cursor"},
-	{name: "claude-code"},
 	{name: "ghostty"},
 	{name: "affinity"},
 	{name: "1password"},

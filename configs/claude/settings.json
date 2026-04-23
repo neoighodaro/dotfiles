@@ -86,9 +86,8 @@
   "enabledPlugins": {
     "commit-commands@claude-code-plugins": true,
     "claude-dashboard@claude-dashboard": true,
-    "swift-lsp@claude-plugins-official": true,
     "worktrunk@worktrunk": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "context7@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "worktrunk": {

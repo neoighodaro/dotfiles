@@ -65,6 +65,6 @@ layout {
     // -------------------------------------------------------------------------------------
 
     tab name="Main" split_direction="vertical" borderless=true {
-        pane focus=true name=" " borderless=true
+        pane focus=true name=" " borderless=false
     }
 }

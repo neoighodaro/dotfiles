@@ -7,7 +7,7 @@ local IS_LINUX=$(uname -s | grep -i "linux" | wc -l | tr -d '[:space:]')
 # ------------------------------------------------------------------------------
 export DOTFILES_DIR="$HOME/Developer/dotfiles"
 export CK_INFRA_DIR="$HOME/Developer/ck/infra"
-export PATH="$HOME/Developer/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/Developer/bin:$PATH"
 export ANSIBLE_CONFIG="$HOME/.config/ansible/ansible.cfg"
 
 # Bun

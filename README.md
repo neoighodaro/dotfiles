@@ -49,7 +49,7 @@ Configs are symlinked from `configs/` into `$HOME`. Platform-specific variants a
 
 **Homebrew formulas** — starship, eza, bat, zoxide, fzf, zellij, lazygit, git-delta, bun, ripgrep, fd, jq, gnupg, and more.
 
-**Homebrew casks** — Ghostty, Cursor, Claude Code, Docker, 1Password, Arc, Raycast, AeroSpace, and more.
+**Homebrew casks** — Ghostty, Cursor, Docker, 1Password, Arc, Raycast, AeroSpace, and more.
 
 **Linux** — a curated subset installed via apt.
 

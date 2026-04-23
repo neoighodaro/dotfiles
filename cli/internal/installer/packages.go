@@ -130,6 +130,7 @@ func packageSteps() []Step {
 		{Name: "upgrade-brew", Desc: "\uf487 Upgrade Homebrew formulae", Run: stepUpgradeBrew},
 		{Name: "upgrade-casks", Desc: "\uf487 Upgrade Homebrew casks", Run: stepUpgradeCasks},
 		{Name: "install-mas", Desc: "\uf179 AppStore apps", Run: stepInstallMas},
+		{Name: "install-claude-code", Desc: "\U000f06a9 Claude Code", Run: stepInstallClaudeCode},
 		{Name: "install-nvm", Desc: "\U000f0399 NVM", Run: stepInstallNVM},
 		{Name: "install-linux-extras", Desc: "\uf17c Linux extras", Run: stepLinuxExtras},
 	}
@@ -495,6 +496,27 @@ func stepInstallNVM(ctx *Context) StepResult {
 	}
 
 	return StepResult{Logs: []string{"NVM installed"}}
+}
+
+// ── Claude Code ──
+
+func stepInstallClaudeCode(ctx *Context) StepResult {
+	if _, err := exec.LookPath("claude"); err == nil {
+		return StepResult{Logs: []string{"Claude Code already installed"}}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{"would install Claude Code via native installer"}}
+	}
+
+	if err := run("bash", "-c", "curl -fsSL https://claude.ai/install.sh | bash"); err != nil {
+		return StepResult{
+			Logs: []string{fmt.Sprintf("Claude Code install failed: %s", err)},
+			Err:  err,
+		}
+	}
+
+	return StepResult{Logs: []string{"Claude Code installed"}}
 }
 
 // ── Linux extras (FZF, Starship, Docker) ──

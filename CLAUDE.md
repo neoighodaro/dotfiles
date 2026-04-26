@@ -1,7 +1,7 @@
 # Build
 
 ```sh
-cd cli && go build -o cli/strap .
+cd cli && go build -o strap .
 ```
 
 # Install
@@ -9,5 +9,5 @@ cd cli && go build -o cli/strap .
 Copy the built binary to the scripts directory (symlinked from `~/Developer/bin`):
 
 ```sh
-cp cli/strap $DOTFILES_DIR/scripts/strap
+cp strap $DOTFILES_DIR/scripts/strap
 ```

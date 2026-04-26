@@ -1,0 +1,22 @@
+{
+  "favoriteModelIDs" : [
+
+  ],
+  "modeKeys" : [
+    "custom",
+    "super",
+    "default",
+    "message",
+    "note"
+  ],
+  "replacements" : [
+    {
+      "id" : "3F5C798B-6811-4A84-82BD-0092AE941D08",
+      "original" : "super whisper",
+      "with" : "Superwhisper"
+    }
+  ],
+  "vocabulary" : [
+    "Superwhisper"
+  ]
+}

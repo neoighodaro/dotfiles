@@ -87,7 +87,8 @@
     "commit-commands@claude-code-plugins": true,
     "claude-dashboard@claude-dashboard": true,
     "worktrunk@worktrunk": true,
-    "context7@claude-plugins-official": true
+    "context7@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "worktrunk": {
@@ -98,8 +99,8 @@
     }
   },
   "effortLevel": "medium",
-  "voiceEnabled": false,
   "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710
   }

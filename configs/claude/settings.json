@@ -98,10 +98,12 @@
       }
     }
   },
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
+  "preferredNotifChannel": "ghostty",
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710
-  }
+  },
+  "skipAutoPermissionPrompt": true
 }

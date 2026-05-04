@@ -51,8 +51,8 @@ fccx() {
 
 # Nushell-powered ls
 if type nu &>/dev/null; then
-  l()  { nu -c "ls $*" }
-  ls() { nu -c "ls $*" }
-  ll() { nu -c "ls -l $*" }
-  la() { nu -c "ls -la $*" }
+  l()  { nu -c "ls ${(qq)@}" }
+  ls() { nu -c "ls ${(qq)@}" }
+  ll() { nu -c "ls -l ${(qq)@}" }
+  la() { nu -c "ls -la ${(qq)@}" }
 fi

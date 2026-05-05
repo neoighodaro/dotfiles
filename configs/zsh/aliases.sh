@@ -9,8 +9,10 @@ alias clr="clear"
 alias k="kubectl"
 alias lg="lazygit"
 alias nano="vi"
-[[ $IS_MACOS -eq 1 ]] && alias cat="bat"
-[[ $IS_LINUX -eq 1 ]] && alias cat="batcat"
+[[ $IS_MACOS -eq 1 ]] && alias cat="bat --paging=never"
+[[ $IS_LINUX -eq 1 ]] && alias cat="batcat --paging=never"
+[[ $IS_MACOS -eq 1 ]] && alias catp="bat --paging=always"
+[[ $IS_LINUX -eq 1 ]] && alias catp="batcat --paging=always"
 [[ $IS_MACOS -eq 1 ]] && alias rm="trash"
 alias refresh='source ~/.zshrc; echo "Reloaded .zshrc."'
 alias reload='source ~/.zshrc; echo "Reloaded .zshrc."'

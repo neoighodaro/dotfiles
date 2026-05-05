@@ -28,7 +28,6 @@ func symlinkSteps() []Step {
 		{Name: "link-sketchybar", Desc: "\uee19 Sketchybar", Run: stepLinkSketchybar},
 		{Name: "link-ssh", Desc: "\U000f0306 SSH", Run: stepLinkSSH},
 		{Name: "link-starship", Desc: "\uf489 Starship", Run: stepLinkStarship},
-		{Name: "link-superwhisper", Desc: "\U000f036c Superwhisper", Run: stepLinkSuperwhisper},
 		{Name: "link-vscode", Desc: "\U000f0a1e VS Code", Run: stepLinkVSCode},
 		{Name: "link-wezterm", Desc: "\uf489 Wezterm", Run: stepLinkWezterm},
 		{Name: "link-worktrunk", Desc: "\U000f0493 Worktrunk", Run: stepLinkWorktrunk},
@@ -231,13 +230,6 @@ func stepLinkCursor(ctx *Context) StepResult {
 	return macOnly(ctx, []linkOpt{
 		required("vscode/keybindings.json", "Library/Application Support/Cursor/User/keybindings.json"),
 		required("vscode/settings.json", "Library/Application Support/Cursor/User/settings.json"),
-	})
-}
-
-func stepLinkSuperwhisper(ctx *Context) StepResult {
-	return macOnly(ctx, []linkOpt{
-		required("superwhisper/modes", "Documents/superwhisper/modes"),
-		required("superwhisper/settings", "Documents/superwhisper/settings"),
 	})
 }
 

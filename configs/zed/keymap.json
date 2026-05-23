@@ -113,5 +113,35 @@
         0
       ]
     }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "alt-cmd-[": "editor::Fold"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-.": "editor::ToggleFold"
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "cmd-k cmd-l": "editor::ToggleFold"
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "cmd-.": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "AgentPanel || MessageEditor > Editor",
+    "unbind": {
+      "cmd-.": "agent::ToggleProfileSelector"
+    }
   }
 ]

@@ -14,6 +14,13 @@
   "icon_theme": "Warm Charmed Icons",
   "theme": "Aura Dark",
   "theme_overrides": {
+    "Catppuccin Mocha": {
+      "border.variant": "#1E1E2E",
+      "border": "#1E1E2E",
+      "title_bar.background": "#1E1E2E",
+      "panel.background": "#1E1E2E",
+      "pane.focused_border": "#1E1E2E",
+    },
     "Aura Dark": {
       "border.variant": "#15141C",
       "border": "#15141C",
@@ -98,8 +105,35 @@
     "coloring": "indent_aware",
     "enabled": false,
   },
-  "ui_font_size": 16,
+  "ui_font_size": 17,
   "ui_font_family": "DankMono Nerd Font",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_size": 14.0,
+  "buffer_line_height": {
+    "custom": 2.5
+  },
+  "buffer_font_fallbacks": [
+    "DankMono Nerd Font",
+    "Operator Mono",
+    "MonoLisa"
+  ],
+  "terminal": {
+    "env": {},
+    "font_size": 14.0,
+    "line_height": {
+      "custom": 2.5,
+    },
+    "font_family": "JetBrainsMono Nerd Font",
+    "font_fallbacks": [
+      "DankMono Nerd Font",
+      "Operator Mono",
+      "MonoLisa"
+    ],
+  },
+  "current_line_highlight": "gutter",
+  "tab_size": 2,
+  "show_completion_documentation": false,
+  // "disable_ai": true,
   // ---------------------------------------------------------------------------------------------------
   // FORMATTING
   // ---------------------------------------------------------------------------------------------------
@@ -158,23 +192,6 @@
   "sticky_scroll": {
     "enabled": false,
   },
-  "buffer_font_fallbacks": [
-    "Operator Mono",
-    "MonoLisa"
-  ],
-  "buffer_font_family": "JetBrainsMono Nerd Font",
-  "terminal": {
-    "font_fallbacks": [
-      "Operator Mono",
-      "MonoLisa"
-    ],
-    "env": {},
-    "font_size": 14.0,
-    "font_family": "JetBrainsMono Nerd Font",
-    "line_height": {
-      "custom": 1.5,
-    },
-  },
   "search": {
     "include_ignored": false,
   },
@@ -226,6 +243,5 @@
     "diagnostics": false,
     "metrics": false,
   },
-  "base_keymap": "Cursor",
-  "buffer_font_size": 14.0
+  "base_keymap": "Cursor"
 }

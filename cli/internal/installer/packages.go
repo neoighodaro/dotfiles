@@ -113,7 +113,7 @@ var brewCasks = []caskPkg{
 	{name: "nikitabobko/tap/aerospace"},
 	{name: "ray"},
 	{name: "boop"},
-	{name: "tableplus"},
+	// {name: "tableplus"}, // pinned: staying on current version, don't auto-update for now
 	{name: "sensei"},
 	{name: "postman"},
 	{name: "tinkerwell"},

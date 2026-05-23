@@ -17,10 +17,19 @@ func finalizeSteps() []Step {
 
 // ── Launch apps ──
 
-var launchApps = []string{
-	"Raycast",
-	"Ice",
-	"AeroSpace",
+// launchApp is an app to open after install. proc is the process name used for
+// the "already running" check (pgrep -x). When bundleID is set, the app is
+// launched by bundle id (open -b) so the right build is opened unambiguously \u2014
+// e.g. Raycast Beta vs. the stable Raycast both resolve to the name "Raycast".
+type launchApp struct {
+	proc     string
+	bundleID string
+}
+
+var launchApps = []launchApp{
+	{proc: "Raycast Beta", bundleID: "com.raycast-x.macos"},
+	{proc: "Ice"},
+	{proc: "AeroSpace"},
 }
 
 func stepLaunchApps(ctx *Context) StepResult {
@@ -31,20 +40,27 @@ func stepLaunchApps(ctx *Context) StepResult {
 	var logs []string
 
 	for _, app := range launchApps {
-		if isAppRunning(app) {
-			logs = append(logs, fmt.Sprintf("%s (already running)", app))
+		if isAppRunning(app.proc) {
+			logs = append(logs, fmt.Sprintf("%s (already running)", app.proc))
 			continue
 		}
 
 		if ctx.DryRun {
-			logs = append(logs, fmt.Sprintf("%s (would launch)", app))
+			logs = append(logs, fmt.Sprintf("%s (would launch)", app.proc))
 			continue
 		}
 
-		if err := run("open", "-a", app); err != nil {
-			logs = append(logs, fmt.Sprintf("%s (failed: %s)", app, err))
+		var err error
+		if app.bundleID != "" {
+			err = run("open", "-b", app.bundleID)
 		} else {
-			logs = append(logs, fmt.Sprintf("%s (launched)", app))
+			err = run("open", "-a", app.proc)
+		}
+
+		if err != nil {
+			logs = append(logs, fmt.Sprintf("%s (failed: %s)", app.proc, err))
+		} else {
+			logs = append(logs, fmt.Sprintf("%s (launched)", app.proc))
 		}
 	}
 

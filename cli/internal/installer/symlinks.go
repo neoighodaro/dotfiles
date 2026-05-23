@@ -236,7 +236,7 @@ func stepLinkCursor(ctx *Context) StepResult {
 }
 
 func stepLinkZed(ctx *Context) StepResult {
-	return runLinks(ctx, []linkOpt{
+	return macOnly(ctx, []linkOpt{
 		required("zed/settings.json", ".config/zed/settings.json"),
 		required("zed/keymap.json", ".config/zed/keymap.json"),
 		required("zed/snippets", ".config/zed/snippets"),

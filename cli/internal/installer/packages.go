@@ -34,6 +34,16 @@ var ignoredPackages = map[string]bool{
 	"jordanbaird-ice": true,
 }
 
+// defaultUpgradeCasks is the curated subset of casks upgraded on every
+// `strap install`. Anything outside this set requires --with-casks.
+var defaultUpgradeCasks = map[string]bool{
+	"wezterm":                        true,
+	"nikitabobko/tap/aerospace":      true,
+	"font-jetbrains-mono-nerd-font":  true,
+	"font-hack-nerd-font":            true,
+	"font-sf-pro":                    true,
+}
+
 // ── Package lists ──
 
 var brewFormulae = []brewPkg{
@@ -68,6 +78,7 @@ var brewFormulae = []brewPkg{
 	{name: "nushell"},
 	{name: "worktrunk"},
 	{name: "1password-cli"},
+	{name: "sbx", tap: "docker/tap"},
 }
 
 var aptPackages = []string{
@@ -423,9 +434,16 @@ func stepUpgradeCasks(ctx *Context) StepResult {
 	var toUpgrade []string
 	var logs []string
 
+	if !ctx.WithCasks {
+		logs = append(logs, "upgrading curated subset only (pass --with-casks for all)")
+	}
+
 	for _, cask := range brewCasks {
 		if ignoredPackages[cask.name] {
 			logs = append(logs, fmt.Sprintf("%s (ignored)", cask.name))
+			continue
+		}
+		if !ctx.WithCasks && !defaultUpgradeCasks[cask.name] {
 			continue
 		}
 		checkName := cask.name

@@ -252,6 +252,10 @@ run = "move-node-to-workspace 󰖟"
 if.app-id = 'app.zen-browser.zen'
 run = "move-node-to-workspace 󰖟"
 
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+run = "move-node-to-workspace 󰖟"
+
 # Dev Tools
 # ------------------------------------------------------------------------------
 
@@ -262,6 +266,10 @@ run = "move-node-to-workspace 󰊢"
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
 run = "move-node-to-workspace 󰊢"
+
+[[on-window-detected]]
+if.app-id = 'com.electron.dockerdesktop'
+run = "move-node-to-workspace 2"
 
 # IDEs
 # ------------------------------------------------------------------------------

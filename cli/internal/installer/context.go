@@ -13,10 +13,11 @@ type Context struct {
 	HomeDir    string
 	DotfilesDir string
 	DryRun     bool
+	WithCasks  bool
 }
 
 // NewContext builds the installer context.
-func NewContext(dryRun bool) *Context {
+func NewContext(dryRun, withCasks bool) *Context {
 	home, _ := os.UserHomeDir()
 
 	// Default to cwd (run strap from the dotfiles repo root)
@@ -32,5 +33,6 @@ func NewContext(dryRun bool) *Context {
 		HomeDir:     home,
 		DotfilesDir: dotfiles,
 		DryRun:      dryRun,
+		WithCasks:   withCasks,
 	}
 }

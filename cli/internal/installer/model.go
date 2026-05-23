@@ -45,7 +45,7 @@ type Model struct {
 const headerHeight = 7
 
 // New creates a new installer model.
-func New(dryRun bool, demo bool) Model {
+func New(dryRun, withCasks, demo bool) Model {
 	s := spinner.New()
 	s.Spinner = spinner.Spinner{
 		Frames: []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"},
@@ -53,10 +53,21 @@ func New(dryRun bool, demo bool) Model {
 	}
 	s.Style = lipgloss.NewStyle().Foreground(ui.Orange)
 
+	sections := Plan()
+	if !withCasks {
+		for si := range sections {
+			for i := range sections[si].Steps {
+				if sections[si].Steps[i].Name == "upgrade-casks" {
+					sections[si].Steps[i].Desc = " Upgrading some Homebrew casks"
+				}
+			}
+		}
+	}
+
 	return Model{
-		sections:  Plan(),
+		sections:  sections,
 		spinner:   s,
-		ctx:       NewContext(dryRun),
+		ctx:       NewContext(dryRun, withCasks),
 		dryRun:    dryRun,
 		platform:  platform.Detect(),
 		startTime: time.Now(),

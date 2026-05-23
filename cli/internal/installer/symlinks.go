@@ -33,6 +33,7 @@ func symlinkSteps() []Step {
 		{Name: "link-worktrunk", Desc: "\U000f0493 Worktrunk", Run: stepLinkWorktrunk},
 		{Name: "link-zellij", Desc: "\uf0db Zellij", Run: stepLinkZellij},
 		{Name: "link-zsh", Desc: "\uf489 ZSH", Run: stepLinkZsh},
+		{Name: "link-pnpm", Desc: "\U000f0717 pnpm", Run: stepLinkPnpm},
 		{Name: "link-misc", Desc: "\uf141 Miscellaneous", Run: stepLinkMisc},
 	}
 }
@@ -239,11 +240,20 @@ func stepLinkAnsible(ctx *Context) StepResult {
 	})
 }
 
+func stepLinkPnpm(ctx *Context) StepResult {
+	return runLinks(ctx, []linkOpt{
+		required("pnpm/config.yaml", ".config/pnpm/config.yaml"),
+	})
+}
+
 func stepLinkMisc(ctx *Context) StepResult {
 	return runLinks(ctx, []linkOpt{
 		required("curlrc", ".curlrc"),
 		required("hushlogin", ".hushlogin"),
 		required("wgetrc", ".wgetrc"),
 		required("screenrc", ".screenrc"),
+		required("bunfig.toml", ".bunfig.toml"),
+		required("npmrc", ".npmrc"),
+		required("yarnrc.yml", ".yarnrc.yml"),
 	})
 }

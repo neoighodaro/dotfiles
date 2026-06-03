@@ -121,7 +121,6 @@ var brewCasks = []caskPkg{
 	{name: "gitkraken"},
 	{name: "karabiner-elements"},
 	{name: "font-sf-pro"},
-	{name: "sketch", url: "https://raw.githubusercontent.com/Homebrew/homebrew-cask/5c951dd3412c1ae1764924888f29058ed0991162/Casks/s/sketch.rb"},
 	{name: "wezterm"},
 	{name: "vivid-app"},
 	{name: "superwhisper"},
@@ -133,6 +132,19 @@ var brewCasks = []caskPkg{
 var masApps = []masApp{
 	{name: "DropOver", id: "1355679052"},
 	{name: "RocketSim", id: "1504940162"},
+}
+
+// sketchPin is the licensed Sketch version, installed directly from Sketch's
+// download server rather than Homebrew (the license is version-capped, so we
+// pin the newest version the license entitles us to). Bump both fields
+// together after a license renewal. Sketch is intentionally NOT under
+// Homebrew management and will not appear in `brew list --cask`.
+var sketchPin = struct {
+	version string // CFBundleShortVersionString, e.g. "100.4"
+	url     string // direct .zip from download.sketch.com
+}{
+	version: "100.4",
+	url:     "https://download.sketch.com/sketch-100.4-180172.zip",
 }
 
 func packageSteps() []Step {

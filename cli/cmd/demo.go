@@ -13,7 +13,7 @@ var demoCmd = &cobra.Command{
 	Short: "Preview the installer TUI",
 	Long:  "Runs a simulated installation to preview the TUI without making any changes.",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		m := installer.New(true, true)
+		m := installer.New(true, true, false, true)
 		p := tea.NewProgram(m, tea.WithAltScreen())
 		if _, err := p.Run(); err != nil {
 			return fmt.Errorf("demo failed: %w", err)

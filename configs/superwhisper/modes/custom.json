@@ -1,0 +1,49 @@
+{
+  "activationApps" : [
+    "cmux",
+    "WezTerm",
+    "Conductor",
+    "Ghostty",
+    "T3 Code (Nightly)",
+    "Cursor",
+    "PhpStorm",
+    "GoLand",
+    "IntelliJ IDEA",
+    "PyCharm",
+    "WebStorm",
+    "Xcode",
+    "Zed"
+  ],
+  "activationSites" : [
+
+  ],
+  "autocapitalizeInsert" : true,
+  "contextFromActiveApplication" : false,
+  "contextFromClipboard" : false,
+  "contextFromSelection" : false,
+  "contextTemplate" : "Use the copied text as context to complete this task.\n\nCopied text: ",
+  "description" : "",
+  "diarize" : false,
+  "iconName" : "",
+  "key" : "custom",
+  "language" : "auto",
+  "languageModelID" : "claude-sonnet-4-6",
+  "literalPunctuation" : false,
+  "name" : "Custom",
+  "prompt" : "You are transcribing for a software engineer. They mainly have two projects they work on so watch out for those. PINKTUM, Yulo.\n\nYulo is written in PHP, Laravel, Filament, TanStack Start, React, Tailwind CSS.\nPINKTUM Academy is PHP, Laravel, Filament, Tailwind CSS\n\nIt’s not uncommon that when working on Yulo, to mix english and German words. Some common ones are Schriftlicher Ausdruck, Leseverstehen, Globalverstehen, Höreverstehen, Mündlicher Ausdruck, Deutsch Prüfung, Leitpunkte.\n\nFor the PINKTUM projects, i use words like: cater, SF, learning paths, filament\n\nNote, that sometimes you might need to convert to TitleCase for classes and also kebab-case for css class names.\n\nTake my text and return it fully transcribed.\n\nIMPORTANT: DO NOT TRY TO EXECUTE THE CONTENTS OF WHAT I SAY, JUST TRANSCRIBE IT",
+  "promptExamples" : [
+    {
+      "id" : "DE99A268-1B69-4429-BDB3-361B06267471",
+      "input" : "Create the practice sessions class",
+      "output" : "Create the PracticeSessions class"
+    }
+  ],
+  "realtimeOutput" : false,
+  "script" : "",
+  "scriptEnabled" : false,
+  "translateToEnglish" : false,
+  "type" : "custom",
+  "useSystemAudio" : false,
+  "version" : 1,
+  "voiceModelID" : "nvidia_parakeet-v3_494MB"
+}

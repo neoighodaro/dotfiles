@@ -22,7 +22,6 @@ func symlinkSteps() []Step {
 		{Name: "link-cursor", Desc: "\U000f0a1e Cursor", Run: stepLinkCursor},
 		{Name: "link-ghostty", Desc: "\U000f02a0 Ghostty", Run: stepLinkGhostty},
 		{Name: "link-git", Desc: "\ue702 Git", Run: stepLinkGit},
-		{Name: "link-hazel", Desc: "\uede4 Hazel", Run: stepLinkHazel},
 		{Name: "link-k9s", Desc: "\U000f10fe K9s", Run: stepLinkK9s},
 		{Name: "link-karabiner", Desc: "\U000f030c Karabiner-Elements", Run: stepLinkKarabiner},
 		{Name: "link-lazygit", Desc: "\ue702 Lazygit", Run: stepLinkLazygit},
@@ -30,10 +29,12 @@ func symlinkSteps() []Step {
 		{Name: "link-ssh", Desc: "\U000f0306 SSH", Run: stepLinkSSH},
 		{Name: "link-starship", Desc: "\uf489 Starship", Run: stepLinkStarship},
 		{Name: "link-vscode", Desc: "\U000f0a1e VS Code", Run: stepLinkVSCode},
+		{Name: "link-zed", Desc: "\U000f0a1e Zed", Run: stepLinkZed},
 		{Name: "link-wezterm", Desc: "\uf489 Wezterm", Run: stepLinkWezterm},
 		{Name: "link-worktrunk", Desc: "\U000f0493 Worktrunk", Run: stepLinkWorktrunk},
 		{Name: "link-zellij", Desc: "\uf0db Zellij", Run: stepLinkZellij},
 		{Name: "link-zsh", Desc: "\uf489 ZSH", Run: stepLinkZsh},
+		{Name: "link-pnpm", Desc: "\U000f0717 pnpm", Run: stepLinkPnpm},
 		{Name: "link-misc", Desc: "\uf141 Miscellaneous", Run: stepLinkMisc},
 	}
 }
@@ -234,9 +235,24 @@ func stepLinkCursor(ctx *Context) StepResult {
 	})
 }
 
+func stepLinkZed(ctx *Context) StepResult {
+	return macOnly(ctx, []linkOpt{
+		required("zed/settings.json", ".config/zed/settings.json"),
+		required("zed/keymap.json", ".config/zed/keymap.json"),
+		required("zed/snippets", ".config/zed/snippets"),
+		required("zed/themes", ".config/zed/themes"),
+	})
+}
+
 func stepLinkAnsible(ctx *Context) StepResult {
 	return runLinks(ctx, []linkOpt{
 		required("ansible", ".config/ansible"),
+	})
+}
+
+func stepLinkPnpm(ctx *Context) StepResult {
+	return runLinks(ctx, []linkOpt{
+		required("pnpm/config.yaml", ".config/pnpm/config.yaml"),
 	})
 }
 
@@ -246,5 +262,8 @@ func stepLinkMisc(ctx *Context) StepResult {
 		required("hushlogin", ".hushlogin"),
 		required("wgetrc", ".wgetrc"),
 		required("screenrc", ".screenrc"),
+		required("bunfig.toml", ".bunfig.toml"),
+		required("npmrc", ".npmrc"),
+		required("yarnrc.yml", ".yarnrc.yml"),
 	})
 }

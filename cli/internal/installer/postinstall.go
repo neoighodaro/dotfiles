@@ -22,7 +22,6 @@ func postInstallSteps() []Step {
 		{Name: "zellij-plugins", Desc: "\uf0db Zellij plugins", Run: stepZellijPlugins},
 		{Name: "default-browser", Desc: "\U000f0288 Default browser", Run: stepDefaultBrowser},
 		{Name: "folder-icons", Desc: "\U000f024b Folder icons", Run: stepFolderIcons},
-		{Name: "install-vivid", Desc: "\U000f00be Vivid", Run: stepInstallVivid},
 	}
 }
 
@@ -456,43 +455,3 @@ func stepFolderIcons(ctx *Context) StepResult {
 	return StepResult{Logs: logs}
 }
 
-// ── Vivid ──
-
-func stepInstallVivid(ctx *Context) StepResult {
-	if ctx.Platform != platform.MacOS {
-		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
-	}
-
-	if isMacAppInstalled("Vivid") {
-		return StepResult{Logs: []string{"Vivid already installed"}}
-	}
-
-	if ctx.DryRun {
-		return StepResult{Logs: []string{"would download and install Vivid"}}
-	}
-
-	downloadsDir := filepath.Join(ctx.HomeDir, "Downloads")
-	zipPath := filepath.Join(downloadsDir, "Vivid.zip")
-
-	// Download
-	if err := run("curl", "-L",
-		"https://lumen-digital.com/apps/vivid/download_ref?ref=https://www.getvivid.app",
-		"-o", zipPath); err != nil {
-		return StepResult{Logs: []string{fmt.Sprintf("download failed: %s", err)}, Err: err}
-	}
-
-	// Unzip
-	if err := run("unzip", "-o", zipPath, "-d", downloadsDir); err != nil {
-		_ = os.Remove(zipPath)
-		return StepResult{Logs: []string{fmt.Sprintf("unzip failed: %s", err)}, Err: err}
-	}
-
-	// Move to Applications
-	if err := run("mv", filepath.Join(downloadsDir, "Vivid.app"), "/Applications/"); err != nil {
-		_ = os.Remove(zipPath)
-		return StepResult{Logs: []string{fmt.Sprintf("move to /Applications failed: %s", err)}, Err: err}
-	}
-
-	_ = os.Remove(zipPath)
-	return StepResult{Logs: []string{"Vivid installed"}}
-}

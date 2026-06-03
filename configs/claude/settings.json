@@ -1,97 +1,113 @@
 {
-  "permissions": {
-    "allow": [
-      "mcp__pencil"
-    ]
-  },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/hooks/pre-tool-use/block-dangerous-commands.js"
-          }
-        ]
-      },
-      {
-        "matcher": "Read|Edit|Write|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/hooks/pre-tool-use/protect-secrets.js"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "touch /tmp/claude-busy"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "rm -f /tmp/claude-busy"
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "rm -f /tmp/claude-busy"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay -v 15 /System/Library/Sounds/Pop.aiff"
-          }
-        ]
-      }
-    ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.4.2/dist/index.js"
-  },
-  "enabledPlugins": {
-    "commit-commands@claude-code-plugins": true,
-    "claude-dashboard@claude-dashboard": true,
-    "swift-lsp@claude-plugins-official": true,
-    "worktrunk@worktrunk": true
-  },
-  "extraKnownMarketplaces": {
-    "worktrunk": {
-      "source": {
-        "source": "github",
-        "repo": "max-sixty/worktrunk"
-      }
-    }
-  },
-  "effortLevel": "medium",
-  "voiceEnabled": false,
-  "skipDangerousModePermissionPrompt": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754129295710
-  }
+	"$schema": "https://json.schemastore.org/claude-code-settings.json",
+	"permissions": {},
+	"feedbackSurveyRate": 0,
+	"attribution": { "commit": "", "pr": "" },
+	"env": {
+		"CLAUDE_CODE_ENABLE_TELEMETRY": "0"
+	},
+	"hooks": {
+		"Notification": [
+			{
+				"matcher": "permission_prompt",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "afplay -v 15 /System/Library/Sounds/Pop.aiff"
+					}
+				]
+			}
+		],
+		"PreToolUse": [
+			{
+				"matcher": "Bash",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "node ~/.claude/hooks/pre-tool-use/block-dangerous-commands.js"
+					}
+				]
+			},
+			{
+				"matcher": "Read|Edit|Write|Bash",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "node ~/.claude/hooks/pre-tool-use/protect-secrets.js"
+					}
+				]
+			},
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "touch /tmp/claude-busy"
+					}
+				]
+			}
+		],
+		"SessionEnd": [
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "rm -f /tmp/claude-busy"
+					}
+				]
+			}
+		],
+		"Stop": [
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "rm -f /tmp/claude-busy"
+					}
+				]
+			}
+		],
+		"UserPromptSubmit": [
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "touch /tmp/claude-busy"
+					}
+				]
+			}
+		]
+	},
+	"statusLine": {
+		"type": "command",
+		"command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.4.2/dist/index.js"
+	},
+	"enabledPlugins": {
+		"commit-commands@claude-code-plugins": true,
+		"claude-dashboard@claude-dashboard": true,
+		"worktrunk@worktrunk": true,
+		"context7@claude-plugins-official": true,
+		"rust-analyzer-lsp@claude-plugins-official": true,
+		"superpowers@claude-plugins-official": true,
+		"security-guidance@claude-plugins-official": true
+	},
+	"extraKnownMarketplaces": {
+		"worktrunk": {
+			"source": {
+				"source": "github",
+				"repo": "max-sixty/worktrunk"
+			}
+		}
+	},
+	"effortLevel": "high",
+	"skipDangerousModePermissionPrompt": true,
+	"preferredNotifChannel": "ghostty",
+	"skipAutoPermissionPrompt": true,
+	"voiceEnabled": false,
+	"feedbackSurveyState": {
+		"lastShownTime": 1754129295710
+	}
 }

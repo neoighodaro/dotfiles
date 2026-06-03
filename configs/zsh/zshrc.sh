@@ -30,6 +30,8 @@ fi
 if [[ $OS == "linux" ]]; then
     if [[ ":$FPATH:" != *":/home/neo/.zsh/completions:"* ]]; then export FPATH="/home/neo/.zsh/completions:$FPATH"; fi
 fi
+autoload -Uz compinit && compinit
+if type ck &>/dev/null; then source <(ck completion zsh); fi
 
 # General Options
 # ------------------------------------------------------------------------------
@@ -63,9 +65,9 @@ SAVEHIST=200000
 
 # Set Up Line Editor
 # ------------------------------------------------------------------------------
-## Bind arrow keys to word cursor navigation
-bindkey "\e\e[C" forward-word
-bindkey "\e\e[D" backward-word
+## Bind arrow keys to word cursor navigation (CSI sequences from WezTerm)
+bindkey "\e[1;3D" backward-word
+bindkey "\e[1;3C" forward-word
 bindkey "^[a" beginning-of-line   # For iTerm. Preferences > Keys, set "Send escape sequence" to "a" and "e" for the desired key bindings.
 bindkey "^[e" end-of-line         # For iTerm. Preferences > Keys, set "Send escape sequence" to "a" and "e" for the desired key bindings.
 
@@ -228,7 +230,7 @@ zattach() {
 if type zellij &>/dev/null; then
   if [[ -z "$SSH_CONNECTION" && -z "$SSH_CLIENT" ]]; then
     DISABLED_TERMINAL_PROGRAMS=(vscode JetBrains-JediTerm)
-    if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]] && [[ -z "$CMUX_WORKSPACE_ID" ]] && [[ -z "$CONDUCTOR_WORKSPACE_NAME" ]]; then
+    if [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERM_PROGRAM " ]] && [[ ! " ${DISABLED_TERMINAL_PROGRAMS[@]} " =~ " $TERMINAL_EMULATOR " ]] && [[ -z "$CMUX_WORKSPACE_ID" ]] && [[ -z "$CONDUCTOR_WORKSPACE_NAME" ]] && [[ "$__CFBundleIdentifier" != "com.t3tools.t3code" ]] && [[ "$__CFBundleIdentifier" != "com.anthropic.claudefordesktop" ]]; then
         if [[ -z "$ZELLIJ" ]]; then
             zattach
         fi

@@ -1,0 +1,147 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-1": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "alt-cmd-b": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-cmd-b": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "cmd-b": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "unbind": {
+      "cmd-k": "assistant::InlineAssist"
+    }
+  },
+  {
+    "context": "Terminal",
+    "unbind": {
+      "cmd-k": "assistant::InlineAssist"
+    }
+  },
+  {
+    "context": "KeymapEditor",
+    "unbind": {
+      "cmd-k": "keymap_editor::OpenCreateKeybindingModal"
+    }
+  },
+  {
+    "context": "RecentProjects || RecentProjects > Picker > Editor",
+    "unbind": {
+      "cmd-k": "recent_projects::ToggleActionsMenu"
+    }
+  },
+  {
+    "context": "RecentProjects || RecentProjects > Picker > Editor",
+    "unbind": {
+      "cmd-k": "recent_projects::ToggleActionsMenu"
+    }
+  },
+  {
+    "context": "RecentProjects || RecentProjects > Picker > Editor",
+    "unbind": {
+      "cmd-k": "recent_projects::ToggleActionsMenu"
+    }
+  },
+  {
+    "context": "GitPicker",
+    "unbind": {
+      "cmd-1": "git_picker::ActivateBranchesTab"
+    }
+  },
+  {
+    "context": "ImageViewer",
+    "unbind": {
+      "cmd-1": "image_viewer::ZoomToActualSize"
+    }
+  },
+  {
+    "context": "RunModal",
+    "unbind": {
+      "cmd-1": "new_process_modal::ActivateTaskTab"
+    }
+  },
+  {
+    "context": "Welcome",
+    "unbind": {
+      "cmd-1": [
+        "welcome::OpenRecentProject",
+        0
+      ]
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "cmd-1": [
+        "workspace::ActivatePane",
+        0
+      ]
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "alt-cmd-[": "editor::Fold"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-.": "editor::ToggleFold"
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "cmd-k cmd-l": "editor::ToggleFold"
+    }
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "cmd-.": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "AgentPanel || MessageEditor > Editor",
+    "unbind": {
+      "cmd-.": "agent::ToggleProfileSelector"
+    }
+  }
+]

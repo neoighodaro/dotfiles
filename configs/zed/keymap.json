@@ -20,12 +20,6 @@
   },
   {
     "context": "Workspace",
-    "bindings": {
-      "cmd-1": "workspace::ToggleRightDock"
-    }
-  },
-  {
-    "context": "Workspace",
     "unbind": {
       "alt-cmd-b": "workspace::ToggleRightDock"
     }
@@ -142,6 +136,11 @@
     "context": "AgentPanel || MessageEditor > Editor",
     "unbind": {
       "cmd-.": "agent::ToggleProfileSelector"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-1": "project_panel::Toggle"
     }
   }
 ]

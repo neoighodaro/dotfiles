@@ -279,6 +279,10 @@ if.app-id = 'com.microsoft.VSCode'
 run = "move-node-to-workspace 󰨞"
 
 [[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = "move-node-to-workspace 󰨞"
+
+[[on-window-detected]]
 if.app-id = 'com.krill.CodeRunner'
 run = "move-node-to-workspace 󰨞"
 

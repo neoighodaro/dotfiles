@@ -151,6 +151,7 @@ func packageSteps() []Step {
 	return []Step{
 		{Name: "install-brew", Desc: "\uf487 Homebrew formulae", Run: stepInstallBrew},
 		{Name: "install-casks", Desc: "\uf487 Homebrew casks", Run: stepInstallCasks},
+		{Name: "install-sketch", Desc: "\uf487 Sketch", Run: stepInstallSketch},
 		{Name: "upgrade-brew", Desc: "\uf487 Upgrade Homebrew formulae", Run: stepUpgradeBrew},
 		{Name: "upgrade-casks", Desc: "\uf487 Upgrade Homebrew casks", Run: stepUpgradeCasks},
 		{Name: "install-mas", Desc: "\uf179 AppStore apps", Run: stepInstallMas},
@@ -550,6 +551,47 @@ func stepInstallClaudeCode(ctx *Context) StepResult {
 	return StepResult{Logs: []string{"Claude Code installed"}}
 }
 
+// ── Sketch ──
+
+func stepInstallSketch(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only — skipping"}}
+	}
+
+	installed, present := installedSketchVersion()
+
+	// Not installed → fresh install of the pin.
+	if !present {
+		if ctx.DryRun {
+			return StepResult{Logs: []string{fmt.Sprintf("would install Sketch %s", sketchPin.version)}}
+		}
+		if err := installSketch(); err != nil {
+			return StepResult{Logs: []string{fmt.Sprintf("Sketch install failed: %s", err)}, Err: err}
+		}
+		return StepResult{Logs: []string{fmt.Sprintf("Sketch %s (installed)", sketchPin.version)}}
+	}
+
+	switch compareSketchVersions(installed, sketchPin.version) {
+	case 0:
+		return StepResult{Logs: []string{fmt.Sprintf("Sketch %s (already installed)", installed)}}
+	case 1:
+		// Installed is newer than the pin — never downgrade.
+		return StepResult{Logs: []string{fmt.Sprintf("Sketch %s installed, newer than pin %s — leaving as-is", installed, sketchPin.version)}}
+	default:
+		// Installed is older than the pin — upgrade is opt-in.
+		if !ctx.UpgradeSketch {
+			return StepResult{Logs: []string{fmt.Sprintf("Sketch %s available (installed %s) — re-run with 'strap install --upgrade-sketch' to upgrade", sketchPin.version, installed)}}
+		}
+		if ctx.DryRun {
+			return StepResult{Logs: []string{fmt.Sprintf("would upgrade Sketch %s → %s", installed, sketchPin.version)}}
+		}
+		if err := installSketch(); err != nil {
+			return StepResult{Logs: []string{fmt.Sprintf("Sketch upgrade failed: %s", err)}, Err: err}
+		}
+		return StepResult{Logs: []string{fmt.Sprintf("Sketch upgraded %s → %s", installed, sketchPin.version)}}
+	}
+}
+
 // ── Linux extras (FZF, Starship, Docker) ──
 
 func stepLinuxExtras(ctx *Context) StepResult {
@@ -704,6 +746,59 @@ func brewInstalledFormulae() map[string]bool {
 // brewInstalledCasks returns a set of currently installed brew casks.
 func brewInstalledCasks() map[string]bool {
 	return cmdOutputSet("brew", "list", "--cask")
+}
+
+// installedSketchVersion returns the CFBundleShortVersionString of the
+// installed Sketch.app and whether it is present in /Applications.
+func installedSketchVersion() (string, bool) {
+	plist := "/Applications/Sketch.app/Contents/Info.plist"
+	if _, err := os.Stat(plist); err != nil {
+		return "", false
+	}
+	out, err := exec.Command("/usr/libexec/PlistBuddy", "-c", "Print :CFBundleShortVersionString", plist).Output()
+	if err != nil {
+		return "", false
+	}
+	return strings.TrimSpace(string(out)), true
+}
+
+// installSketch downloads the pinned Sketch zip and installs it into
+// /Applications, moving any existing Sketch.app to the Trash first. Uses
+// ditto for unzip and copy so code signatures and resource forks survive.
+func installSketch() error {
+	tmp, err := os.MkdirTemp("", "sketch-install-")
+	if err != nil {
+		return err
+	}
+	defer os.RemoveAll(tmp)
+
+	zipPath := filepath.Join(tmp, "Sketch.zip")
+	if err := run("curl", "-fsSL", "-o", zipPath, sketchPin.url); err != nil {
+		return fmt.Errorf("download failed: %w", err)
+	}
+	if err := run("ditto", "-x", "-k", zipPath, tmp); err != nil {
+		return fmt.Errorf("unzip failed: %w", err)
+	}
+
+	src := filepath.Join(tmp, "Sketch.app")
+	if _, err := os.Stat(src); err != nil {
+		return fmt.Errorf("Sketch.app not found in archive")
+	}
+
+	const dest = "/Applications/Sketch.app"
+	if _, err := os.Stat(dest); err == nil {
+		// Move the existing app to Trash (recoverable); fall back to delete.
+		if err := run("trash", dest); err != nil {
+			if err := os.RemoveAll(dest); err != nil {
+				return fmt.Errorf("could not remove existing Sketch.app: %w", err)
+			}
+		}
+	}
+
+	if err := run("ditto", src, dest); err != nil {
+		return fmt.Errorf("install to /Applications failed: %w", err)
+	}
+	return nil
 }
 
 // compareSketchVersions compares two dotted-numeric version strings.

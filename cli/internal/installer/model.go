@@ -45,7 +45,7 @@ type Model struct {
 const headerHeight = 7
 
 // New creates a new installer model.
-func New(dryRun, withCasks, demo bool) Model {
+func New(dryRun, withCasks, upgradeSketch, demo bool) Model {
 	s := spinner.New()
 	s.Spinner = spinner.Spinner{
 		Frames: []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"},
@@ -67,7 +67,7 @@ func New(dryRun, withCasks, demo bool) Model {
 	return Model{
 		sections:  sections,
 		spinner:   s,
-		ctx:       NewContext(dryRun, withCasks),
+		ctx:       NewContext(dryRun, withCasks, upgradeSketch),
 		dryRun:    dryRun,
 		platform:  platform.Detect(),
 		startTime: time.Now(),

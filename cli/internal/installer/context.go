@@ -9,15 +9,16 @@ import (
 
 // Context holds shared state for step execution.
 type Context struct {
-	Platform   platform.OS
-	HomeDir    string
-	DotfilesDir string
-	DryRun     bool
-	WithCasks  bool
+	Platform      platform.OS
+	HomeDir       string
+	DotfilesDir   string
+	DryRun        bool
+	WithCasks     bool
+	UpgradeSketch bool
 }
 
 // NewContext builds the installer context.
-func NewContext(dryRun, withCasks bool) *Context {
+func NewContext(dryRun, withCasks, upgradeSketch bool) *Context {
 	home, _ := os.UserHomeDir()
 
 	// Default to cwd (run strap from the dotfiles repo root)
@@ -29,10 +30,11 @@ func NewContext(dryRun, withCasks bool) *Context {
 	}
 
 	return &Context{
-		Platform:    platform.Detect(),
-		HomeDir:     home,
-		DotfilesDir: dotfiles,
-		DryRun:      dryRun,
-		WithCasks:   withCasks,
+		Platform:      platform.Detect(),
+		HomeDir:       home,
+		DotfilesDir:   dotfiles,
+		DryRun:        dryRun,
+		WithCasks:     withCasks,
+		UpgradeSketch: upgradeSketch,
 	}
 }

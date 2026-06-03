@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/neoighodaro/dotfiles/cli/internal/platform"
@@ -691,6 +692,34 @@ func brewInstalledFormulae() map[string]bool {
 // brewInstalledCasks returns a set of currently installed brew casks.
 func brewInstalledCasks() map[string]bool {
 	return cmdOutputSet("brew", "list", "--cask")
+}
+
+// compareSketchVersions compares two dotted-numeric version strings.
+// Returns -1 if a < b, 0 if equal, 1 if a > b. Missing or non-numeric
+// segments are treated as 0 (e.g. "100" == "100.0" < "100.4").
+func compareSketchVersions(a, b string) int {
+	as := strings.Split(a, ".")
+	bs := strings.Split(b, ".")
+	n := len(as)
+	if len(bs) > n {
+		n = len(bs)
+	}
+	for i := 0; i < n; i++ {
+		var ai, bi int
+		if i < len(as) {
+			ai, _ = strconv.Atoi(as[i])
+		}
+		if i < len(bs) {
+			bi, _ = strconv.Atoi(bs[i])
+		}
+		if ai < bi {
+			return -1
+		}
+		if ai > bi {
+			return 1
+		}
+	}
+	return 0
 }
 
 // cmdOutputSet runs a command and returns each output line as a set entry.

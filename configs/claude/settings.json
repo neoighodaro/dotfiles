@@ -85,7 +85,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.4.2/dist/index.js"
+    "command": "node /Users/neo/.claude/plugins/cache/claude-dashboard/claude-dashboard/1.29.0/dist/index.js"
   },
   "enabledPlugins": {
     "commit-commands@claude-code-plugins": true,
@@ -103,6 +103,12 @@
         "source": "github",
         "repo": "max-sixty/worktrunk"
       }
+    },
+    "claude-dashboard": {
+      "source": {
+        "source": "github",
+        "repo": "uppinote20/claude-dashboard"
+      }
     }
   },
   "feedbackSurveyRate": 0,
@@ -113,5 +119,6 @@
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710
-  }
+  },
+  "tui": "fullscreen"
 }

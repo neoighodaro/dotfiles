@@ -32,6 +32,9 @@ ccr() { claude --resume "$@" }
 ccx() { claude --permission-mode=bypassPermissions "$@" }
 ccxr() { claude --permission-mode=bypassPermissions --resume "$@" }
 
+# Claude Code (Docker sbx sandbox; defaults to current dir)
+ccs() { sbx run claude "${@:-.}" }
+
 # Claude Code (floating zellij window)
 fcc() {
   if [[ -n "$ZELLIJ" ]]; then

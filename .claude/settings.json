@@ -1,0 +1,10 @@
+{
+  "model": "claude-opus-4-8",
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "claude-dashboard@claude-dashboard": true
+  },
+  "tui": "fullscreen"
+}

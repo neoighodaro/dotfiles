@@ -18,7 +18,7 @@ layout {
 
                 // -- mode -----
                 mode_normal        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#101C2C,fg=#FEA871,bold]"
-                mode_locked        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#101C2C,fg=#FEA871,bold]"
+                mode_locked        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#101C2C,fg=#FEA871,bold]"
                 mode_pane          "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Pane#[bg=#101C2C,fg=#FEA871,bold]"
                 mode_renamepane    "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Rename Pane#[bg=#101C2C,fg=#FEA871,bold]"
                 mode_resize        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#FEA871,fg=#101C2C,bold]Resize#[bg=#101C2C,fg=#FEA871,bold]"

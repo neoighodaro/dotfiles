@@ -37,24 +37,24 @@
       "panel.focused_border": "#4E466E",
       "players": [
         {
-          "cursor": "#bd9dff"
-        }
+          "cursor": "#bd9dff",
+        },
       ],
       "syntax": {
         "comment": {
-          "font_style": "italic"
+          "font_style": "italic",
         },
         "comment_doc": {
-          "font_style": "italic"
-        }
+          "font_style": "italic",
+        },
       },
-    }
+    },
   },
   "title_bar": {
     "show_onboarding_banner": false,
     "show_project_items": false,
     "show_branch_name": false,
-    "show_user_menu": false
+    "show_user_menu": false,
   },
   "tab_bar": {
     "show": false,
@@ -98,10 +98,10 @@
     // }
   },
   "file_finder": {
-    "modal_max_width": "large"
+    "modal_max_width": "large",
   },
   "scrollbar": {
-    "show": "never"
+    "show": "never",
   },
   "gutter": {
     "line_numbers": true,
@@ -118,13 +118,9 @@
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_size": 14.0,
   "buffer_line_height": {
-    "custom": 2.5
+    "custom": 2.5,
   },
-  "buffer_font_fallbacks": [
-    "DankMono Nerd Font",
-    "Operator Mono",
-    "MonoLisa"
-  ],
+  "buffer_font_fallbacks": ["DankMono Nerd Font", "Operator Mono", "MonoLisa"],
   "terminal": {
     "env": {},
     "font_size": 14.0,
@@ -132,11 +128,7 @@
       "custom": 2.5,
     },
     "font_family": "JetBrainsMono Nerd Font",
-    "font_fallbacks": [
-      "DankMono Nerd Font",
-      "Operator Mono",
-      "MonoLisa"
-    ],
+    "font_fallbacks": ["DankMono Nerd Font", "Operator Mono", "MonoLisa"],
   },
   "current_line_highlight": "gutter",
   "tab_size": 2,
@@ -155,35 +147,23 @@
   "formatter": "language_server",
   "languages": {
     "TypeScript": {
-      "language_servers": [
-        "biome"
-      ],
+      "language_servers": ["biome"],
       "formatter": "language_server",
     },
     "TSX": {
-      "language_servers": [
-        "biome"
-      ],
+      "language_servers": ["biome"],
       "formatter": "language_server",
     },
     "JavaScript": {
-      "language_servers": [
-        "biome"
-      ],
+      "language_servers": ["biome"],
       "formatter": "language_server",
     },
-    "JSON": {
-      "language_servers": [
-        "biome"
-      ],
-      "formatter": "language_server",
-    },
+    "JSON": { "formatter": "prettier" },
+    "JSONC": { "formatter": "prettier" },
     "CSS": {
-      "language_servers": [
-        "biome"
-      ],
-      "formatter": "language_server"
-    }
+      "language_servers": ["biome"],
+      "formatter": "language_server",
+    },
   },
   // ...not
   "cli_default_open_behavior": "new_window",
@@ -220,28 +200,11 @@
       ".env.example",
       ".env.local",
     ],
-    "yaml": [
-      "*.yml",
-      "*.yml"
-    ],
-    "properties": [
-      "*.plist",
-      "*.plist"
-    ],
-    "typescriptreact": [
-      "*.tsx",
-      "*.tsx"
-    ],
-    "php": [
-      ".php_cs",
-      ".php_cs.dist",
-      ".php_cs",
-      ".php_cs.dist"
-    ],
-    "postcss": [
-      "*.scss",
-      "*.scss"
-    ],
+    "yaml": ["*.yml", "*.yml"],
+    "properties": ["*.plist", "*.plist"],
+    "typescriptreact": ["*.tsx", "*.tsx"],
+    "php": [".php_cs", ".php_cs.dist", ".php_cs", ".php_cs.dist"],
+    "postcss": ["*.scss", "*.scss"],
   },
   "auto_indent_on_paste": true,
   "linked_edits": true,
@@ -252,5 +215,5 @@
     "diagnostics": false,
     "metrics": false,
   },
-  "base_keymap": "Cursor"
+  "base_keymap": "Cursor",
 }

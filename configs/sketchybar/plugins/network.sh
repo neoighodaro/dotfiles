@@ -11,6 +11,7 @@ NET_USB=􀟜          # iPhone USB hotspot connected
 NET_THUNDERBOLT=􀒗  # Thunderbolt bridge connected
 NET_DISCONNECTED=􀙇 # Network disconnected, but Wi-Fi turned on
 NET_OFF=􀙈          # Network disconnected, Wi-Fi turned off
+NET_ETHERNET=􁊒     # cable.coaxial — wired/Ethernet connected
 
 ANIMATE_SIN=5
 LABEL_FONT_SIZE=11.0
@@ -30,12 +31,13 @@ volume=(
 # changes, resulting in race conditions.
 sleep 1
 
-# Get the current network service and device
+# Get the current network service and device. The device carrying the default
+# route is the one actually in use (Wi-Fi, Ethernet, tether, etc.).
 services=$(networksetup -listnetworkserviceorder)
-device=$(scutil --nwi | sed -n "s/.*Network interfaces: \([^,]*\).*/\1/p")
+device=$(route -n get -inet default 2>/dev/null | awk '/interface:/{print $2; exit}')
 
-# Try to find the service for the current device
-test -n "$device" && service=$(echo "$services" | sed -n "s/.*Hardware Port: \([^,]*\), Device: $device.*/\1/p")
+# Try to find the service name for the active device
+test -n "$device" && service=$(echo "$services" | sed -n "s/.*Hardware Port: \([^,]*\), Device: $device).*/\1/p")
 
 color=$TEXT_COLOR
 case $service in
@@ -49,11 +51,17 @@ case $service in
       *)        icon=$NET_WIFI;;
     esac;;
 
-  *)
+  "")
+    # No default route → nothing is connected. Reflect Wi-Fi power state.
     wifi_device=$(echo "$services" | sed -n "s/.*Hardware Port: Wi-Fi, Device: \([^\)]*\).*/\1/p")
     test -n "$wifi_device" && status=$(networksetup -getairportpower "$wifi_device" | awk '{print $NF}')
     icon=$(test "$status" = On && echo "$NET_DISCONNECTED" || echo "$NET_OFF")
     color=$TEXT_COLOR_DIM;;
+
+  *)
+    # Any other active service is a wired connection (Ethernet, USB LAN,
+    # Thunderbolt Ethernet, USB-C dongle, …) → cable.coaxial SF Symbol.
+    icon=$NET_ETHERNET;;
 esac
 
 # Script

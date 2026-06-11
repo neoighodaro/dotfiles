@@ -6,21 +6,16 @@ SHOW_LABEL_THRESHOLD=30
 PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(pmset -g batt | grep 'AC Power')
 
-if [ $PERCENTAGE = "" ]; then
+if [ -z "$PERCENTAGE" ]; then
   exit 0
 fi
 
-case ${PERCENTAGE} in
-  9[0-9]|100) ICON="􀛨"
-  ;;
-  [6-8][0-9]) ICON="􀺸"
-  ;;
-  [3-5][0-9]) ICON="􀺶"
-  ;;
-  [1-2][0-9]) ICON="􀛩"
-  ;;
-  *) ICON="􀛪"
-esac
+if   [ "$PERCENTAGE" -ge 90 ]; then ICON="􀛨"   # battery.100
+elif [ "$PERCENTAGE" -ge 60 ]; then ICON="􀺸"   # battery.75
+elif [ "$PERCENTAGE" -ge 30 ]; then ICON="􀺶"   # battery.50
+elif [ "$PERCENTAGE" -ge 16 ]; then ICON="􀛩"   # battery.25
+else                                ICON="􀛪"   # battery.0  (≤15%)
+fi
 
 if [[ $PERCENTAGE -lt $SHOW_LABEL_THRESHOLD ]]; then
   SHOW_LABEL=true

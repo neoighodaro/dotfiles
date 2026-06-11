@@ -21,3 +21,6 @@ cli/strap
 
 # blvckhole
 .config/blvckhole/.kit/
+
+# macOS
+.DS_Store

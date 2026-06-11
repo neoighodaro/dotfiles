@@ -1,0 +1,85 @@
+# blvckhole sandbox configuration
+# Docs: https://github.com/neoighodaro/blvckhole
+
+name: dotfiles
+agent: claude-code
+
+zellij:
+  display_name: dotfiles
+
+workspace: /workspace
+
+# Custom template image (skips Dockerfile generation when set).
+# When set, 'packages' and 'runtimes' are ignored — install them in your Dockerfile.
+# template: docker.io/my-org/custom-template:v1
+
+# System packages installed via apt-get
+packages:
+  - ripgrep
+  - xz-utils
+
+# Language runtimes
+runtimes:
+  rust: "stable"
+  node: "24"
+  # python: "3.12"
+  # go: "1.23"
+
+# Ports exposed from sandbox to host
+ports: []
+
+# Inline environment variables
+env: {}
+
+# Environment files (loaded in order, later files override earlier ones)
+env_file: []
+
+# Shell configuration (ZSH is the default shell)
+shell:
+  # Default working directory when opening a shell
+  # directory: /home/agent/project/src
+
+  # Custom aliases (added alongside built-in aliases)
+  aliases:
+    g: "git"
+
+# Scripts run inside the sandbox at lifecycle points
+scripts:
+  # Run once, right after the sandbox is created
+  on_create:
+    - "curl -fsSL https://github.com/max-sixty/worktrunk/releases/latest/download/worktrunk-installer.sh | bash"
+    - "source $HOME/.cargo/env && wt config shell install -y"
+
+  # Run at the start of every shell/agent session (including after a stop/
+  # resume). Use for state a restart wipes, e.g. port bridges or daemons.
+  # Baked into the sandbox's per-session init hook; must be idempotent.
+  on_start: []
+    # - "./scripts/db-bridge.sh"
+
+# Network whitelist (only these domains are reachable from the sandbox)
+network:
+  - "*.context7.com"
+  - "*.anthropic.com"
+
+# Claude Code agent customization
+claude:
+  # Plugins to install
+  plugins:
+    marketplaces:
+      - anthropics/claude-plugins-official
+      - uppinote20/claude-dashboard
+      - max-sixty/worktrunk
+    install:
+      - superpowers@claude-plugins-official
+      - claude-dashboard@claude-dashboard
+      - skill-creator@claude-plugins-official
+      - context7@claude-plugins-official
+      - worktrunk@worktrunk
+
+  # Settings merged into the agent's settings
+  settings: {}
+    # alwaysThinkingEnabled: true
+
+# Instructions injected into the agent's memory file (CLAUDE.md)
+# memory: |
+#   Project-specific instructions here.

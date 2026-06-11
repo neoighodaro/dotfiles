@@ -18,3 +18,6 @@ cli/strap
 # Strap timestamp files
 .sketchybar-icons-updated
 /.idea
+
+# blvckhole
+.config/blvckhole/.kit/

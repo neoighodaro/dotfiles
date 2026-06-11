@@ -4,7 +4,8 @@
     "context7@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "claude-dashboard@claude-dashboard": true
+    "claude-dashboard@claude-dashboard": true,
+    "worktrunk@worktrunk": true
   },
   "tui": "fullscreen"
 }

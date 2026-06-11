@@ -11,8 +11,16 @@
   // ---------------------------------------------------------------------------------------------------
   // USER INTERFACE
   // ---------------------------------------------------------------------------------------------------
-  "icon_theme": "Warm Charmed Icons",
-  "theme": "Aura Dark",
+  "icon_theme": {
+    "mode": "light",
+    "light": "Warm Charmed Icons",
+    "dark": "Warm Charmed Icons",
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Catppuccin Mocha",
+  },
   "theme_overrides": {
     "Catppuccin Mocha": {
       "border.variant": "#1E1E2E",
@@ -138,6 +146,7 @@
   // FORMATTING
   // ---------------------------------------------------------------------------------------------------
   "format_on_save": "on",
+  "hard_tabs": false,
   "code_actions_on_format": {
     "source.fixAll.biome": true,
     "source.organizeImports.biome": true,

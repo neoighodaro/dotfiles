@@ -76,6 +76,7 @@ var brewFormulae = []brewPkg{
 	{name: "ansible-lint"},
 	{name: "ripgrep"},
 	{name: "fd"},
+	{name: "rclone"},
 	{name: "nushell"},
 	{name: "worktrunk"},
 	{name: "1password-cli"},
@@ -92,6 +93,7 @@ var aptPackages = []string{
 	"unzip",
 	"xh",
 	"git-delta",
+	"rclone",
 }
 
 var brewCasks = []caskPkg{

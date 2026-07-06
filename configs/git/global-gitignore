@@ -24,3 +24,5 @@ storage/debugbar
 .phpunit.result.cache
 supervisord.pid
 supervisord.log
+
+**/.claude/settings.local.json

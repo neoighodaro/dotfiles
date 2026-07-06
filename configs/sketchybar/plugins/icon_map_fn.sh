@@ -78,7 +78,7 @@ function __icon_map() {
    "Anki")
         icon_result=":anki:"
         ;;
-   "Antigravity")
+   "Antigravity" | "Antigravity IDE")
         icon_result=":antigravity:"
         ;;
    "AnyDesk")
@@ -186,6 +186,9 @@ function __icon_map() {
    "Blitzit")
         icon_result=":blitzit:"
         ;;
+   "Bluesky" | "Sky")
+        icon_result=":bluesky:"
+        ;;
    "Bluetooth File Exchange" | "Bluetooth")
         icon_result=":bluetooth:"
         ;;
@@ -273,6 +276,9 @@ function __icon_map() {
    "Clock")
         icon_result=":clock:"
         ;;
+   "cmux")
+        icon_result=":cmux:"
+        ;;
    "coconutBattery")
         icon_result=":coconut_battery:"
         ;;
@@ -287,9 +293,6 @@ function __icon_map() {
         ;;
    "Color Picker" | "数码测色计" | "Кольоромір" | "Цифровой колориметр" | "Digital Color Meter")
         icon_result=":color_picker:"
-        ;;
-   "Comet")
-        icon_result=":comet:"
         ;;
    "Comet")
         icon_result=":comet_browser:"
@@ -450,7 +453,7 @@ function __icon_map() {
    "EuDic")
         icon_result=":eudic:"
         ;;
-   "Evernote Legacy")
+   "Evernote Legacy" | "Evernote")
         icon_result=":evernote_legacy:"
         ;;
    "FaceTime" | "FaceTime 通话")
@@ -477,10 +480,10 @@ function __icon_map() {
    "Finamp")
         icon_result=":finamp:"
         ;;
-   "Find My" | "Локатор" | "Локатор")
+   "Find My" | "Локатор")
         icon_result=":find_my:"
         ;;
-   "Finder" | "访达" | "Bloom")
+   "Finder" | "访达" | "Bloom" | "FlowFinder")
         icon_result=":finder:"
         ;;
    "Firefox")
@@ -660,6 +663,9 @@ function __icon_map() {
    "Insomnia")
         icon_result=":insomnia:"
         ;;
+   "Instagram")
+        icon_result=":instagram:"
+        ;;
    "Instapaper")
         icon_result=":instapaper:"
         ;;
@@ -746,6 +752,9 @@ function __icon_map() {
         ;;
    "League of Legends")
         icon_result=":league_of_legends:"
+        ;;
+   "legcord" | "Legcord")
+        icon_result=":legcord:"
         ;;
    "LibreWolf")
         icon_result=":libre_wolf:"
@@ -894,6 +903,9 @@ function __icon_map() {
    "Movist Pro")
         icon_result=":movist_pro:"
         ;;
+   "Mp3tag")
+        icon_result=":mp3tag:"
+        ;;
    "mpv")
         icon_result=":mpv:"
         ;;
@@ -1017,6 +1029,9 @@ function __icon_map() {
    "OpenAI Translator")
         icon_result=":openai_translator:"
         ;;
+   "opencode")
+        icon_result=":opencode:"
+        ;;
    "OpenEmu")
         icon_result=":openemu:"
         ;;
@@ -1062,8 +1077,11 @@ function __icon_map() {
    "Password Depot")
         icon_result=":password_depot:"
         ;;
-   "Passwords" | "Passwörter" | "Паролі" | "Пароли")
+   "AutoFillPanelService" | "coreautha" | "Passwords" | "Passwörter" | "Паролі" | "Пароли")
         icon_result=":passwords:"
+        ;;
+   "PasteBar")
+        icon_result=":pastebar:"
         ;;
    "PCSX2")
         icon_result=":pcsx2:"
@@ -1100,6 +1118,12 @@ function __icon_map() {
         ;;
    "Pine")
         icon_result=":pine:"
+        ;;
+   "Pinta")
+        icon_result=":pinta:"
+        ;;
+   "Pixcall")
+        icon_result=":pixcall:"
         ;;
    "Pixelmator Pro")
         icon_result=":pixelmator_pro:"
@@ -1206,7 +1230,7 @@ function __icon_map() {
    "Raspberry Pi Imager" | "Raspberry Pi Connect")
         icon_result=":raspberry_pi:"
         ;;
-   "Raycast")
+   "Raycast" | "Raycast Beta")
         icon_result=":raycast:"
         ;;
    "Reeder")
@@ -1247,6 +1271,9 @@ function __icon_map() {
         ;;
    "RStudio")
         icon_result=":rstudio:"
+        ;;
+   "ruffle")
+        icon_result=":ruffle:"
         ;;
    "RustDesk")
         icon_result=":rustdesk:"
@@ -1338,6 +1365,9 @@ function __icon_map() {
    "Spotlight")
         icon_result=":spotlight:"
         ;;
+   "StarUML")
+        icon_result=":staruml:"
+        ;;
    "Steam" | "Steam Helper")
         icon_result=":steam:"
         ;;
@@ -1418,6 +1448,9 @@ function __icon_map() {
         ;;
    "TextEdit")
         icon_result=":textedit:"
+        ;;
+   "The Sims 3" | "The Sims 4")
+        icon_result=":the_sims:"
         ;;
    "Microsoft To Do" | "Things")
         icon_result=":things:"
@@ -1566,6 +1599,12 @@ function __icon_map() {
    "WireGuard")
         icon_result=":wireguard:"
         ;;
+   "Wireshark")
+        icon_result=":wireshark:"
+        ;;
+   "Wispr Flow")
+        icon_result=":wispr_flow:"
+        ;;
    "xemu")
         icon_result=":xbox:"
         ;;
@@ -1626,5 +1665,14 @@ function __icon_map() {
     esac
 }
 ### END-OF-ICON-MAP
-__icon_map "$1"
-echo "$icon_result"
+
+# When executed directly (not sourced), map all arguments and print space-separated results.
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    sep=""
+    for app_name in "$@"; do
+        __icon_map "$app_name"
+        printf '%s%s' "$sep" "$icon_result"
+        sep=" "
+    done
+    printf '\n'
+fi

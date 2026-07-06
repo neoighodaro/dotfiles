@@ -476,7 +476,7 @@
   "Laravel.view.diagnostics": false,
   "intelephense.environment.phpVersion": "8.4.4",
   "window.autoDetectColorScheme": true,
-  "workbench.preferredLightColorTheme": "Tokyo Night Light",
+  "workbench.preferredLightColorTheme": "Catppuccin Mocha",
   "docker.extension.enableComposeLanguageServer": false,
   "workbench.secondarySideBar.defaultVisibility": "hidden",
   "[dockercompose]": {

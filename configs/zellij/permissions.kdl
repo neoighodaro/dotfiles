@@ -1,0 +1,28 @@
+"/Users/neo/.config/zellij/plugins/zjstatus-hints.wasm" {
+    ReadApplicationState
+    MessageAndLaunchOtherPlugins
+}
+"/Users/neo/Developer/dotfiles/configs/zellij/plugins/zellij-bookmarks.wasm" {
+    RunCommands
+    ChangeApplicationState
+    ReadApplicationState
+}
+"/Users/neo/Developer/dotfiles/configs/zellij/plugins/zjstatus.wasm" {
+    RunCommands
+    ReadApplicationState
+    ChangeApplicationState
+}
+"/Users/neo/.config/zellij/plugins/zellij-bookmarks.wasm" {
+    ReadApplicationState
+    RunCommands
+    ChangeApplicationState
+}
+"/Users/neo/Developer/dotfiles/configs/zellij/plugins/zjstatus-hints.wasm" {
+    MessageAndLaunchOtherPlugins
+    ReadApplicationState
+}
+"/Users/neo/.config/zellij/plugins/zjstatus.wasm" {
+    ReadApplicationState
+    ChangeApplicationState
+    RunCommands
+}

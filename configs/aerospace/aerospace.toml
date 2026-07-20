@@ -1,6 +1,9 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
+# Config version for compatibility and deprecations
+# See: https://nikitabobko.github.io/AeroSpace/guide#config-version
+config-version = 2
 
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
@@ -51,6 +54,12 @@ default-root-container-orientation = 'auto'
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodness#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
+
+# Workspaces that stay alive even when they contain no windows.
+# Under 'config-version = 2' this defaults to an empty array; in 'config-version = 1'
+# it was inferred from the right-hand side of the keybindings. Listed explicitly here
+# to preserve that behavior (Sketchybar renders these workspaces).
+persistent-workspaces = ['󰋜', '2', '3', '󰖟', '󰚩', '󰊢', '󰨞', '󰍡', '󰆍']
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping

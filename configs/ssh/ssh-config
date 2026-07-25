@@ -1,7 +1,6 @@
 # Added by OrbStack: 'orb' SSH host for Linux machines
 # This only works if it's at the top of ssh_config (before any Host blocks).
 # This won't be added again if you remove it.
-Include ~/.orbstack/ssh/config
 
 Include config.d/*
 
@@ -9,13 +8,13 @@ Include config.d/*
 # ------------------------------------------------------------------------
 Host *
   SendEnv LANG LC_*
-  MACs hmac-md5,hmac-sha1
+  # MACs hmac-md5,hmac-sha1
   ForwardX11 no
-  ForwardAgent yes
+  ForwardAgent no
   AddressFamily inet
   ServerAliveInterval 15
   ConnectTimeout 20
-#   SetEnv TERM=xterm-256color
+  # SetEnv TERM=xterm-256color
   # IdentityFile ~/.ssh/id_ed25519
   # IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
@@ -25,13 +24,28 @@ Host github
   HostName github.com
   ForwardAgent yes
 
+# Steam Devices
+# ------------------------------------------------------------------------
+Host steammachine steamdeck
+  User deck
+  ForwardAgent yes
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+Host steammachine
+  HostName 10.10.10.80
+
+Host steamdeck
+  HostName 10.10.10.81
+
 # All ckx-* nodes
 # ------------------------------------------------------------------------
 
-Host ckx-node-*
+Host ckx-node-* 01 02 03 lite-*
     User neo
     IdentityFile ~/.ssh/id_ed25519
     IdentitiesOnly yes
+    ForwardAgent yes
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 Host ckx-node-01 01
     Hostname 10.10.10.10

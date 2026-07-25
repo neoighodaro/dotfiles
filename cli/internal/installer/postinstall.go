@@ -20,6 +20,7 @@ func postInstallSteps() []Step {
 		{Name: "sketchybar-setup", Desc: "\uee19 Sketchybar", Run: stepSketchybarSetup},
 		{Name: "set-wallpaper", Desc: "\U000f00be Wallpaper", Run: stepSetWallpaper},
 		{Name: "zellij-plugins", Desc: "\uf0db Zellij plugins", Run: stepZellijPlugins},
+		{Name: "zellij-permissions", Desc: "\uf023 Zellij permissions", Run: stepZellijPermissions},
 		{Name: "default-browser", Desc: "\U000f0288 Default browser", Run: stepDefaultBrowser},
 		{Name: "folder-icons", Desc: "\U000f024b Folder icons", Run: stepFolderIcons},
 	}

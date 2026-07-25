@@ -1,27 +1,22 @@
-"/Users/neo/.config/zellij/plugins/zjstatus-hints.wasm" {
+// Seed of expected Zellij plugin permissions.
+//
+// This file is NOT read by Zellij directly. `strap zellij` merges it into
+// Zellij's runtime permission cache (macOS: ~/Library/Caches/
+// org.Zellij-Contributors.Zellij/permissions.kdl, Linux: ~/.cache/zellij/
+// permissions.kdl) so plugins are pre-approved on a fresh machine.
+//
+// Paths use ~/ and are expanded to the real home at sync time. Keep entries in
+// sync with the plugins loaded from configs/zellij/config.kdl.
+"~/.config/zellij/plugins/zjstatus.wasm" {
+    ReadApplicationState
+    ChangeApplicationState
+    RunCommands
+}
+"~/.config/zellij/plugins/zjstatus-hints.wasm" {
     ReadApplicationState
     MessageAndLaunchOtherPlugins
 }
-"/Users/neo/Developer/dotfiles/configs/zellij/plugins/zellij-bookmarks.wasm" {
-    RunCommands
-    ChangeApplicationState
-    ReadApplicationState
-}
-"/Users/neo/Developer/dotfiles/configs/zellij/plugins/zjstatus.wasm" {
-    RunCommands
-    ReadApplicationState
-    ChangeApplicationState
-}
-"/Users/neo/.config/zellij/plugins/zellij-bookmarks.wasm" {
-    ReadApplicationState
-    RunCommands
-    ChangeApplicationState
-}
-"/Users/neo/Developer/dotfiles/configs/zellij/plugins/zjstatus-hints.wasm" {
-    MessageAndLaunchOtherPlugins
-    ReadApplicationState
-}
-"/Users/neo/.config/zellij/plugins/zjstatus.wasm" {
+"~/.config/zellij/plugins/zellij-bookmarks.wasm" {
     ReadApplicationState
     ChangeApplicationState
     RunCommands

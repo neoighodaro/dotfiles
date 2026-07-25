@@ -12,7 +12,8 @@ local function color_scheme_for_appearance(appearance)
     if appearance:find "Dark" then
         return "Ef-Maris-Dark"
     else
-        return "Ef-Day"
+        return "Ef-Maris-Dark"
+        -- return "Ef-Day"
     end
 end
 

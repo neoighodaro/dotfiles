@@ -7,5 +7,5 @@
     "claude-dashboard@claude-dashboard": true,
     "worktrunk@worktrunk": true
   },
-  "tui": "fullscreen"
+  "tui": "default"
 }

@@ -24,7 +24,7 @@ window-colorspace = "display-p3"
 
 macos-titlebar-style=transparent
 
-theme = dark:Catppuccin Mocha,light:Monokai Pro Light Sun
+theme = dark:Catppuccin Mocha,light:Catppuccin Mocha
 
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 14

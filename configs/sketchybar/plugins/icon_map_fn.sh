@@ -1668,11 +1668,11 @@ function __icon_map() {
 
 # When executed directly (not sourced), map all arguments and print space-separated results.
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    sep=""
     for app_name in "$@"; do
         __icon_map "$app_name"
-        printf '%s%s' "$sep" "$icon_result"
-        sep=" "
+        printf '%s ' "$icon_result"
     done
-    printf '\n'
+    [[ $# -gt 0 ]] && printf '\n'
 fi
+__icon_map "$1"
+echo "$icon_result"

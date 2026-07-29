@@ -1674,5 +1674,3 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     done
     [[ $# -gt 0 ]] && printf '\n'
 fi
-__icon_map "$1"
-echo "$icon_result"

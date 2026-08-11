@@ -22,6 +22,12 @@ if [[ $IS_MACOS -eq 1 ]]; then
     export PATH="/Users/neo/Library/Application Support/Herd/bin/":$PATH
 fi
 
+# Ruby
+# ------------------------------------------------------------------------------
+if [[ $IS_MACOS -eq 1 ]]; then
+    export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
+fi
+
 # Kiro
 # ------------------------------------------------------------------------------
 if [[ $IS_MACOS -eq 1 ]]; then

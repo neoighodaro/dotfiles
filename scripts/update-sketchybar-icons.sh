@@ -17,11 +17,13 @@ trap 'rm -f "$TMPFILE"' EXIT
 
 gh release download --repo "$REPO" --pattern "icon_map.sh" --output "$TMPFILE" --clobber
 
-# The released file contains the function but not the caller lines.
-# Append them so the script works standalone when called with an app name.
 cat "$TMPFILE" > "$TARGET"
-echo '__icon_map "$1"' >> "$TARGET"
-echo 'echo "$icon_result"' >> "$TARGET"
+
+# Only append caller lines if the release lacks its own direct-execution block.
+if ! grep -q 'BASH_SOURCE' "$TARGET"; then
+    echo '__icon_map "$1"' >> "$TARGET"
+    echo 'echo "$icon_result"' >> "$TARGET"
+fi
 
 chmod +x "$TARGET"
 

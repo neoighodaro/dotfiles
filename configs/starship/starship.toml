@@ -5,7 +5,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 add_newline = true
 palette = "catppuccin_mocha"
-command_timeout = 1000
+command_timeout = 2000
 
 # -----------------------------------------------------------
 # Primary Prompt Format

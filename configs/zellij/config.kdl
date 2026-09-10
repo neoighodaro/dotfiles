@@ -314,7 +314,7 @@ keybinds clear-defaults=true {
     // Session
     // -----------------------------------------------------------------------------
     session {
-        bind "Ctrl x" { SwitchToMode "Normal"; }
+        bind "Alt s" { SwitchToMode "Normal"; }
         bind "d" { Detach; }
         bind "Backspace" { Detach;}
         bind "w" {
@@ -326,7 +326,7 @@ keybinds clear-defaults=true {
         }
     }
     shared_except "session" "locked" {
-        bind "Ctrl x" { SwitchToMode "Session"; }
+        bind "Alt s" { SwitchToMode "Session"; }
     }
 
     // Shared

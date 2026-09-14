@@ -39,7 +39,7 @@ Configs are symlinked from `configs/` into `$HOME`. Platform-specific variants a
 |---|---|
 | **Shell** | Zsh (autosuggestions, syntax-highlighting, 200k history), Starship prompt |
 | **Terminals** | Ghostty, Wezterm, Zellij |
-| **Editors** | VS Code, Cursor, Claude Code |
+| **Editors** | VS Code, Zed, Claude Code |
 | **Git** | Delta diffs, SSH signing, 35+ aliases, global hooks |
 | **macOS** | AeroSpace (tiling WM), Karabiner, Sketchybar, Hazel |
 | **Kubernetes** | K9s with custom skins |
@@ -49,7 +49,7 @@ Configs are symlinked from `configs/` into `$HOME`. Platform-specific variants a
 
 **Homebrew formulas** — starship, eza, bat, zoxide, fzf, zellij, lazygit, git-delta, bun, ripgrep, fd, jq, gnupg, and more.
 
-**Homebrew casks** — Ghostty, Cursor, Docker, 1Password, Arc, Raycast, AeroSpace, and more.
+**Homebrew casks** — Ghostty, Zed, Docker, 1Password, Arc, Raycast, AeroSpace, and more.
 
 **Linux** — a curated subset installed via apt.
 

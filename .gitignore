@@ -4,7 +4,6 @@ configs/hazel/Application Support/license
 configs/hazel/Application Support/*.hazellock
 configs/hazel/Application Support/trash-*
 
-configs/cursor/default-profile.code-profile
 configs/claude/plugins/cache/
 configs/claude/plugins/marketplaces/
 

@@ -16,7 +16,6 @@ func postInstallSteps() []Step {
 	return []Step{
 		{Name: "create-dirs", Desc: "\U000f024b Directories", Run: stepCreateDirs},
 		{Name: "link-scripts", Desc: "\U000f0306 Scripts", Run: stepLinkScripts},
-		{Name: "cursor-extensions", Desc: "\U000f0a1e Cursor extensions", Run: stepCursorExtensions},
 		{Name: "sketchybar-setup", Desc: "\uee19 Sketchybar", Run: stepSketchybarSetup},
 		{Name: "set-wallpaper", Desc: "\U000f00be Wallpaper", Run: stepSetWallpaper},
 		{Name: "zellij-plugins", Desc: "\uf0db Zellij plugins", Run: stepZellijPlugins},
@@ -122,72 +121,6 @@ func stepLinkScripts(ctx *Context) StepResult {
 		return StepResult{Logs: logs, Err: errorString("some script links failed")}
 	}
 	return StepResult{Logs: logs}
-}
-
-// ── Cursor extensions ──
-
-func stepCursorExtensions(ctx *Context) StepResult {
-	// Check if cursor CLI is available
-	if _, err := exec.LookPath("cursor"); err != nil {
-		return StepResult{Skip: true, Logs: []string{"cursor CLI not found \u2014 skipping"}}
-	}
-
-	extFile := filepath.Join(ctx.DotfilesDir, "configs", "cursor", "extensions.txt")
-	data, err := os.ReadFile(extFile)
-	if err != nil {
-		return StepResult{Skip: true, Logs: []string{"configs/cursor/extensions.txt not found \u2014 skipping"}}
-	}
-
-	// Get currently installed extensions
-	installed := cursorInstalledExtensions()
-
-	var logs []string
-	var installCount, skipCount int
-
-	for _, line := range strings.Split(string(data), "\n") {
-		ext := strings.TrimSpace(line)
-		if ext == "" {
-			continue
-		}
-
-		if installed[strings.ToLower(ext)] {
-			skipCount++
-			continue
-		}
-
-		if ctx.DryRun {
-			logs = append(logs, fmt.Sprintf("%s (would install)", ext))
-			continue
-		}
-
-		if err := run("cursor", "--install-extension", ext); err != nil {
-			logs = append(logs, fmt.Sprintf("%s (failed)", ext))
-		} else {
-			installCount++
-		}
-	}
-
-	summary := fmt.Sprintf("%d installed, %d already present", installCount, skipCount)
-	if ctx.DryRun {
-		summary = fmt.Sprintf("%d already present", skipCount)
-	}
-	logs = append(logs, summary)
-
-	return StepResult{Logs: logs}
-}
-
-func cursorInstalledExtensions() map[string]bool {
-	out, err := exec.Command("cursor", "--list-extensions").Output()
-	if err != nil {
-		return nil
-	}
-	set := make(map[string]bool)
-	for _, line := range strings.Split(strings.TrimSpace(string(out)), "\n") {
-		if ext := strings.TrimSpace(line); ext != "" {
-			set[strings.ToLower(ext)] = true
-		}
-	}
-	return set
 }
 
 // ── Sketchybar ──

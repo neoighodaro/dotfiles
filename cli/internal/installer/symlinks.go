@@ -19,7 +19,6 @@ func symlinkSteps() []Step {
 		{Name: "link-aerospace", Desc: "\uf2d2 Aerospace", Run: stepLinkAerospace},
 		{Name: "link-ansible", Desc: "\U000f048d Ansible", Run: stepLinkAnsible},
 		{Name: "link-claude", Desc: "\U000f06a9 Claude Code", Run: stepLinkClaude},
-		{Name: "link-cursor", Desc: "\U000f0a1e Cursor", Run: stepLinkCursor},
 		{Name: "link-ghostty", Desc: "\U000f02a0 Ghostty", Run: stepLinkGhostty},
 		{Name: "link-git", Desc: "\ue702 Git", Run: stepLinkGit},
 		{Name: "link-k9s", Desc: "\U000f10fe K9s", Run: stepLinkK9s},
@@ -225,13 +224,6 @@ func stepLinkVSCode(ctx *Context) StepResult {
 		required("vscode/settings.json", "Library/Application Support/Code/User/settings.json"),
 		optional("vscode/custom.css", "Library/Application Support/Code/User/custom.css"),
 		optional("vscode/custom.js", "Library/Application Support/Code/User/custom.js"),
-	})
-}
-
-func stepLinkCursor(ctx *Context) StepResult {
-	return macOnly(ctx, []linkOpt{
-		required("vscode/keybindings.json", "Library/Application Support/Cursor/User/keybindings.json"),
-		required("vscode/settings.json", "Library/Application Support/Cursor/User/settings.json"),
 	})
 }
 

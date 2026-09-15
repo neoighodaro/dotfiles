@@ -1,6 +1,7 @@
 package installer
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
@@ -31,8 +32,24 @@ type masApp struct {
 
 // ignoredPackages lists packages to skip during installation.
 // Add a formula, cask, or app name here to silently skip it.
-var ignoredPackages = map[string]bool{
-	"jordanbaird-ice": true,
+var ignoredPackages = map[string]bool{}
+
+// removedCasks lists casks that should be actively uninstalled if present.
+// Use this (instead of just deleting an entry from brewCasks) when a cask was
+// previously installed on machines and must be cleaned up on the next run.
+// Each is uninstalled with `brew uninstall --cask --zap` to also remove its
+// leftover preferences and support files.
+var removedCasks = []string{
+	"jordanbaird-ice",      // Ice menu-bar manager (stable) — no longer used
+	"jordanbaird-ice@beta", // Ice menu-bar manager (beta) — no longer used
+	"boop",                 // Boop scratchpad — no longer used
+}
+
+// removedFormulae lists formulae that should be actively uninstalled if
+// present, mirroring removedCasks for CLI tools. Each is uninstalled with
+// `brew uninstall`.
+var removedFormulae = []string{
+	"bun", // replaced by pnpm
 }
 
 // defaultUpgradeCasks is the curated subset of casks upgraded on every
@@ -63,7 +80,6 @@ var brewFormulae = []brewPkg{
 	{name: "zellij"},
 	{name: "lazygit"},
 	{name: "git-delta"},
-	{name: "bun", tap: "oven-sh/bun"},
 	{name: "folderify"},
 	{name: "sketchybar", tap: "FelixKratz/formulae"},
 	{name: "font-sketchybar-app-font"},
@@ -97,26 +113,22 @@ var aptPackages = []string{
 }
 
 var brewCasks = []caskPkg{
-	{name: "cursor"},
+	{name: "zed"},
 	{name: "ghostty"},
 	{name: "affinity"},
 	{name: "1password"},
 	{name: "nordvpn"},
 	{name: "docker"},
-	{name: "arc"},
 	{name: "zen"},
 	{name: "font-jetbrains-mono-nerd-font"},
 	{name: "font-hack-nerd-font"},
-	{name: "visual-studio-code"},
 	{name: "phpstorm"},
 	{name: "hazel"},
-	{name: "jordanbaird-ice"},
 	{name: "herd"},
 	{name: "raycast"},
 	{name: "nikitabobko/tap/aerospace"},
 	{name: "ray"},
-	{name: "boop"},
-	// {name: "tableplus"}, // pinned: staying on current version, don't auto-update for now
+	{name: "tableplus"},
 	{name: "sensei"},
 	{name: "postman"},
 	{name: "tinkerwell"},
@@ -127,13 +139,11 @@ var brewCasks = []caskPkg{
 	{name: "vivid-app"},
 	{name: "superwhisper"},
 	{name: "devcleaner"},
-	{name: "beekeeper-studio"},
 	{name: "ngrok"},
 }
 
 var masApps = []masApp{
 	{name: "DropOver", id: "1355679052"},
-	{name: "RocketSim", id: "1504940162"},
 }
 
 // sketchPin is the licensed Sketch version, installed directly from Sketch's
@@ -153,12 +163,14 @@ func packageSteps() []Step {
 	return []Step{
 		{Name: "install-brew", Desc: "\uf487 Homebrew formulae", Run: stepInstallBrew},
 		{Name: "install-casks", Desc: "\uf487 Homebrew casks", Run: stepInstallCasks},
+		{Name: "remove-packages", Desc: "\uf487 Remove retired packages", Run: stepRemovePackages},
 		{Name: "install-sketch", Desc: "\uf487 Sketch", Run: stepInstallSketch},
 		{Name: "upgrade-brew", Desc: "\uf487 Upgrade Homebrew formulae", Run: stepUpgradeBrew},
 		{Name: "upgrade-casks", Desc: "\uf487 Upgrade Homebrew casks", Run: stepUpgradeCasks},
 		{Name: "install-mas", Desc: "\uf179 AppStore apps", Run: stepInstallMas},
 		{Name: "install-claude-code", Desc: "\U000f06a9 Claude Code", Run: stepInstallClaudeCode},
 		{Name: "install-nvm", Desc: "\U000f0399 NVM", Run: stepInstallNVM},
+		{Name: "install-pnpm", Desc: "\U000f0399 pnpm", Run: stepInstallPnpm},
 		{Name: "install-linux-extras", Desc: "\uf17c Linux extras", Run: stepLinuxExtras},
 	}
 }
@@ -181,6 +193,79 @@ func stepInstallCasks(ctx *Context) StepResult {
 		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
 	}
 	return installBrewCasks(ctx)
+}
+
+// stepRemovePackages uninstalls any formula in removedFormulae or cask in
+// removedCasks that is still installed. Casks are zapped to also clear their
+// leftover files. This is how a retired package is cleaned up from machines
+// that installed it before it was dropped.
+func stepRemovePackages(ctx *Context) StepResult {
+	if ctx.Platform != platform.MacOS {
+		return StepResult{Skip: true, Logs: []string{"macOS only \u2014 skipping"}}
+	}
+	if len(removedFormulae) == 0 && len(removedCasks) == 0 {
+		return StepResult{Logs: []string{"nothing to remove"}}
+	}
+
+	var logs []string
+	var hasErr bool
+
+	// Retired formulae.
+	installedFormulae := brewInstalledFormulae()
+	for _, name := range removedFormulae {
+		checkName := name
+		if parts := strings.Split(name, "/"); len(parts) > 1 {
+			checkName = parts[len(parts)-1]
+		}
+
+		if !installedFormulae[checkName] {
+			logs = append(logs, fmt.Sprintf("%s (not installed)", name))
+			continue
+		}
+
+		if ctx.DryRun {
+			logs = append(logs, fmt.Sprintf("%s (would uninstall)", name))
+			continue
+		}
+
+		if err := run("brew", "uninstall", name); err != nil {
+			logs = append(logs, fmt.Sprintf("%s (failed: %s)", name, err))
+			hasErr = true
+		} else {
+			logs = append(logs, fmt.Sprintf("%s (uninstalled)", name))
+		}
+	}
+
+	// Retired casks.
+	installedCasks := brewInstalledCasks()
+	for _, name := range removedCasks {
+		checkName := name
+		if parts := strings.Split(name, "/"); len(parts) > 1 {
+			checkName = parts[len(parts)-1]
+		}
+
+		if !installedCasks[checkName] {
+			logs = append(logs, fmt.Sprintf("%s (not installed)", name))
+			continue
+		}
+
+		if ctx.DryRun {
+			logs = append(logs, fmt.Sprintf("%s (would uninstall)", name))
+			continue
+		}
+
+		if err := run("brew", "uninstall", "--cask", "--zap", name); err != nil {
+			logs = append(logs, fmt.Sprintf("%s (failed: %s)", name, err))
+			hasErr = true
+		} else {
+			logs = append(logs, fmt.Sprintf("%s (uninstalled)", name))
+		}
+	}
+
+	if hasErr {
+		return StepResult{Logs: logs, Err: errorString("some packages failed to uninstall")}
+	}
+	return StepResult{Logs: logs}
 }
 
 func stepInstallMas(ctx *Context) StepResult {
@@ -359,6 +444,17 @@ func installBrewCasks(ctx *Context) StepResult {
 			continue
 		}
 
+		// The app is not managed by Homebrew. If it is nonetheless already
+		// present in /Applications, it was installed by some other means, so
+		// don't try to install over it — brew would abort with "there is
+		// already an App at ...". Warn and leave the existing app untouched.
+		if cask.url == "" {
+			if existing := existingForeignApp(ctx, caskAppArtifacts(cask.name)); existing != "" {
+				logs = append(logs, fmt.Sprintf("%s (skipped: %s already present, not managed by Homebrew)", cask.name, existing))
+				continue
+			}
+		}
+
 		if ctx.DryRun {
 			logs = append(logs, fmt.Sprintf("%s (would install)", cask.name))
 			continue
@@ -530,6 +626,41 @@ func stepInstallNVM(ctx *Context) StepResult {
 	}
 
 	return StepResult{Logs: []string{"NVM installed"}}
+}
+
+// stepInstallPnpm installs pnpm via its official standalone installer rather
+// than Homebrew, matching how it is managed on this machine (~/Library/pnpm).
+// This keeps pnpm off brew so a brew formula can't shadow the standalone one.
+func stepInstallPnpm(ctx *Context) StepResult {
+	// Consider pnpm present if it is on PATH or at the standalone install
+	// location (PATH may not include ~/Library/pnpm during install).
+	if _, err := exec.LookPath("pnpm"); err == nil {
+		return StepResult{Logs: []string{"pnpm already installed"}}
+	}
+	pnpmHome := filepath.Join(ctx.HomeDir, "Library", "pnpm")
+	for _, candidate := range []string{
+		filepath.Join(pnpmHome, "pnpm"),
+		filepath.Join(pnpmHome, "bin", "pnpm"),
+	} {
+		if _, err := os.Stat(candidate); err == nil {
+			return StepResult{Logs: []string{"pnpm already installed"}}
+		}
+	}
+
+	if ctx.DryRun {
+		return StepResult{Logs: []string{"would install pnpm"}}
+	}
+
+	// Install pnpm via the official standalone install script.
+	cmd := exec.Command("bash", "-c", "curl -fsSL https://get.pnpm.io/install.sh | sh -")
+	if out, err := cmd.CombinedOutput(); err != nil {
+		return StepResult{
+			Logs: []string{fmt.Sprintf("pnpm install failed: %s", strings.TrimSpace(string(out)))},
+			Err:  err,
+		}
+	}
+
+	return StepResult{Logs: []string{"pnpm installed"}}
 }
 
 // ── Claude Code ──
@@ -748,6 +879,62 @@ func brewInstalledFormulae() map[string]bool {
 // brewInstalledCasks returns a set of currently installed brew casks.
 func brewInstalledCasks() map[string]bool {
 	return cmdOutputSet("brew", "list", "--cask")
+}
+
+// caskAppArtifacts returns the .app bundle names a cask installs, read from
+// `brew info --cask <name> --json=v2`. Returns nil when the cask can't be
+// resolved (e.g. its tap isn't present) or when it installs no .app artifact
+// (fonts, CLIs, etc.) — in which case the caller falls back to a normal install.
+func caskAppArtifacts(name string) []string {
+	out, err := exec.Command("brew", "info", "--cask", "--json=v2", name).Output()
+	if err != nil {
+		return nil
+	}
+	var payload struct {
+		Casks []struct {
+			Artifacts []map[string]json.RawMessage `json:"artifacts"`
+		} `json:"casks"`
+	}
+	if err := json.Unmarshal(out, &payload); err != nil {
+		return nil
+	}
+	var apps []string
+	for _, c := range payload.Casks {
+		for _, art := range c.Artifacts {
+			raw, ok := art["app"]
+			if !ok {
+				continue
+			}
+			// An "app" artifact is an array that may mix bundle-name strings
+			// with option objects (e.g. {"target": ...}); keep only the strings.
+			var items []json.RawMessage
+			if err := json.Unmarshal(raw, &items); err != nil {
+				continue
+			}
+			for _, item := range items {
+				var s string
+				if err := json.Unmarshal(item, &s); err == nil {
+					apps = append(apps, s)
+				}
+			}
+		}
+	}
+	return apps
+}
+
+// existingForeignApp returns the path of the first bundle in apps that already
+// exists under /Applications or ~/Applications, or "" if none do.
+func existingForeignApp(ctx *Context, apps []string) string {
+	dirs := []string{"/Applications", filepath.Join(ctx.HomeDir, "Applications")}
+	for _, app := range apps {
+		for _, dir := range dirs {
+			path := filepath.Join(dir, app)
+			if _, err := os.Stat(path); err == nil {
+				return path
+			}
+		}
+	}
+	return ""
 }
 
 // installedSketchVersion returns the CFBundleShortVersionString of the

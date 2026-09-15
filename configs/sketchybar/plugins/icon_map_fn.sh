@@ -342,9 +342,6 @@ function __icon_map() {
    "CurseForge")
         icon_result=":curseforge:"
         ;;
-   "Cursor")
-        icon_result=":cursor:"
-        ;;
    "Cypress")
         icon_result=":cypress:"
         ;;

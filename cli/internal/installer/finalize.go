@@ -27,8 +27,7 @@ type launchApp struct {
 }
 
 var launchApps = []launchApp{
-	{proc: "Raycast Beta", bundleID: "com.raycast-x.macos"},
-	{proc: "Ice"},
+	{proc: "Raycast", bundleID: "com.raycast.macos"},
 	{proc: "AeroSpace"},
 }
 

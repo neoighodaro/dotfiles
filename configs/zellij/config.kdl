@@ -45,6 +45,12 @@ copy_on_select true
 // UI
 // -----------------------------------------------------------------------------
 
+// Pane frame style (zellij 0.45.0+). Values: full | titles | none.
+//   full   = box border around each pane
+//   titles = title line above each pane, no border (0.45 default)
+//   none   = no frames or titles
+pane_frame_style "full"
+
 ui {
     pane_frames {
         hide_session_name false

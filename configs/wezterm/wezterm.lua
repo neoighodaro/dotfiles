@@ -112,7 +112,7 @@ config.keys = {
         mods = 'SUPER',
         action = wezterm.action.SpawnCommandInNewWindow({
             cwd = wezterm.home_dir,
-            args = { 'cursor', wezterm.config_file },
+            args = { 'zed', wezterm.config_file },
         }),
     },
 

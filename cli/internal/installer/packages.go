@@ -1,6 +1,7 @@
 package installer
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
@@ -443,6 +444,17 @@ func installBrewCasks(ctx *Context) StepResult {
 			continue
 		}
 
+		// The app is not managed by Homebrew. If it is nonetheless already
+		// present in /Applications, it was installed by some other means, so
+		// don't try to install over it — brew would abort with "there is
+		// already an App at ...". Warn and leave the existing app untouched.
+		if cask.url == "" {
+			if existing := existingForeignApp(ctx, caskAppArtifacts(cask.name)); existing != "" {
+				logs = append(logs, fmt.Sprintf("%s (skipped: %s already present, not managed by Homebrew)", cask.name, existing))
+				continue
+			}
+		}
+
 		if ctx.DryRun {
 			logs = append(logs, fmt.Sprintf("%s (would install)", cask.name))
 			continue
@@ -867,6 +879,62 @@ func brewInstalledFormulae() map[string]bool {
 // brewInstalledCasks returns a set of currently installed brew casks.
 func brewInstalledCasks() map[string]bool {
 	return cmdOutputSet("brew", "list", "--cask")
+}
+
+// caskAppArtifacts returns the .app bundle names a cask installs, read from
+// `brew info --cask <name> --json=v2`. Returns nil when the cask can't be
+// resolved (e.g. its tap isn't present) or when it installs no .app artifact
+// (fonts, CLIs, etc.) — in which case the caller falls back to a normal install.
+func caskAppArtifacts(name string) []string {
+	out, err := exec.Command("brew", "info", "--cask", "--json=v2", name).Output()
+	if err != nil {
+		return nil
+	}
+	var payload struct {
+		Casks []struct {
+			Artifacts []map[string]json.RawMessage `json:"artifacts"`
+		} `json:"casks"`
+	}
+	if err := json.Unmarshal(out, &payload); err != nil {
+		return nil
+	}
+	var apps []string
+	for _, c := range payload.Casks {
+		for _, art := range c.Artifacts {
+			raw, ok := art["app"]
+			if !ok {
+				continue
+			}
+			// An "app" artifact is an array that may mix bundle-name strings
+			// with option objects (e.g. {"target": ...}); keep only the strings.
+			var items []json.RawMessage
+			if err := json.Unmarshal(raw, &items); err != nil {
+				continue
+			}
+			for _, item := range items {
+				var s string
+				if err := json.Unmarshal(item, &s); err == nil {
+					apps = append(apps, s)
+				}
+			}
+		}
+	}
+	return apps
+}
+
+// existingForeignApp returns the path of the first bundle in apps that already
+// exists under /Applications or ~/Applications, or "" if none do.
+func existingForeignApp(ctx *Context, apps []string) string {
+	dirs := []string{"/Applications", filepath.Join(ctx.HomeDir, "Applications")}
+	for _, app := range apps {
+		for _, dir := range dirs {
+			path := filepath.Join(dir, app)
+			if _, err := os.Stat(path); err == nil {
+				return path
+			}
+		}
+	}
+	return ""
 }
 
 // installedSketchVersion returns the CFBundleShortVersionString of the

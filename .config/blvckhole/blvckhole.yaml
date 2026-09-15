@@ -77,7 +77,10 @@ claude:
       - worktrunk@worktrunk
 
   # Settings merged into the agent's settings
-  settings: {}
+  settings:
+    # Don't auto-connect Remote Control when a session starts; it stays
+    # available via /remote-control if explicitly needed.
+    remoteControlAtStartup: false
     # alwaysThinkingEnabled: true
 
 # Instructions injected into the agent's memory file (CLAUDE.md)

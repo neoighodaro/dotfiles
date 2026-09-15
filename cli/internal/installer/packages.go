@@ -254,7 +254,10 @@ func stepRemovePackages(ctx *Context) StepResult {
 			continue
 		}
 
-		if err := run("brew", "uninstall", "--cask", "--zap", name); err != nil {
+		// --force so a retired cask is removed even when its app was already
+		// deleted by hand (otherwise brew aborts with "the App source ... is
+		// not there"); --zap also clears leftover preferences and support files.
+		if err := run("brew", "uninstall", "--cask", "--zap", "--force", name); err != nil {
 			logs = append(logs, fmt.Sprintf("%s (failed: %s)", name, err))
 			hasErr = true
 		} else {

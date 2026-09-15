@@ -6,6 +6,9 @@ function __icon_map() {
    "Live")
         icon_result=":ableton:"
         ;;
+   "Accessibility Reader")
+        icon_result=":accessibility_reader:"
+        ;;
    "Acrobat")
         icon_result=":acrobat:"
         ;;
@@ -252,6 +255,9 @@ function __icon_map() {
    "Caprine")
         icon_result=":caprine:"
         ;;
+   "Carbon Copy Cloner")
+        icon_result=":carbon_copy_cloner:"
+        ;;
    "ChatGPT Atlas")
         icon_result=":chatgpt_atlas:"
         ;;
@@ -341,6 +347,9 @@ function __icon_map() {
         ;;
    "CurseForge")
         icon_result=":curseforge:"
+        ;;
+   "Cursor")
+        icon_result=":cursor:"
         ;;
    "Cypress")
         icon_result=":cypress:"
@@ -632,6 +641,9 @@ function __icon_map() {
         ;;
    "Grayjay")
         icon_result=":grayjay:"
+        ;;
+   "Grok Bot")
+        icon_result=":grok_bot:"
         ;;
    "Hammerspoon")
         icon_result=":hammerspoon:"
@@ -1452,6 +1464,9 @@ function __icon_map() {
    "Signal")
         icon_result=":signal:"
         ;;
+   "Silveran Reader")
+        icon_result=":silveran_reader:"
+        ;;
    "sioyek")
         icon_result=":sioyek:"
         ;;
@@ -1592,6 +1607,9 @@ function __icon_map() {
         ;;
    "Microsoft To Do" | "Things")
         icon_result=":things:"
+        ;;
+   "Threema"*)
+        icon_result=":threema:"
         ;;
    "Thunderbird" | "Thunderbird Daily")
         icon_result=":thunderbird:"

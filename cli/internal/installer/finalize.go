@@ -29,6 +29,8 @@ type launchApp struct {
 var launchApps = []launchApp{
 	{proc: "Raycast", bundleID: "com.raycast.macos"},
 	{proc: "AeroSpace"},
+	{proc: "Dropover", bundleID: "me.damir.dropover-mac"},
+	{proc: "superwhisper", bundleID: "com.superduper.superwhisper"},
 }
 
 func stepLaunchApps(ctx *Context) StepResult {

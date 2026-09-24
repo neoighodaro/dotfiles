@@ -6,6 +6,9 @@ function __icon_map() {
    "Live")
         icon_result=":ableton:"
         ;;
+   "Accessibility Reader")
+        icon_result=":accessibility_reader:"
+        ;;
    "Acrobat")
         icon_result=":acrobat:"
         ;;
@@ -252,6 +255,9 @@ function __icon_map() {
    "Caprine")
         icon_result=":caprine:"
         ;;
+   "Carbon Copy Cloner")
+        icon_result=":carbon_copy_cloner:"
+        ;;
    "ChatGPT Atlas")
         icon_result=":chatgpt_atlas:"
         ;;
@@ -341,6 +347,9 @@ function __icon_map() {
         ;;
    "CurseForge")
         icon_result=":curseforge:"
+        ;;
+   "Cursor")
+        icon_result=":cursor:"
         ;;
    "Cypress")
         icon_result=":cypress:"
@@ -633,6 +642,9 @@ function __icon_map() {
    "Grayjay")
         icon_result=":grayjay:"
         ;;
+   "Grok Bot")
+        icon_result=":grok_bot:"
+        ;;
    "Hammerspoon")
         icon_result=":hammerspoon:"
         ;;
@@ -660,7 +672,7 @@ function __icon_map() {
    "Home Assistant")
         icon_result=":home_assistant:"
         ;;
-   "brew-browser" | "WailBrew"| "TapHouse" | "Cork" | "Homebrew" | "Brewer X" | "Applite" | "BrewMate" | "Brewlet")
+   "brew-browser" | "WailBrew" | "TapHouse" | "Cork" | "Homebrew" | "Brewer X" | "Applite" | "BrewMate" | "Brewlet")
         icon_result=":homebrew:"
         ;;
    "Hyper")
@@ -906,7 +918,7 @@ function __icon_map() {
    "Marta")
         icon_result=":marta:"
         ;;
-   "Matlab" | "MATLAB" |"MATLABWindow" | "MATLAB_R2024b" | "MATLAB_R2024a" | "MATLAB_R2023b" | "MATLAB_R2023a" | "MATLAB_R2022b" | "MATLAB_R2022a" | "MATLAB_R2021b" | "MATLAB_R2021a")
+   "Matlab" | "MATLAB" | "MATLABWindow" | "MATLAB_R2024b" | "MATLAB_R2024a" | "MATLAB_R2023b" | "MATLAB_R2023a" | "MATLAB_R2022b" | "MATLAB_R2022a" | "MATLAB_R2021b" | "MATLAB_R2021a")
         icon_result=":matlab:"
         ;;
    "Mattermost")
@@ -1437,7 +1449,7 @@ function __icon_map() {
    "Setapp")
         icon_result=":setapp:"
         ;;
-   "SF Symbols" | "SF Symbole" | "SF-Symbole" |  "SF Symbols Beta")
+   "SF Symbols" | "SF Symbole" | "SF-Symbole" | "SF Symbols Beta")
         icon_result=":sf_symbols:"
         ;;
    "Shapr3D")
@@ -1451,6 +1463,9 @@ function __icon_map() {
         ;;
    "Signal")
         icon_result=":signal:"
+        ;;
+   "Silveran Reader")
+        icon_result=":silveran_reader:"
         ;;
    "sioyek")
         icon_result=":sioyek:"
@@ -1469,6 +1484,9 @@ function __icon_map() {
         ;;
    "SmartGit")
         icon_result=":smartgit:"
+        ;;
+   "SmoothCSV")
+        icon_result=":smoothcsv:"
         ;;
    "SnapGene")
         icon_result=":snapgene:"
@@ -1592,6 +1610,9 @@ function __icon_map() {
         ;;
    "Microsoft To Do" | "Things")
         icon_result=":things:"
+        ;;
+   "Threema"*)
+        icon_result=":threema:"
         ;;
    "Thunderbird" | "Thunderbird Daily")
         icon_result=":thunderbird:"
@@ -1773,7 +1794,7 @@ function __icon_map() {
    "Yaak")
         icon_result=":yaak:"
         ;;
-   "Yandex Browser"  | "Yandex Browser" | "Yandex")
+   "Yandex Browser" | "Yandex Browser" | "Yandex")
         icon_result=":yandex_browser:"
         ;;
    "Yandex Music")

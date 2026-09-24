@@ -142,5 +142,22 @@
     "bindings": {
       "cmd-1": "project_panel::Toggle"
     }
+  },
+  {
+    "context": "Pane",
+    "unbind": {
+      "alt-cmd-left": "pane::ActivatePreviousItem"
+    }
+  },
+  {
+    "bindings": {
+      "alt-cmd-left": "project_panel::CollapseAllEntries"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "unbind": {
+      "cmd-left": "project_panel::CollapseAllEntries"
+    }
   }
 ]

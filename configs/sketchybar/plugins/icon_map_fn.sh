@@ -672,7 +672,7 @@ function __icon_map() {
    "Home Assistant")
         icon_result=":home_assistant:"
         ;;
-   "brew-browser" | "WailBrew"| "TapHouse" | "Cork" | "Homebrew" | "Brewer X" | "Applite" | "BrewMate" | "Brewlet")
+   "brew-browser" | "WailBrew" | "TapHouse" | "Cork" | "Homebrew" | "Brewer X" | "Applite" | "BrewMate" | "Brewlet")
         icon_result=":homebrew:"
         ;;
    "Hyper")
@@ -918,7 +918,7 @@ function __icon_map() {
    "Marta")
         icon_result=":marta:"
         ;;
-   "Matlab" | "MATLAB" |"MATLABWindow" | "MATLAB_R2024b" | "MATLAB_R2024a" | "MATLAB_R2023b" | "MATLAB_R2023a" | "MATLAB_R2022b" | "MATLAB_R2022a" | "MATLAB_R2021b" | "MATLAB_R2021a")
+   "Matlab" | "MATLAB" | "MATLABWindow" | "MATLAB_R2024b" | "MATLAB_R2024a" | "MATLAB_R2023b" | "MATLAB_R2023a" | "MATLAB_R2022b" | "MATLAB_R2022a" | "MATLAB_R2021b" | "MATLAB_R2021a")
         icon_result=":matlab:"
         ;;
    "Mattermost")
@@ -1449,7 +1449,7 @@ function __icon_map() {
    "Setapp")
         icon_result=":setapp:"
         ;;
-   "SF Symbols" | "SF Symbole" | "SF-Symbole" |  "SF Symbols Beta")
+   "SF Symbols" | "SF Symbole" | "SF-Symbole" | "SF Symbols Beta")
         icon_result=":sf_symbols:"
         ;;
    "Shapr3D")
@@ -1484,6 +1484,9 @@ function __icon_map() {
         ;;
    "SmartGit")
         icon_result=":smartgit:"
+        ;;
+   "SmoothCSV")
+        icon_result=":smoothcsv:"
         ;;
    "SnapGene")
         icon_result=":snapgene:"
@@ -1791,7 +1794,7 @@ function __icon_map() {
    "Yaak")
         icon_result=":yaak:"
         ;;
-   "Yandex Browser"  | "Yandex Browser" | "Yandex")
+   "Yandex Browser" | "Yandex Browser" | "Yandex")
         icon_result=":yandex_browser:"
         ;;
    "Yandex Music")

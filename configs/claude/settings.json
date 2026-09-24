@@ -12,6 +12,7 @@
       "mcp__pencil"
     ]
   },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -117,12 +118,12 @@
   },
   "feedbackSurveyRate": 0,
   "effortLevel": "high",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "preferredNotifChannel": "ghostty",
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754129295710
-  },
-  "tui": "fullscreen"
+  }
 }

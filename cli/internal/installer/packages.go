@@ -68,7 +68,6 @@ var defaultUpgradeCasks = map[string]bool{
 	"font-jetbrains-mono-nerd-font":  true,
 	"font-hack-nerd-font":            true,
 	"font-sf-pro":                    true,
-	"lab421/tap/forel":               true,
 	"vivid-app":                      true,
 	"devcleaner":                     true,
 	"ngrok":                          true,
@@ -150,7 +149,6 @@ var brewCasks = []caskPkg{
 	{name: "superwhisper"},
 	{name: "devcleaner"},
 	{name: "ngrok"},
-	{name: "lab421/tap/forel"},
 }
 
 var masApps = []masApp{

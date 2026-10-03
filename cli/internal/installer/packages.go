@@ -108,6 +108,7 @@ var brewFormulae = []brewPkg{
 	{name: "worktrunk"},
 	{name: "1password-cli"},
 	{name: "sbx", tap: "docker/tap"},
+	{name: "mole"},
 }
 
 var aptPackages = []string{

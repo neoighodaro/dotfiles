@@ -9,12 +9,12 @@ local config = wezterm.config_builder and wezterm.config_builder() or {}
 
 -- Dynamic color scheme based on system theme
 local function color_scheme_for_appearance(appearance)
-    if appearance:find "Dark" then
-        return "Ef-Maris-Dark"
-    else
-        return "Ef-Maris-Dark"
-        -- return "Ef-Day"
-    end
+  if appearance:find "Dark" then
+    return "Ef-Maris-Dark"
+  else
+    return "Ef-Maris-Dark"
+    -- return "Ef-Day"
+  end
 end
 
 config.color_scheme = color_scheme_for_appearance(wezterm.gui.get_appearance())
@@ -34,10 +34,10 @@ config.enable_kitty_keyboard = true
 
 -- Window padding
 config.window_padding = {
-    left = 10,
-    right = 10,
-    top = 10,
-    bottom = 10,
+  left = 10,
+  right = 10,
+  top = 10,
+  bottom = 10,
 }
 
 -----------------------------------------------------------
@@ -53,7 +53,7 @@ config.window_close_confirmation = 'NeverPrompt'
 -----------------------------------------------------------
 
 config.set_environment_variables = {
-    PATH = '/opt/homebrew/bin:' .. os.getenv('PATH')
+  PATH = '/opt/homebrew/bin:' .. os.getenv('PATH')
 }
 
 -----------------------------------------------------------
@@ -63,65 +63,65 @@ config.set_environment_variables = {
 -- config.disable_default_key_bindings = true
 
 config.keys = {
-    -- Word navigation
-    {
-        key = "LeftArrow",
-        mods = "OPT",
-        action = wezterm.action{SendString="\x1b[1;3D"}  -- backward-word (CSI Alt+Left)
-    },
-    {
-        key = "RightArrow",
-        mods = "OPT",
-        action = wezterm.action{SendString="\x1b[1;3C"}  -- forward-word (CSI Alt+Right)
-    },
+  -- Word navigation
+  {
+    key = "LeftArrow",
+    mods = "OPT",
+    action = wezterm.action { SendString = "\x1b[1;3D" } -- backward-word (CSI Alt+Left)
+  },
+  {
+    key = "RightArrow",
+    mods = "OPT",
+    action = wezterm.action { SendString = "\x1b[1;3C" } -- forward-word (CSI Alt+Right)
+  },
 
-    -- Line navigation
-    {
-        key = "LeftArrow",
-        mods = "SUPER",
-        action = wezterm.action{SendString="\x01"}   -- beginning of line
-    },
-    {
-        key = "RightArrow",
-        mods = "SUPER",
-        action = wezterm.action{SendString="\x05"}   -- end of line
-    },
+  -- Line navigation
+  {
+    key = "LeftArrow",
+    mods = "SUPER",
+    action = wezterm.action { SendString = "\x01" } -- beginning of line
+  },
+  {
+    key = "RightArrow",
+    mods = "SUPER",
+    action = wezterm.action { SendString = "\x05" } -- end of line
+  },
 
-    -- Line deletion
-    {
-        key = "Backspace",
-        mods = "SUPER",
-        action = wezterm.action{SendString="\x15"}   -- delete to beginning of line (Ctrl-U)
-    },
-    {
-        key = "Delete",
-        mods = "SUPER",
-        action = wezterm.action{SendString="\x0b"}   -- delete to end of line (Ctrl-K)
-    },
+  -- Line deletion
+  {
+    key = "Backspace",
+    mods = "SUPER",
+    action = wezterm.action { SendString = "\x15" } -- delete to beginning of line (Ctrl-U)
+  },
+  {
+    key = "Delete",
+    mods = "SUPER",
+    action = wezterm.action { SendString = "\x0b" } -- delete to end of line (Ctrl-K)
+  },
 
-    -- Quick Select
-    {
-        key = 'A',
-        mods = 'CTRL|SHIFT',
-        action = wezterm.action.QuickSelect
-    },
+  -- Quick Select
+  {
+    key = 'A',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.QuickSelect
+  },
 
-    -- Open config in Editor
-    {
-        key = ',',
-        mods = 'SUPER',
-        action = wezterm.action.SpawnCommandInNewWindow({
-            cwd = wezterm.home_dir,
-            args = { 'zed', wezterm.config_file },
-        }),
-    },
+  -- Open config in Editor
+  {
+    key = ',',
+    mods = 'SUPER',
+    action = wezterm.action.SpawnCommandInNewWindow({
+      cwd = wezterm.home_dir,
+      args = { 'zed', wezterm.config_file },
+    }),
+  },
 
-    -- Close window
-    {
-        key = 'q',
-        mods = 'SUPER',
-        action = wezterm.action.CloseCurrentTab { confirm = false }
-    }
+  -- Close window
+  {
+    key = 'q',
+    mods = 'SUPER',
+    action = wezterm.action.CloseCurrentTab { confirm = false }
+  }
 }
 
 -----------------------------------------------------------
@@ -129,12 +129,12 @@ config.keys = {
 -----------------------------------------------------------
 
 config.mouse_bindings = {
-    -- CMD + Click to open links
-    {
-        event = { Up = { streak = 1, button = 'Left' } },
-        mods = 'SUPER',
-        action = wezterm.action.OpenLinkAtMouseCursor,
-    },
+  -- CMD + Click to open links
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'SUPER',
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
 }
 
 -- Commented out Teal theme for future reference

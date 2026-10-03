@@ -43,6 +43,14 @@ var removedCasks = []string{
 	"jordanbaird-ice",      // Ice menu-bar manager (stable) — no longer used
 	"jordanbaird-ice@beta", // Ice menu-bar manager (beta) — no longer used
 	"boop",                 // Boop scratchpad — no longer used
+	"ghostty",              // Ghostty terminal — no longer used (config kept)
+	"ray",                  // Ray debugger — no longer used
+}
+
+// keepDataCasks lists removedCasks entries uninstalled without --zap, so their
+// config and support files survive (e.g. ghostty's zap trashes ~/.config/ghostty).
+var keepDataCasks = map[string]bool{
+	"ghostty": true,
 }
 
 // removedFormulae lists formulae that should be actively uninstalled if
@@ -60,6 +68,10 @@ var defaultUpgradeCasks = map[string]bool{
 	"font-jetbrains-mono-nerd-font":  true,
 	"font-hack-nerd-font":            true,
 	"font-sf-pro":                    true,
+	"lab421/tap/forel":               true,
+	"vivid-app":                      true,
+	"devcleaner":                     true,
+	"ngrok":                          true,
 }
 
 // ── Package lists ──
@@ -114,7 +126,6 @@ var aptPackages = []string{
 
 var brewCasks = []caskPkg{
 	{name: "zed"},
-	{name: "ghostty"},
 	{name: "affinity"},
 	{name: "1password"},
 	{name: "nordvpn"},
@@ -127,7 +138,6 @@ var brewCasks = []caskPkg{
 	{name: "herd"},
 	{name: "raycast"},
 	{name: "nikitabobko/tap/aerospace"},
-	{name: "ray"},
 	{name: "tableplus"},
 	{name: "sensei"},
 	{name: "postman"},
@@ -140,6 +150,7 @@ var brewCasks = []caskPkg{
 	{name: "superwhisper"},
 	{name: "devcleaner"},
 	{name: "ngrok"},
+	{name: "lab421/tap/forel"},
 }
 
 var masApps = []masApp{
@@ -256,8 +267,13 @@ func stepRemovePackages(ctx *Context) StepResult {
 
 		// --force so a retired cask is removed even when its app was already
 		// deleted by hand (otherwise brew aborts with "the App source ... is
-		// not there"); --zap also clears leftover preferences and support files.
-		if err := run("brew", "uninstall", "--cask", "--zap", "--force", name); err != nil {
+		// not there"); --zap also clears leftover preferences and support files
+		// unless the cask is in keepDataCasks.
+		args := []string{"uninstall", "--cask", "--zap", "--force", name}
+		if keepDataCasks[name] {
+			args = []string{"uninstall", "--cask", "--force", name}
+		}
+		if err := run("brew", args...); err != nil {
 			logs = append(logs, fmt.Sprintf("%s (failed: %s)", name, err))
 			hasErr = true
 		} else {

@@ -27,7 +27,7 @@ show_release_notes false
 simplified_ui true
 
 // Choose the theme that is specified in the themes section.
-theme "catppuccin-mocha"
+theme "catppuccin-mocha-custom"
 
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
 // eg. when terminal window with an active zellij session is closed
@@ -101,7 +101,7 @@ plugins {
 // -----------------------------------------------------------------------------
 
 themes {
-    catppuccin-mocha {
+    catppuccin-mocha-custom {
         text_unselected {
             base 205 214 244
             background 24 24 37
@@ -175,7 +175,7 @@ themes {
             emphasis_3 245 194 231
         }
         frame_selected {
-            base 119 130 180
+            base 127 132 156
             background 0
             emphasis_0 250 179 135
             emphasis_1 137 220 235

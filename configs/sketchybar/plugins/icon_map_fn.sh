@@ -123,6 +123,9 @@ function __icon_map() {
    "Aseprite")
         icon_result=":aseprite:"
         ;;
+   "Aside")
+        icon_result=":aside:"
+        ;;
    "Atom")
         icon_result=":atom:"
         ;;
@@ -188,6 +191,9 @@ function __icon_map() {
         ;;
    "Bilibili" | "哔哩哔哩")
         icon_result=":bilibili:"
+        ;;
+   "Bionic")
+        icon_result=":bionic:"
         ;;
    "Bitwarden")
         icon_result=":bit_warden:"
@@ -1008,6 +1014,9 @@ function __icon_map() {
    "Mullvad VPN")
         icon_result=":mullvad_vpn:"
         ;;
+   "Muse")
+        icon_result=":muse:"
+        ;;
    "MuseHub")
         icon_result=":musehub:"
         ;;
@@ -1287,8 +1296,20 @@ function __icon_map() {
    "Problem Reporter")
         icon_result=":problem_reporter:"
         ;;
+   "Authenticator" | "Proton Authenticator")
+        icon_result=":proton_authenticator:"
+        ;;
+   "Proton Drive")
+        icon_result=":proton_drive:"
+        ;;
    "Proton Mail" | "Proton Mail Bridge")
         icon_result=":proton_mail:"
+        ;;
+   "Proton Meet")
+        icon_result=":proton_meet:"
+        ;;
+   "Proton Pass" | "Proton Pass for Safari")
+        icon_result=":proton_pass:"
         ;;
    "Proton VPN" | "ProtonVPN")
         icon_result=":proton_vpn:"
@@ -1433,6 +1454,9 @@ function __icon_map() {
         ;;
    "Seafile")
         icon_result=":seafile:"
+        ;;
+   "Search")
+        icon_result=":search:"
         ;;
    "Secretive" | "Secretive.app")
         icon_result=":secretive:"

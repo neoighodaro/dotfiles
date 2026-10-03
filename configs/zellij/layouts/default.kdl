@@ -9,7 +9,8 @@ layout {
                 format_left   " {mode}#[bg=#101C2C] {tabs}"
                 format_center ""
                 // format_right  "{command_cpu} #[fg=#494d64]⋮ {command_memo} "
-                format_right  "#[bg=#101C2C,fg=#494d64,italic]{session} "
+                // format_right  "#[bg=#101C2C,fg=#494d64,italic]{session} "
+                format_right  "#[fg=#494d64,italic]{session} "
 
                 // -- mode -----
                 mode_normal        "#[bg=#101C2C,fg=#FEA871]#[bg=#FEA871,fg=#101C2C,bold] #[bg=#101C2C,fg=#FEA871,bold]"

@@ -19,10 +19,10 @@ term = xterm-256color
 # =============================================================================
 window-padding-balance = true
 window-save-state = never
-window-decoration = false
+window-decoration = true
 window-colorspace = "display-p3"
 
-macos-titlebar-style=transparent
+macos-titlebar-style = hidden
 
 theme = dark:Catppuccin Mocha,light:Catppuccin Mocha
 

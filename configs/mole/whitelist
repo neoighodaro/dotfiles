@@ -1,0 +1,21 @@
+# Mole cleanup whitelist (`mo clean --whitelist`).
+# This file replaces Mole's built-in defaults, so they are repeated below.
+
+# Mole defaults
+~/Library/Caches/ms-playwright*
+~/.gradle/caches/*
+~/.gradle/daemon/*
+~/.ollama/models/*
+~/Library/Caches/com.nssurge.surge-mac/*
+~/Library/Application Support/com.nssurge.surge-mac/*
+~/Library/Caches/org.R-project.R/R/renv/*
+~/Library/Caches/JetBrains*
+~/Library/Caches/com.jetbrains.toolbox*
+~/Library/Caches/tealdeer/tldr-pages
+~/Library/Application Support/JetBrains*
+~/Library/Caches/com.apple.finder
+~/Library/Mobile Documents*
+FINDER_METADATA
+
+# Zellij stores granted plugin permissions (permissions.kdl) here
+~/Library/Caches/org.Zellij-Contributors.Zellij

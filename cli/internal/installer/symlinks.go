@@ -24,6 +24,7 @@ func symlinkSteps() []Step {
 		{Name: "link-k9s", Desc: "\U000f10fe K9s", Run: stepLinkK9s},
 		{Name: "link-karabiner", Desc: "\U000f030c Karabiner-Elements", Run: stepLinkKarabiner},
 		{Name: "link-lazygit", Desc: "\ue702 Lazygit", Run: stepLinkLazygit},
+		{Name: "link-mole", Desc: "\uf1f8 Mole", Run: stepLinkMole},
 		{Name: "link-sketchybar", Desc: "\uee19 Sketchybar", Run: stepLinkSketchybar},
 		{Name: "link-ssh", Desc: "\U000f0306 SSH", Run: stepLinkSSH},
 		{Name: "link-starship", Desc: "\uf489 Starship", Run: stepLinkStarship},
@@ -168,6 +169,12 @@ func stepLinkZellij(ctx *Context) StepResult {
 func stepLinkLazygit(ctx *Context) StepResult {
 	return runLinks(ctx, []linkOpt{
 		required("lazygit/lazygit.yml", ".config/lazygit/config.yml"),
+	})
+}
+
+func stepLinkMole(ctx *Context) StepResult {
+	return macOnly(ctx, []linkOpt{
+		required("mole/whitelist", ".config/mole/whitelist"),
 	})
 }
 

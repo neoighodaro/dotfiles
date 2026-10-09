@@ -13,6 +13,7 @@ supermaven/
 
 # CLI build output
 cli/strap
+scripts/strap
 
 # Strap timestamp files
 .sketchybar-icons-updated

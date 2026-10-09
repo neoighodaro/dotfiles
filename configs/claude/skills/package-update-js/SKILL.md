@@ -1,6 +1,6 @@
 ---
 name: package-update-js
-description: Use when updating JavaScript/TypeScript packages — guides supply chain security checks, minimum release age verification, categorized update planning, and sequential pinned-version updates with type-check verification after each. Triggers on "update packages", "upgrade dependencies", "bun outdated", or "check for updates".
+description: Use when updating JavaScript/TypeScript packages — guides supply chain security checks, minimum release age verification, categorized update planning, and sequential pinned-version updates with type-check verification after each. Triggers on "update packages", "upgrade dependencies", "outdated packages", or "check for updates".
 ---
 
 # Package Update (JS/TS)
@@ -16,6 +16,7 @@ Updates packages one at a time, pinning exact versions, with type checks after e
 ```dot
 digraph package_update {
     rankdir=TB;
+    "0. Detect package manager + its version" -> "1. Security audit";
     "1. Security audit" -> "2. Verify release age config";
     "2. Verify release age config" -> "3. Collect outdated";
     "3. Collect outdated" -> "4. Categorize & present summary";
@@ -23,6 +24,22 @@ digraph package_update {
     "5. Update one by one" -> "6. Pin version + verify" -> "5. Update one by one" [label="next package"];
 }
 ```
+
+## Phase 0: Detect the Package Manager
+
+Detect it from the `packageManager` field in the root `package.json`, then from the lockfile (`pnpm-lock.yaml`, `bun.lock`/`bun.lockb`, `package-lock.json`, `yarn.lock`). Use that manager's commands throughout, never another one. Read the scripts in the root `package.json` for the type check and lint commands rather than assuming their names.
+
+| Task | pnpm | bun | npm | yarn (berry) |
+|------|------|-----|-----|------|
+| List outdated | `pnpm outdated -r` | `bun outdated` (per workspace) | `npm outdated --workspaces` | `yarn upgrade-interactive` |
+| Add exact | `pnpm add -E <pkg>@<v>` (`--filter <ws>` in a workspace) | `bun add --exact <pkg>@<v>` | `npm i -E <pkg>@<v>` | `yarn add -E <pkg>@<v>` |
+| Add dev exact | add `-D` | add `-d` | add `-D` | add `-D` |
+| Catalog | `catalog:` in `pnpm-workspace.yaml` | `catalog` in root `package.json` | n/a | `catalog:` in `.yarnrc.yml` |
+| Run a script | `pnpm run <s>` | `bun run <s>` | `npm run <s>` | `yarn <s>` |
+
+### The package manager's own version
+
+The package manager is a dependency too. Compare the pinned version (`packageManager` in `package.json`, plus any `engines`, CI setup action, `.tool-versions`, `mise.toml` or sandbox runtime config that names it) with the latest release that clears the release age. Include it in the summary table as its own row. Update every place that pins it in one step, using the manager's own updater where it has one (`pnpm self-update <v>`, `yarn set version <v>`, `bun upgrade`; npm through the Node version or `npm i -g npm@<v>`), then run a clean install and check the lockfile format did not change unexpectedly. A major bump of the manager is a major update: research it like any other.
 
 ## Phase 1: Security Audit
 
@@ -38,21 +55,26 @@ Present findings with clear SAFE/AFFECTED/INVESTIGATE status per package.
 
 ## Phase 2: Minimum Release Age
 
-Verify the package manager enforces a release age quarantine. For bun:
+Verify the package manager enforces a release age quarantine:
 
-- Check `bunfig.toml` for `minimumReleaseAge` under `[install]`
-- Check `package.json` scripts for `--minimum-release-age` flags
-- **Recommended:** 604800 (7 days)
+| Manager | Where | Unit | 7 days |
+|---------|-------|------|--------|
+| pnpm | `minimumReleaseAge` in `pnpm-workspace.yaml` (or `minimum-release-age` in `.npmrc`) | minutes | 10080 |
+| bun | `minimumReleaseAge` under `[install]` in `bunfig.toml`, or `--minimum-release-age` in scripts | seconds | 604800 |
+| npm | `min-release-age` in `.npmrc` (npm 11.10+) | days | 7 |
+| yarn | `npmMinimalAgeGate` in `.yarnrc.yml` | duration string or minutes | `7d` |
+
+- **Recommended:** 7 days
 
 If not configured, flag it and offer to add it before proceeding.
 
 **When recommending target versions:** A package version must be older than the configured `minimumReleaseAge` to be installable. Before recommending a version, verify its publish date is beyond the quarantine window (e.g., 7+ days old). If the latest version is too new, recommend the most recent version that clears the threshold. Use `npm view <package> time --json` or the npm registry API (`curl -s "https://registry.npmjs.org/<package>" | jq '.time'`) to check publish dates.
 
-**Security exception:** If the only version that clears the quarantine is missing a known security patch present in a newer (too-new) version, check whether the newer version contains **only** security fixes. If it does, recommend bypassing the release age with `bun install --no-minimum-release-age` for that specific package and document why. If the newer version also contains unrelated changes, assess the risk — a CVE fix justifies the bypass, a routine bugfix does not.
+**Security exception:** If the only version that clears the quarantine is missing a known security patch present in a newer (too-new) version, check whether the newer version contains **only** security fixes. If it does, recommend bypassing the release age for that specific package (pnpm: add it to `minimumReleaseAgeExclude`; bun: `--no-minimum-release-age`; yarn: `npmPreapprovedPackages`) and document why. If the newer version also contains unrelated changes, assess the risk — a CVE fix justifies the bypass, a routine bugfix does not.
 
 ## Phase 3: Collect & Categorize
 
-Run `bun outdated` for root and each workspace. Categorize into:
+Run the manager's outdated command for the root and every workspace, and check the package manager's own version (Phase 0). The outdated command may list versions newer than the quarantine allows, so check publish dates before choosing targets. Categorize into:
 
 ### Update Priority Order
 
@@ -87,29 +109,17 @@ Before updating, check if the version jump includes breaking changes:
 
 ### 4b. Update & Pin
 
-```bash
-# Update the package
-bun add <package>@<exact-version>
-
-# For dev dependencies
-bun add -d <package>@<exact-version>
-
-# For catalog entries (root package.json)
-# Edit the catalog version directly to the exact version
-```
+Use the manager's exact add command from Phase 0, in the workspace that declares the dependency. For catalog entries, edit the catalog version directly, then run the manager's install.
 
 **Always pin to exact version** — no `^`, no `~`, no range. The lockfile provides reproducibility, but pinning in package.json prevents unintended upgrades when the lockfile is regenerated.
 
-For catalog entries in the root `package.json`, update the catalog version to the exact target.
+For catalog entries, update the catalog version to the exact target. Also check `overrides`/`resolutions`, which can pin a version that silently wins over the one you set.
 
 ### 4c. Verify
 
 After each update (or group update):
 
-```bash
-bun run check-types    # Type checking
-bun run check          # Lint + format
-```
+Run the project's type check and lint scripts (found in Phase 0), plus the tests of the workspaces that use the package.
 
 If types break, investigate and fix before moving to the next package. If the fix is non-trivial, ask the user whether to proceed or roll back.
 
@@ -132,7 +142,8 @@ Never auto-update a major version without user confirmation.
 |---------|-----|
 | Using `^` or `~` when pinning | Always use exact version: `"react": "19.2.6"` not `"react": "^19.2.6"` |
 | Updating ecosystem packages individually | Update groups together to avoid version mismatch |
-| Skipping type check after update | Always run `bun run check-types` — catch breakage early |
+| Skipping type check after update | Always run the type check script — catch breakage early |
 | Updating everything at once | One package/group at a time — isolate breakage |
 | Ignoring catalog entries | Monorepos with catalogs need the catalog version updated too |
-| Recommending versions newer than minimumReleaseAge | Always verify the target version clears the release age quarantine — `bun install` will reject it otherwise |
+| Recommending versions newer than minimumReleaseAge | Always verify the target version clears the release age quarantine — the install will reject it otherwise |
+| Forgetting the package manager itself | Check `packageManager` and every other place that pins it, every run |
